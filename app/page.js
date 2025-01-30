@@ -1,6 +1,7 @@
 "use client"
 import Header from "@/components/header/page";
 import FAQ from "@/components/faq/page";
+import Sponsors from "@/components/sponsors/page";
 import Footer from "@/components/footer/page";
 
 import { useEffect } from "react";
@@ -115,10 +116,6 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="schedule" className={styles.schedule}>
-          <p>This is the content of the schedule page.</p>
-        </div>
-
         <div id="prizes" className={styles.prizes}>
           <p>This is the content of the prizes page.</p>
         </div>
@@ -130,7 +127,7 @@ export default function Home() {
         </div>
 
         <div className={styles.sponsors}>
-          <p>This is the content of the sponsors page.</p>
+          <Sponsors />
         </div>
 
         <div className={styles.footer}>
