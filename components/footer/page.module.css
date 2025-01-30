@@ -1,0 +1,63 @@
+.footer {
+  width: 100vw;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.links {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.title h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.logos {
+  font-size: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+
+.resources a {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.resources a:hover {
+  color: grey;
+}
+
+@media (max-width: 768px) {
+  .links {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .title h1 {
+    font-size: 1.4rem;
+  }
+}

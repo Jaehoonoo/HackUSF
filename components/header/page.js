@@ -19,7 +19,7 @@ export default function Header() {
                     <li><a href="#prizes">Prizes</a></li>
                     <li><a href="#faq">FAQ</a></li>
                     <SignedOut>
-                        <Button onClick={() => router.push("/sign-in")} variant="contained" sx={{ borderRadius: "2rem", textTransform: 'none', fontWeight: '500', fontSize: 'large' }}>Login</Button>
+                        <Button onClick={() => router.push("/sign-in")} variant="contained" sx={{ borderRadius: "1rem", textTransform: 'none', fontWeight: '500', fontSize: 'large' }}>Login</Button>
                     </SignedOut>
 
                     <SignedIn>

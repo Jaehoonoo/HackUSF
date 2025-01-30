@@ -1,15 +1,16 @@
 "use client"
 import Header from "@/components/header/page";
 import FAQ from "@/components/faq/page";
+import Footer from "@/components/footer/page";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import styles from "./page.module.css";
 import Image from "next/image"
 
 import { Button, Typography } from "@mui/material/";
 
 export default function Home() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Function to adjust scroll position with offset
     const adjustScrollPosition = (event) => {
       // Only handle click events for anchor links
@@ -85,9 +86,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={styles.picture}>
+          {/* <div className={styles.picture}>
             <Image src="/newspaper.jpg" alt="newspaper" width={600} height={600} />
-          </div>
+          </div> */}
         </div>
 
         <div id="about" className={styles.about}>
@@ -133,7 +134,7 @@ export default function Home() {
         </div>
 
         <div className={styles.footer}>
-          <p>Made with 🖤 By GDSC</p>
+          <Footer />
         </div>
       </div>
 
