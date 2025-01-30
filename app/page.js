@@ -3,14 +3,14 @@ import Header from "@/components/header/page";
 import FAQ from "@/components/faq/page";
 import Footer from "@/components/footer/page";
 
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import styles from "./page.module.css";
 import Image from "next/image"
 
 import { Button, Typography } from "@mui/material/";
 
 export default function Home() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Function to adjust scroll position with offset
     const adjustScrollPosition = (event) => {
       // Only handle click events for anchor links
