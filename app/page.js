@@ -126,7 +126,7 @@ export default function Home() {
           <FAQ />
         </div>
 
-        <div className={styles.sponsors}>
+        <div id="sponsors" className={styles.sponsors}>
           <Sponsors />
         </div>
 
