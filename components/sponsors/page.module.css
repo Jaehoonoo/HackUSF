@@ -1,0 +1,26 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.container a {
+  color: inherit !important;
+  text-decoration: underline !important;
+  font-weight: 500;
+}
+
+.container a:hover {
+  color: grey;
+}
+
+.sponsorsList {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}

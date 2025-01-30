@@ -1,9 +1,10 @@
 'use client';
 import Header from '@/components/header/page';
 import FAQ from '@/components/faq/page';
+import Sponsors from '@/components/sponsors/page';
 import Footer from '@/components/footer/page';
 
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './page.module.css';
 import Image from 'next/image';
 
@@ -12,7 +13,7 @@ import PrizeSection from '@/components/prizes/PrizeSection';
 <div></div>;
 
 export default function Home() {
-	useLayoutEffect(() => {
+	useEffect(() => {
 		// Function to adjust scroll position with offset
 		const adjustScrollPosition = (event) => {
 			// Only handle click events for anchor links
@@ -133,10 +134,6 @@ export default function Home() {
 					</div>
 				</div>
 
-				<div id="schedule" className={styles.schedule}>
-					<p>This is the content of the schedule page.</p>
-				</div>
-
 				<PrizeSection />
 
 				<div id="faq" className={styles.faq}>
@@ -151,8 +148,8 @@ export default function Home() {
 					<FAQ />
 				</div>
 
-				<div className={styles.sponsors}>
-					<p>This is the content of the sponsors page.</p>
+				<div id="sponsors" className={styles.sponsors}>
+					<Sponsors />
 				</div>
 
 				<div className={styles.footer}>
