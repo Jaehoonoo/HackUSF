@@ -15,7 +15,7 @@ export default function Header() {
             <nav className={styles.navbar}>
                 <ul>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#schedule">Schedule</a></li>
+                    {/* <li><a href="#schedule">Schedule</a></li> */}
                     <li><a href="#prizes">Prizes</a></li>
                     <li><a href="#faq">FAQ</a></li>
                     <SignedOut>
