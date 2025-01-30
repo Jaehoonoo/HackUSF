@@ -14,7 +14,7 @@ const sponsors = [
 
 export default function Sponsors() {
   return (
-    <Box className={styles.container}>
+    <Box className={styles.container} sx={{mt: 12}}>
       <Typography
         sx={{
           fontSize: "4rem",
@@ -39,7 +39,7 @@ export default function Sponsors() {
   );
 }
 
-// ✅ Create a reusable SponsorLogo component
+// ✅ Updated SponsorLogo component using `onLoad`
 function SponsorLogo({ src, alt, link }) {
   const [dimensions, setDimensions] = useState({ width: 200, height: 200 }); // Default size
 
@@ -51,7 +51,10 @@ function SponsorLogo({ src, alt, link }) {
           alt={alt}
           width={dimensions.width}
           height={dimensions.height}
-          onLoadingComplete={(img) => setDimensions({ width: img.naturalWidth, height: img.naturalHeight })}
+          onLoad={(event) => {
+            const img = event.target;
+            setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+          }}
         />
       </a>
     </Box>
