@@ -13,7 +13,7 @@ const PrizeListing = ({ prizeName, prizeImgSrc, prizeDescription }) => {
 				padding: '2rem',
 				margin: '2rem',
 				minHeight: '350px',
-				width: '400px',
+				width: 'min(400px, 80vw)',
 			}}
 		>
 			<Typography variant="h3" fontWeight="bold">

@@ -1,11 +1,35 @@
 import React from 'react';
 import PrizeListing from './PrizeListing';
-import { Box } from '@mui/material';
+import { Box, Grid2 as Grid, Typography } from '@mui/material';
+import { LoremIpsum } from 'lorem-ipsum';
 
-const PrizeSection = () => {
+const lorem = new LoremIpsum({
+	sentencesPerParagraph: {
+		max: 8,
+		min: 4,
+	},
+	wordsPerSentence: {
+		max: 16,
+		min: 4,
+	},
+});
+
+const YapContent = () => {
 	return (
-		<Box>
-			<PrizeListing
+		<Box
+			sx={{
+				width: 'min(400px, 80vw)',
+				paddingX: '2rem',
+				paddingY: '1rem',
+			}}
+		>
+			<Typography>{lorem.generateParagraphs(1)}</Typography>
+		</Box>
+	);
+};
+
+{
+	/* <PrizeListing
 				prizeName="1st place"
 				prizeDescription="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velitconsequatur explicabo quasi. Magni amet ut quo! Quis modi pariatur quo
 				eius, quos, rem quaerat voluptatibus unde quasi fugit corrupti"
@@ -18,8 +42,52 @@ const PrizeSection = () => {
 				prizeName="3rd place"
 				prizeDescription="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velitconsequatur explicabo quasi. Magni amet ut quo! Quis modi pariatur quo
 				eius, quos, rem quaerat voluptatibus unde quasi fugit corrupti psum dolor sit amet, consectetur adipisicing elit. Velitconsequatur explicabo quasi. Magni amet ut quo!"
-			/>
-		</Box>
+			/> */
+}
+const PrizeSection = () => {
+	return (
+		<Grid container>
+			<Grid item xs={12} md={6} lg={3}>
+				<YapContent />
+				<YapContent />
+				<PrizeListing
+					prizeName="1st place"
+					prizeDescription={lorem.generateParagraphs(1)}
+				/>
+				<YapContent />
+			</Grid>
+			<Grid item xs={12} md={6} lg={3}>
+				<PrizeListing
+					prizeName="1st place"
+					prizeDescription={lorem.generateParagraphs(1)}
+				/>
+				<YapContent />
+				<PrizeListing
+					prizeName="1st place"
+					prizeDescription={lorem.generateParagraphs(1)}
+				/>
+			</Grid>
+			<Grid item xs={12} md={6} lg={3}>
+				<YapContent />
+				<PrizeListing
+					prizeName="1st place"
+					prizeDescription={lorem.generateParagraphs(1)}
+				/>
+				<YapContent />
+				<PrizeListing
+					prizeName="1st place"
+					prizeDescription={lorem.generateParagraphs(1)}
+				/>
+			</Grid>
+			<Grid item xs={12} md={6} lg={3}>
+				<PrizeListing
+					prizeName="1st place"
+					prizeDescription={lorem.generateParagraphs(1)}
+				/>
+				<YapContent />
+				<YapContent />
+			</Grid>
+		</Grid>
 	);
 };
 
