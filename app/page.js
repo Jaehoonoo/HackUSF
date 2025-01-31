@@ -62,13 +62,11 @@ export default function Home() {
 										xs: '3rem',
 										md: '5rem',
 									},
-									marginTop: '1rem',
 									fontWeight: '900',
 									textTransform: 'uppercase',
 									textAlign: 'center',
 									color: 'black',
 									letterSpacing: '2px',
-									lineHeight: '1.1',
 								}}
 							>
 								HackUSF 2025
@@ -76,7 +74,10 @@ export default function Home() {
 							<Box
 								sx={{
 									display: 'flex',
+									flexDirection: 'row',
 									gap: '1rem',
+									justifyContent: 'center',
+									alignItems: 'center',  // Center the boxes vertically
 								}}
 							>
 								<Box
