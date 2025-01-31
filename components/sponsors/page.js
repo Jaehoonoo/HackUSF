@@ -14,7 +14,7 @@ const sponsors = [
 
 export default function Sponsors() {
   return (
-    <Box className={styles.container} sx={{mt: 12}}>
+    <Box className={styles.container} sx={{pt: 3}}>
       <Typography
         sx={{
           fontSize: "4rem",
