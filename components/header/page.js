@@ -74,7 +74,7 @@ export default function Header() {
 							borderRadius: '18px',
 							boxShadow: '3px 3px 0px black',
 							border: '3px solid black',
-							backgroundColor: '#88AAEE',
+							backgroundColor: '#FF6B6B',
 							transition:
 								'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
 
