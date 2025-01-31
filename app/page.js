@@ -58,11 +58,6 @@ export default function Home() {
 								variant="h1"
 								sx={{
 									fontWeight: 700,
-									fontSize: {
-										xs: '3rem',
-										md: '5rem',
-									},
-									fontWeight: '900',
 									textTransform: 'uppercase',
 									textAlign: 'center',
 									color: 'black',
@@ -82,30 +77,48 @@ export default function Home() {
 							>
 								<Box
 									sx={{
-										fontSize: '16px',
+										fontSize: {
+											xs: '14px',
+											sm: '16px',
+										},
 										borderRadius: '20px',
 										border: '2px solid black',
 										padding: '0.75rem',
+										'&:hover': {
+										backgroundColor: '#FF6B6B'
+										},
 									}}
 								>
 									April 5-6
 								</Box>
 								<Box
 									sx={{
-										fontSize: '16px',
+										fontSize: {
+											xs: '14px',
+											sm: '16px',
+										},
 										borderRadius: '20px',
 										border: '2px solid black',
 										padding: '0.75rem',
+										'&:hover': {
+										backgroundColor: '#A388ED'
+										},
 									}}
 								>
 									Tampa, FL
 								</Box>
 								<Box
 									sx={{
-										fontSize: '16px',
+										fontSize: {
+											xs: '14px',
+											sm: '16px',
+										},
 										borderRadius: '20px',
 										border: '2px solid black',
 										padding: '0.75rem',
+										'&:hover': {
+										backgroundColor: '#FD9745'
+										},
 									}}
 								>
 									24 Hours
@@ -119,7 +132,10 @@ export default function Home() {
 									textTransform: 'none',
 									color: 'black',
 									fontWeight: 700,
-									fontSize: '1.4rem',
+									fontSize: {
+										xs: '1.2rem',
+										sm: '1.4rem',
+									},
 									borderRadius: '18px',
 									boxShadow: '5px 5px 0px black',
 									border: '3px solid black',
@@ -155,7 +171,6 @@ export default function Home() {
 				<Box
 					id="about"
 					sx={{
-						minHeight: '100vh',
 						// width: '90%',
 						display: 'flex',
 						justifyContent: 'space-evenly',

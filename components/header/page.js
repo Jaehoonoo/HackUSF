@@ -60,7 +60,10 @@ export default function Header() {
 					</SignedOut>
 
 					<SignedIn>
-					<Button
+					<Button onClick={() => {
+							router.push('/profile');
+							setMenuOpen(false);
+						}}
 						sx={{
 							paddingLeft: '2rem',
 							paddingRight: '2rem',
