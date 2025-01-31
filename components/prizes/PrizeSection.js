@@ -54,8 +54,12 @@ const PrizeSection = () => {
 			<Typography variant="h1" fontWeight={'bold'} marginBottom={'2rem'}>
 				Prizes
 			</Typography>
-			<Grid container>
-				<Grid item="true" xs={12} md={6} lg={3}>
+			<Grid container sx={{
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+			}}>
+				<Grid item="true" xs={12} md={12} lg={3}>
 					<YapContent />
 					<YapContent />
 					<PrizeListing

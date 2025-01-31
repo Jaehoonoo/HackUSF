@@ -275,7 +275,7 @@ export default function Home() {
 					<Typography sx={{ fontSize: '4rem', fontWeight: 600 }}>
 						FAQ
 					</Typography>
-					<Typography sx={{ fontSize: '1.2rem', mb: 3 }}>
+					<Typography sx={{ fontSize: {xs: '1.1rem', sm: '1.2rem', md: '1.4rem'}, mb: 3 }}>
 						Everything you need to know about participating in HackUSF. If you
 						have any other questions,{' '}
 						<a href="mailto:gdscatusf@gmail.com">Contact Us!</a>

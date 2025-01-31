@@ -90,7 +90,10 @@
   color: grey;
 }
 
+
+/* FAQ Section */
 .faq {
+  padding-top: 1.2rem;
   width: 70%;
   display: flex;
   flex-direction: column;
@@ -107,7 +110,12 @@
   color: grey;
 }
 
-@media (max-width: 940px) {
+/* Prizes Section */
+.prizes {
+  padding-top: 20px;
+}
+
+@media (max-width: 800px) {
   .title h1 {
     font-size: 2.5rem;
   }
@@ -118,6 +126,16 @@
 
   .herolinks p {
     font-size: 1.2rem;
+  }
+
+  .faq {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1700px){
+  .faq {
+    width: 85%;
   }
 }
 
