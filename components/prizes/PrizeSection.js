@@ -55,7 +55,7 @@ const PrizeSection = () => {
 				Prizes
 			</Typography>
 			<Grid container>
-				<Grid item xs={12} md={6} lg={3}>
+				<Grid item="true" xs={12} md={6} lg={3}>
 					<YapContent />
 					<YapContent />
 					<PrizeListing
@@ -64,19 +64,7 @@ const PrizeSection = () => {
 					/>
 					<YapContent />
 				</Grid>
-				<Grid item xs={12} md={6} lg={3}>
-					<PrizeListing
-						prizeName="1st place"
-						prizeDescription={lorem.generateParagraphs(1)}
-					/>
-					<YapContent />
-					<PrizeListing
-						prizeName="1st place"
-						prizeDescription={lorem.generateParagraphs(1)}
-					/>
-				</Grid>
-				<Grid item xs={12} md={6} lg={3}>
-					<YapContent />
+				<Grid item="true" xs={12} md={6} lg={3}>
 					<PrizeListing
 						prizeName="1st place"
 						prizeDescription={lorem.generateParagraphs(1)}
@@ -87,7 +75,19 @@ const PrizeSection = () => {
 						prizeDescription={lorem.generateParagraphs(1)}
 					/>
 				</Grid>
-				<Grid item xs={12} md={6} lg={3}>
+				<Grid item="true" xs={12} md={6} lg={3}>
+					<YapContent />
+					<PrizeListing
+						prizeName="1st place"
+						prizeDescription={lorem.generateParagraphs(1)}
+					/>
+					<YapContent />
+					<PrizeListing
+						prizeName="1st place"
+						prizeDescription={lorem.generateParagraphs(1)}
+					/>
+				</Grid>
+				<Grid item="true" xs={12} md={6} lg={3}>
 					<PrizeListing
 						prizeName="1st place"
 						prizeDescription={lorem.generateParagraphs(1)}

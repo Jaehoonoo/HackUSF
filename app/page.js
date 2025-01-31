@@ -229,7 +229,9 @@ export default function Home() {
 					</Box>
 				</Box>
 
-				<PrizeSection />
+        <div id="prizes" className={styles.prizes}>
+          <PrizeSection />
+        </div>
 
 				<div id="faq" className={styles.faq}>
 					<Typography sx={{ fontSize: '4rem', fontWeight: 600 }}>
