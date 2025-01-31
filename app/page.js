@@ -222,6 +222,7 @@ export default function Home() {
 							flexDirection: 'column',
 							justifyContent: 'space-around',
 							alignItems: 'center',
+							gap: '1rem'
 						}}
 					>
 						<Typography variant="h3" fontWeight="bold" sx={{

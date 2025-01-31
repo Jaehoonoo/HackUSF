@@ -3,6 +3,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import { UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import styles from './page.module.css';
 
 export default function Profile() {
   const router = useRouter();

@@ -8,8 +8,8 @@
 }
 
 .container a {
-  color: inherit !important;
-  text-decoration: underline !important;
+  color: inherit;
+  text-decoration: underline;
   font-weight: 500;
 }
 
