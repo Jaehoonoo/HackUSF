@@ -3,6 +3,7 @@ import Header from '@/components/header/page';
 import FAQ from '@/components/faq/page';
 import Sponsors from '@/components/sponsors/page';
 import Footer from '@/components/footer/page';
+import ApplyButton from '@/components/applyButton/page';
 
 import { useEffect } from 'react';
 import styles from './page.module.css';
@@ -11,9 +12,10 @@ import Image from 'next/image';
 import { Box, Button, Typography } from '@mui/material/';
 import PrizeSection from '@/components/prizes/PrizeSection';
 import Link from 'next/link';
-<div></div>;
+
 
 export default function Home() {
+
 	useEffect(() => {
 		// Function to adjust scroll position with offset
 		const adjustScrollPosition = (event) => {
@@ -126,32 +128,7 @@ export default function Home() {
 							</Box>
 						</div>
 						<div className={styles.herolinks}>
-							<Button
-								sx={{
-									width: 'max(200px, 20vw)',
-									textTransform: 'none',
-									color: 'black',
-									fontWeight: 700,
-									fontSize: {
-										xs: '1.2rem',
-										sm: '1.4rem',
-									},
-									borderRadius: '18px',
-									boxShadow: '5px 5px 0px black',
-									border: '3px solid black',
-									backgroundColor: '#f8f8f8',
-									transition:
-										'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-
-									'&:hover': {
-										transform: 'translate(3px, 3px)', // Move button down & right
-										boxShadow: '0px 0px 0px black', // Shrink shadow slightly
-										border: '3px solid black',
-									},
-								}}
-							>
-								Apply Now
-							</Button>
+							<ApplyButton />
 
 							<p>
 								Join the{' '}
