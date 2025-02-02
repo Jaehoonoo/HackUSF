@@ -52,10 +52,27 @@ export default function Home() {
 			<Header />
 
 			<div className={styles.container}>
-				<div className={styles.hero}>
+				<Box className={styles.hero} sx={{
+					width: "100%",
+					pt: {xs: "0px", sm: "80px", md: "60px", lg: "0px"},
+					display: 'flex',
+					flexDirection: {xs: "column", lg: "row"},
+					alignItems: 'center',
+					justifyContent: 'center',
+					gap: {lg: "8rem"},
+					height: '100vh',
+					position: 'relative',
+				}}>
 					<div className={styles.overlay}>
 						<div className={styles.title}>
-							<Typography>GDSC x Build with AI Proudly Presents</Typography>
+							<Typography sx={{
+								fontSize: {
+									xs: '1.2rem',
+									md: '1.3rem',
+									lg: '1.4rem',
+									xl: '1.5rem',
+								},
+							}}>GDSC x Build with AI Proudly Presents</Typography>
 							<Typography
 								variant="h1"
 								sx={{
@@ -64,6 +81,12 @@ export default function Home() {
 									textAlign: 'center',
 									color: 'black',
 									letterSpacing: '2px',
+									fontSize: {
+											xs: '3rem',
+											md: '3rem',
+											lg: '3.5rem',
+											xl: '4.5rem',
+										},
 								}}
 							>
 								HackUSF 2025
@@ -143,12 +166,36 @@ export default function Home() {
 							</p>
 						</div>
 					</div>
-				</div>
+
+					<Box 
+						sx={{
+							width: '100%',
+							maxWidth: { xs: '90%', sm: '65%', md: '50%', lg: '40%' },
+							height: 'auto', // Ensures the container's height adjusts with the image
+							display: 'flex', 
+							justifyContent: 'center', // Center horizontally
+							alignItems: 'center', // Center vertically
+							position: 'relative', // Keeps the image positioned correctly
+						}}
+					>
+						<Image
+							src="/fox_collage.png"
+							alt="Fox Collage"
+							width={600} // Image width for aspect ratio
+							height={600} // Image height for aspect ratio
+							layout="responsive"
+							objectFit="contain"
+							quality={100}
+						/>
+					</Box>
+
+					
+				</Box>
 
 				<Box
 					id="about"
 					sx={{
-						width: '90%',
+						width: '100vw',
 						pt: '3rem',
 						height: '100vh',
 						display: 'flex',
@@ -159,8 +206,13 @@ export default function Home() {
 							md: '4rem'
 						},
 						flexDirection: { xs: 'column', md: 'row' },
+						backgroundImage: 'url("/scrap_bg.png")', // Corrected with `url()`
+						backgroundSize: '100% 100%', // Ensures full coverage
+						backgroundPosition: 'center', // Centers the image
+						backgroundRepeat: 'no-repeat' // Prevents repeating
 					}}
 				>
+
 					<Box
 						sx={{
 							width: {

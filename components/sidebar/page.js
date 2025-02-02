@@ -2,10 +2,13 @@ import { Box, Button } from '@mui/material';
 import { UserButton } from '@clerk/nextjs';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from './page.module.css';
+import { useState } from 'react';
 
-export default function Sidebar() {
+export default function Sidebar({isOpened}) {
   const router = useRouter();
   const pathname = usePathname(); // Get the current route
+
+  console.log(isOpened)
 
   return (
     <Box
@@ -14,12 +17,13 @@ export default function Sidebar() {
         width: '280px',
         borderRight: '5px solid black',
         position: 'fixed',
-        backgroundColor: 'white',
+        backgroundColor: '#f5f5f5',
         zIndex: 1000,
-        transform: { xs: 'translateX(-100%)', lg: 'translateX(0)' }, // Hide on mobile, show on larger screens
+        transform: isOpened ? { xs: 'translateX(-100%)', lg: 'translateX(0)' } : 'translateX(0)', // Hide on mobile, show on larger screens
         transition: 'transform 0.3s ease-in-out',
       }}
     >
+
       <Box
         className={styles.links}
         sx={{
@@ -48,16 +52,17 @@ export default function Sidebar() {
           className={styles.link}
           onClick={() => router.push('/profile/apply')}
           sx={{
-            backgroundColor: pathname === '/profile/apply' ? '#88AAEE' : 'white', // Highlight active button
+            backgroundColor: pathname === '/profile/apply' ? '#88AAEE' : 'inherit', // Highlight active button
             padding: '1rem',
             fontSize: '1rem',
             color: 'black',
+            fontWeight: 700,
             border: '3px solid black',
             borderRadius: '10px',
             boxShadow: pathname === '/profile/apply' ? '0px 0px 0px black' : '4px 4px 0px black', // Remove shadow if active
             transform: pathname === '/profile/apply' ? 'translate(3px, 3px)' : 'none', // Keep button pressed if active
             transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-            '&:active': {
+            '&:hover': {
               transform: 'translate(3px, 3px)', // Move button down & right when clicked
               boxShadow: '0px 0px 0px black', // Shrink shadow slightly
               border: '3px solid black',
@@ -70,16 +75,17 @@ export default function Sidebar() {
           className={styles.link}
           onClick={() => router.push('/profile')}
           sx={{
-            backgroundColor: pathname === '/profile' ? '#88AAEE' : 'white', // Highlight active button
+            backgroundColor: pathname === '/profile' ? '#88AAEE' : 'inherit', // Highlight active button
             padding: '1rem',
             fontSize: '1rem',
             color: 'black',
+            fontWeight: 700,
             border: '3px solid black',
             borderRadius: '10px',
             boxShadow: pathname === '/profile' ? '0px 0px 0px black' : '4px 4px 0px black', // Remove shadow if active
             transform: pathname === '/profile' ? 'translate(3px, 3px)' : 'none', // Keep button pressed if active
             transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-            '&:active': {
+            '&:hover': {
               transform: 'translate(3px, 3px)', // Move button down & right when clicked
               boxShadow: '0px 0px 0px black', // Shrink shadow slightly
               border: '3px solid black',
@@ -92,16 +98,17 @@ export default function Sidebar() {
           className={styles.link}
           onClick={() => router.push('/')}
           sx={{
-            backgroundColor: pathname === '/' ? '#88AAEE' : 'white', // Highlight active button
+            backgroundColor: pathname === '/' ? '#88AAEE' : 'inherit', // Highlight active button
             padding: '1rem',
             fontSize: '1rem',
             color: 'black',
+            fontWeight: 700,
             border: '3px solid black',
             borderRadius: '10px',
             boxShadow: pathname === '/' ? '0px 0px 0px black' : '4px 4px 0px black', // Remove shadow if active
             transform: pathname === '/' ? 'translate(3px, 3px)' : 'none', // Keep button pressed if active
             transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-            '&:active': {
+            '&:hover': {
               transform: 'translate(3px, 3px)', // Move button down & right when clicked
               boxShadow: '0px 0px 0px black', // Shrink shadow slightly
               border: '3px solid black',

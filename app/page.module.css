@@ -9,16 +9,7 @@
   text-align: center;
 }
 
-.hero {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 100vh;
-}
-
 .overlay {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,20 +23,6 @@
   padding-top: 2rem;
 }
 
-.title p {
-  font-size: 24px;
-}
-
-.title h1 {
-  font-size: 5rem; /* Adjust as needed */
-  font-weight: 900;
-  text-transform: uppercase;
-  text-align: center;
-  color: black;
-  letter-spacing: 2px;
-  line-height: 1.1;
-}
-
 .herolinks {
   display: flex;
   flex-direction: column;
@@ -53,7 +30,6 @@
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  width: 100vw
 }
 
 .herolinks a:hover {
@@ -116,13 +92,6 @@
 }
 
 @media (max-width: 800px) {
-  .title h1 {
-    font-size: 2.5rem;
-  }
-
-  .title p {
-    font-size: 16px;
-  }
 
   .herolinks p {
     font-size: 1.2rem;
