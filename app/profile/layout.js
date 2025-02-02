@@ -15,13 +15,13 @@ export default function Layout({children}) {
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
-                <Sidebar isOpened={menuOpen} />
+                <Sidebar isOpened={menuOpen} handleMenu={handleMenu} />
             </div>
 
             <div className={styles.content}>
                 {children}
                 <Box onClick={handleMenu} sx={{
-                    position: 'absolute',
+                    position: 'fixed',
                     top: 0,
                     right: 0,
                     cursor: 'pointer',

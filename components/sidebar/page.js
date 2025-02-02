@@ -2,13 +2,11 @@ import { Box, Button } from '@mui/material';
 import { UserButton } from '@clerk/nextjs';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from './page.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function Sidebar({isOpened}) {
+export default function Sidebar({isOpened, handleMenu}) {
   const router = useRouter();
   const pathname = usePathname(); // Get the current route
-
-  console.log(isOpened)
 
   return (
     <Box
@@ -18,8 +16,7 @@ export default function Sidebar({isOpened}) {
         borderRight: '5px solid black',
         position: 'fixed',
         backgroundColor: '#f5f5f5',
-        zIndex: 1000,
-        transform: isOpened ? { xs: 'translateX(-100%)', lg: 'translateX(0)' } : 'translateX(0)', // Hide on mobile, show on larger screens
+        transform: isOpened ? 'translateX(0)' : { xs: 'translateX(-100%)', lg: 'translateX(0)' },
         transition: 'transform 0.3s ease-in-out',
       }}
     >
@@ -50,7 +47,10 @@ export default function Sidebar({isOpened}) {
         </Box>
         <Button
           className={styles.link}
-          onClick={() => router.push('/profile/apply')}
+          onClick={() => {
+            router.push('/profile/apply')
+            handleMenu()
+          }}
           sx={{
             backgroundColor: pathname === '/profile/apply' ? '#88AAEE' : 'inherit', // Highlight active button
             padding: '1rem',
@@ -73,7 +73,10 @@ export default function Sidebar({isOpened}) {
         </Button>
         <Button
           className={styles.link}
-          onClick={() => router.push('/profile')}
+          onClick={() => {
+            router.push('/profile')
+            handleMenu()
+          }}
           sx={{
             backgroundColor: pathname === '/profile' ? '#88AAEE' : 'inherit', // Highlight active button
             padding: '1rem',
