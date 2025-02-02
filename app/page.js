@@ -202,12 +202,12 @@ export default function Home() {
 						justifyContent: 'center',
 						alignItems: 'center',
 						gap: {
-							xs: '2rem',
-							md: '4rem'
+							xs: '1rem',
+							lg: '4rem'
 						},
-						flexDirection: { xs: 'column', md: 'row' },
+						flexDirection: { xs: 'column', lg: 'row' },
 						backgroundImage: 'url("/scrap_bg.png")', // Corrected with `url()`
-						backgroundSize: '100% 100%', // Ensures full coverage
+						backgroundSize: '100% 95%', // Ensures full coverage
 						backgroundPosition: 'center', // Centers the image
 						backgroundRepeat: 'no-repeat' // Prevents repeating
 					}}
@@ -216,7 +216,7 @@ export default function Home() {
 					<Box
 						sx={{
 							width: {
-								xs: '100%',
+								xs: '90%',
 								md: '40%',
 							},
 							textAlign: 'center',
@@ -235,12 +235,19 @@ export default function Home() {
 						</p>
 					</Box>
 					<Box
-						className={styles.location}
 						sx={{
+							width: {
+								xs: '85%',
+								sm: '70%',
+								md: '50%',
+								lg: '30%',
+							},
 							textAlign: 'center',
 							height: {
-								xs: '50%',
-                md: '60%',
+								xs: '45%',
+								sm: '45%',
+								md: '45%',
+								lg: '60%',
 							},
 							fontSize: '1.4rem',
 							borderRadius: '20px',
@@ -249,9 +256,9 @@ export default function Home() {
 							padding: '1.8rem',
 							display: 'flex',
 							flexDirection: 'column',
-							justifyContent: 'space-around',
+							justifyContent: 'center',
 							alignItems: 'center',
-							gap: '1rem'
+							gap: {xs: '0.5rem', md: "0.8rem", lg: '1.5rem'}
 						}}
 					>
 						<Typography variant="h3" fontWeight="bold" sx={{
@@ -289,7 +296,7 @@ export default function Home() {
 						</div>
 						<iframe
 							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3520.8816865715253!2d-82.41811502452003!3d28.05863692598297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2c7b963af1e73%3A0x885216ce5072fc9b!2sENB%20-%20Engineering%20Building%20II!5e0!3m2!1sen!2sus!4v1738160243407!5m2!1sen!2sus"
-							style={{ border: 0, width: '90%', height: '70%' }}
+							style={{ border: 0, width: '85%', height: '70%' }}
 							allowFullScreen
 							loading="lazy"
 							referrerPolicy="no-referrer-when-downgrade"
