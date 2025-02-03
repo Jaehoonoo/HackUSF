@@ -2,7 +2,6 @@
 
 import { Box, Typography, Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
-import styles from './page.module.css';
 import { useState, useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
 
@@ -43,20 +42,32 @@ export default function Profile() {
 
   return (
     <Box sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '1rem',
+      height: '100vh',
+      textAlign: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: '1rem',
     }}>
       {status === null ? (
         <CircularProgress />
       ) : status === 'accepted' ? (
+        /* Change with lunch group and hacker id */
         <Typography variant="h4">Accepted</Typography>
       ) : status === 'pending' ? (
-        <Typography variant="h4">Pending</Typography>
+        <Typography variant="h4">Pending Acceptance...</Typography>
       ) : (
-        <Typography variant="h4">Rejected</Typography>
+        <Box 
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+          }}
+        >
+          <Typography variant="h4">Thank you for applying to HackUSF!</Typography>
+          <Typography variant="h5">Unfortunately, we couldn&apos;t offer you a spot this time.</Typography>
+        </Box>
       )}
 
     </Box>

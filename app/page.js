@@ -5,16 +5,35 @@ import Sponsors from '@/components/sponsors/page';
 import Footer from '@/components/footer/page';
 import ApplyButton from '@/components/applyButton/page';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Image from "next/image";
 
 import { Box, Button, Typography } from '@mui/material/';
 import PrizeSection from '@/components/prizes/PrizeSection';
 import Link from 'next/link';
+import { useAuth } from '@clerk/nextjs';
+
+const createProfile = async (userId) => {
+	try {
+		const response = await fetch('/api/createProfile', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({userId}),
+		})
+		const result = await response.json()
+		console.log(result)
+
+	} catch (error) {
+		console.error("Error with creating profile: ", error)
+	}
+}
 
 
 export default function Home() {
+	const { isSignedIn, userId } = useAuth();
 
 	useEffect(() => {
 		// Function to adjust scroll position with offset
@@ -46,6 +65,13 @@ export default function Home() {
 			});
 		};
 	}, []);
+
+	/* Creates user profile */
+	useEffect(() => {
+		if (isSignedIn && userId) {
+			createProfile(userId)
+		}
+	}, [isSignedIn, userId]);
 
 	return (
 		<div>

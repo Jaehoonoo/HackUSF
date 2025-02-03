@@ -7,10 +7,13 @@
   flex: 4;
   padding: 20px;
   margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width: 1200px) {
   .content {
-    padding-left: 312px;
+    margin-left: 312px;
   }
 }
