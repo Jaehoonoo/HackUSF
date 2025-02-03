@@ -37,7 +37,6 @@ export default function Profile() {
         const result = await fetchStatus(userId)
         const status = result.data.status
         setStatus(status)
-        console.log(status)
       })()
     }
   }, [isLoaded, userId]);
@@ -50,7 +49,16 @@ export default function Profile() {
         alignItems: 'center',
         gap: '1rem',
     }}>
-      {/* Display conditional of whether user is accepted/pending/rejected */}
+      {status === null ? (
+        <CircularProgress />
+      ) : status === 'accepted' ? (
+        <Typography variant="h4">Accepted</Typography>
+      ) : status === 'pending' ? (
+        <Typography variant="h4">Pending</Typography>
+      ) : (
+        <Typography variant="h4">Rejected</Typography>
+      )}
+
     </Box>
   )
 }
