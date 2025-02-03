@@ -7,7 +7,7 @@ import ApplyButton from '@/components/applyButton/page';
 
 import { useEffect } from 'react';
 import styles from './page.module.css';
-import Image from 'next/image';
+import Image from "next/image";
 
 import { Box, Button, Typography } from '@mui/material/';
 import PrizeSection from '@/components/prizes/PrizeSection';

@@ -29,13 +29,16 @@ export default function Profile() {
   const router = useRouter();
   const { userId, isLoaded } = useAuth()
 
+  const [status, setStatus] = useState(null);
+
   useEffect(() => {
     if (isLoaded) {
-      const fetchData = async () => {
+      (async () => {
         const result = await fetchStatus(userId)
-        console.log(result)
-      }
-      fetchData()
+        const status = result.data.status
+        setStatus(status)
+        console.log(status)
+      })()
     }
   }, [isLoaded, userId]);
 
@@ -47,7 +50,7 @@ export default function Profile() {
         alignItems: 'center',
         gap: '1rem',
     }}>
-
+      {/* Display conditional of whether user is accepted/pending/rejected */}
     </Box>
   )
 }
