@@ -20,7 +20,6 @@ export async function POST(req) {
         school: "",
         major: "",
         levelOfStudy: "",
-        gradYear: "",
 
         firstHackathon: false,
         shirtSize: "",

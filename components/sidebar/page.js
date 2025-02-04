@@ -18,6 +18,7 @@ export default function Sidebar({isOpened, handleMenu}) {
         backgroundColor: '#f5f5f5',
         transform: isOpened ? 'translateX(0)' : { xs: 'translateX(-100%)', lg: 'translateX(0)' },
         transition: 'transform 0.3s ease-in-out',
+        zIndex: 1100
       }}
     >
 

@@ -21,7 +21,7 @@ export default function Layout({children}) {
             <div className={styles.content}>
                 {children}
                 <Box onClick={handleMenu} sx={{
-                    position: 'fixed',
+                    position: 'absolute',
                     top: 0,
                     right: 0,
                     cursor: 'pointer',

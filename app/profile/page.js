@@ -42,7 +42,7 @@ export default function Profile() {
 
   return (
     <Box sx={{
-      height: '100vh',
+      height: '100%',
       textAlign: 'center',
       display: 'flex',
       flexDirection: 'column',
