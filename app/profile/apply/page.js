@@ -11,12 +11,29 @@ import {
   Autocomplete,
 } from "@mui/material";
 import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
 
 import countriesList from "./countriesList";
 import universitiesList from "./universitiesList";
 import majorsList from "./majorsList";
 
+const saveApplication = async (userId, formData) => {
+  try {
+    const response = await fetch('/api/saveApplication', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({userId, ...formData}),
+    })
+  } catch (error) {
+    console.error('Error saving application', error)
+  }
+}
+
 export default function Apply() {
+  const { userId } = useAuth()
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -66,9 +83,8 @@ export default function Apply() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     // Make API call to submit the form data
-    saveApplication(formData);
+    saveApplication(userId, formData);
   };
 
   return (
