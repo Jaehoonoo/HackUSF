@@ -358,16 +358,33 @@ export default function Home() {
 
 				<Box id="faq" className={styles.faq} sx={{
 					padding: {xs: '2rem', sm: '3rem', md: '10rem', lg: '8rem'},
-					pt: {xs: '8rem', sm: '10rem', md: '10rem'},
-					pb: {xs: '16rem', sm: '16rem', md: '10rem'},
+					pt: {xs: '14rem', sm: '10rem', md: '10rem'},
+					pb: {xs: '16rem', sm: '16rem', md: '10rem', lg: '12rem'},
 					backgroundImage: 'url("/tornpaper2.png")', // Corrected with `url()`
 					backgroundSize: '100% 95%', // Ensures full coverage
 					backgroundPosition: 'center', // Centers the image
 					backgroundRepeat: 'no-repeat', // Prevents repeating
 				}}>
-					<Typography sx={{ fontSize: '4rem', fontWeight: 600 }}>
-						FAQ
-					</Typography>
+					<Box mb={3}
+							sx={{
+								width: '100%',
+								height: 'auto', // Ensures the container's height adjusts with the image
+								display: 'flex',
+								justifyContent: 'center', // Center horizontally
+								alignItems: 'center', // Center vertically
+								position: 'relative', // Keeps the image positioned correctly
+							}}
+						>
+							<Image
+								src="/faq.png"
+								alt="about"
+								width={300} // Adjusted image width for a smaller size
+								height={300} // Adjusted image height for the aspect ratio
+								layout="intrinsic" // Keeps the aspect ratio and scales the image
+								objectFit="contain" // Keeps the whole image visible within the container
+								quality={100}
+							/>
+						</Box>
 					<Typography sx={{ fontSize: {xs: '1.1rem', sm: '1.2rem', md: '1.4rem'}, mb: 3 }}>
 						Everything you need to know about participating in HackUSF. If you
 						have any other questions,{' '}
