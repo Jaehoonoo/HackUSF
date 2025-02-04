@@ -185,7 +185,7 @@ export default function Home() {
 									Devpost
 								</a>{' '}
 								and{' '}
-								<a href="https://discordapp.com/" target="_blank">
+								<a href="https://discord.gg/Zdx4Hkt33W" target="_blank">
 									Discord
 								</a>
 								!
@@ -330,9 +330,9 @@ export default function Home() {
 					</Box>
 				</Box>
 
-        <div id="prizes" className={styles.prizes}>
+        {/* <div id="prizes" className={styles.prizes}>
           <PrizeSection />
-        </div>
+        </div> */}
 
 				<div id="faq" className={styles.faq}>
 					<Typography sx={{ fontSize: '4rem', fontWeight: 600 }}>

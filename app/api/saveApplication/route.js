@@ -22,9 +22,10 @@ export async function POST(req) {
       shirtSize: data.shirtSize,
       dietaryRestrictions: data.dietaryRestrictions,
       otherAccommodations: data.otherAccommodations,
+      disclaimer: data.disclaimer,
+      codeOfConduct: data.codeOfConduct,
+      privacyPolicy: data.privacyPolicy
     });
-
-    console.log(data);
 
     return new Response(JSON.stringify({ message: 'User status updated successfully' }), { status: 200 })
 

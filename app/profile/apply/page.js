@@ -10,8 +10,8 @@ import {
   Typography,
   Autocomplete,
 } from "@mui/material";
-import { useState } from "react";
-import { useAuth } from "@clerk/nextjs";
+import { useEffect, useState, useRef } from "react";
+import { useAuth, useUser } from "@clerk/nextjs";
 
 import countriesList from "./countriesList";
 import universitiesList from "./universitiesList";
@@ -31,8 +31,30 @@ const saveApplication = async (userId, formData) => {
   }
 }
 
+const getApplication = async (userId) => {
+  try {
+    const response = await fetch(`/api/getApplication?userId=${encodeURIComponent(userId)}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.ok) {
+      const result = await response.json()
+      return result
+    }
+  } catch (error) {
+    console.error('Error getting application', error)
+    return null
+  }
+}
+
 export default function Apply() {
   const { userId } = useAuth()
+  const [showPopup, setShowPopup] = useState(false)
+  const [loading, setLoading] = useState(false);
+
+  
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -52,7 +74,51 @@ export default function Apply() {
     shirtSize: "",
     dietaryRestrictions: [],
     otherAccommodations: "",
+
+    disclaimer: false,
+    codeOfConduct: false,
+    privacyPolicy: false
   });
+
+  const { user, isLoaded } = useUser();
+  const hasSetEmail = useRef(false);
+
+  useEffect(() => {
+    if (isLoaded && user && user.primaryEmailAddress?.emailAddress && !hasSetEmail.current && userId) {
+      const timeoutId = setTimeout(() => {
+        // Set email only if it hasn't been set already
+        setFormData((prevFormData) => {
+          if (prevFormData.email !== user.primaryEmailAddress.emailAddress) {
+            return { ...prevFormData, email: user.primaryEmailAddress.emailAddress };
+          }
+          return prevFormData;
+        });
+        hasSetEmail.current = true;
+      }, 500);
+  
+      // Cleanup function to clear the timeout when dependencies change or component unmounts
+      return () => clearTimeout(timeoutId);
+    }
+  }, [user, isLoaded, userId]); // Depend on userId to ensure data is fetched based on the user
+  
+  
+  useEffect(() => {
+    if (userId) {
+      const fetchApplication = async () => {
+        const result = await getApplication(userId);
+        if (result && result.success) {
+          setFormData((prevFormData) => {
+            // Only update if there's a change in data
+            if (prevFormData !== result.data) {
+              return { ...prevFormData, ...result.data };
+            }
+            return prevFormData;
+          });
+        }
+      };
+      fetchApplication();
+    }
+  }, [userId]); // Separate effect to handle fetching application data
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -83,14 +149,40 @@ export default function Apply() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (loading) return; // Prevent multiple submissions
+
+    setLoading(true); // Disable button
+
     // Make API call to submit the form data
     saveApplication(userId, formData);
+
+    // Show popup message
+    setShowPopup(true);
+
+    // Hide popup after 3 seconds
+    setTimeout(() => {
+      setShowPopup(false);
+      setLoading(false); // Enable button again
+    }, 3000);
+
   };
 
+  // useEffect(() => {
+  //   if(userId) {
+  //     const fetchApplication = async () => {
+  //       const result = await getApplication(userId)
+  //       if (result && result.success) {
+  //         setFormData(result.data)
+  //       }
+  //     }
+  //     fetchApplication()
+  //   }
+  // }, [userId])
+
   return (
+    <form onSubmit={handleSubmit}>
     <Box
-      component="form"
-      onSubmit={handleSubmit}
       sx={{
         display: "flex",
         justifyContent: "flex-start",
@@ -126,6 +218,7 @@ export default function Apply() {
         value={formData.firstName}
         onChange={handleChange}
         sx={{ width: "100%" }}
+        required
       />
       <TextField
         label="Last Name"
@@ -134,6 +227,7 @@ export default function Apply() {
         value={formData.lastName}
         onChange={handleChange}
         sx={{ width: "100%" }}
+        required
       />
       <TextField
         label="Email"
@@ -142,6 +236,7 @@ export default function Apply() {
         value={formData.email}
         onChange={handleChange}
         sx={{ width: "100%" }}
+        required
       />
       <TextField
         label="Phone Number"
@@ -150,6 +245,7 @@ export default function Apply() {
         value={formData.phone}
         onChange={handleChange}
         sx={{ width: "100%" }}
+        required
       />
       <TextField
         label="Age"
@@ -158,22 +254,23 @@ export default function Apply() {
         value={formData.age}
         onChange={handleChange}
         sx={{ width: "100%" }}
+        required
       />
       <Autocomplete
         disablePortal
         options={countriesList}
-        renderInput={(params) => <TextField {...params} label="Country of Residence" />}
+        renderInput={(params) => <TextField {...params} label="Country of Residence" required />}
         value={formData.country}
-        onChange={handleChange}
+        onChange={(event, newValue) => handleChange({ target: { name: 'country', value: newValue } })}
         name="country"
         sx={{ width: "100%", margin: "normal" }}
       />
       <Autocomplete
         disablePortal
         options={["Male", "Female", "Other", "Prefer not to say"]}
-        renderInput={(params) => <TextField {...params} label="Gender" />}
+        renderInput={(params) => <TextField {...params} label="Gender" required />}
         value={formData.gender}
-        onChange={handleChange}
+        onChange={(event, newValue) => handleChange({ target: { name: 'gender', value: newValue } })}
         name="gender"
         sx={{ width: "100%", margin: "normal" }}
       />
@@ -188,9 +285,9 @@ export default function Apply() {
           "White",
           "Not Hispanic or Latino",
         ]}
-        renderInput={(params) => <TextField {...params} label="Ethnicity" />}
+        renderInput={(params) => <TextField {...params} label="Ethnicity" required />}
         value={formData.ethnicity}
-        onChange={handleChange}
+        onChange={(event, newValue) => handleChange({ target: { name: 'ethnicity', value: newValue } })}
         name="ethnicity"
         sx={{ width: "100%", margin: "normal" }}
       />
@@ -210,27 +307,27 @@ export default function Apply() {
       <Autocomplete
         disablePortal
         options={universitiesList}
-        renderInput={(params) => <TextField {...params} label="University" />}
+        renderInput={(params) => <TextField {...params} label="University" required />}
         value={formData.school}
-        onChange={handleChange}
+        onChange={(event, newValue) => handleChange({ target: { name: 'school', value: newValue } })}
         name="school"
         sx={{ width: "100%", margin: "normal" }}
       />
       <Autocomplete
         disablePortal
         options={majorsList}
-        renderInput={(params) => <TextField {...params} label="Major" />}
+        renderInput={(params) => <TextField {...params} label="Major" required />}
         value={formData.major}
-        onChange={handleChange}
+        onChange={(event, newValue) => handleChange({ target: { name: 'major', value: newValue } })}
         name="major"
         sx={{ width: "100%", margin: "normal" }}
       />
       <Autocomplete
         disablePortal
         options={["Freshman", "Sophomore", "Junior", "Senior", "Graduate Student"]}
-        renderInput={(params) => <TextField {...params} label="Level of Study" />}
+        renderInput={(params) => <TextField {...params} label="Level of Study" required />}
         value={formData.levelOfStudy}
-        onChange={handleChange}
+        onChange={(event, newValue) => handleChange({ target: { name: 'levelOfStudy', value: newValue } })}
         name="levelOfStudy"
         sx={{ width: "100%", margin: "normal" }}
       />
@@ -249,8 +346,8 @@ export default function Apply() {
       </Typography>
       <FormGroup>
         <FormControlLabel
-          control={<Checkbox />}
-          label="First Hackathon?"
+          control={<Checkbox checked={formData.firstHackathon} />}
+          label="Is This Your First Hackathon?"
           name="firstHackathon"
           onChange={handleChange}
         />
@@ -258,84 +355,29 @@ export default function Apply() {
       <Autocomplete
         disablePortal
         options={["XS", "S", "M", "L", "XL", "XXL"]}
-        renderInput={(params) => <TextField {...params} label="Shirt Size" />}
+        renderInput={(params) => <TextField {...params} label="Shirt Size" required />}
         value={formData.shirtSize}
-        onChange={handleChange}
+        onChange={(event, newValue) => handleChange({ target: { name: 'shirtSize', value: newValue } })}
         name="shirtSize"
         sx={{ width: "100%", margin: "normal" }}
       />
       <FormGroup sx={{ width: "100%" }}>
         <Typography variant="h6">Dietary Restrictions</Typography>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Vegan"
-          value="Vegan"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Vegetarian"
-          value="Vegetarian"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Halal"
-          value="Halal"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Nuts"
-          value="Nuts"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Fish"
-          value="Fish"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Gluten"
-          value="Gluten"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Dairy"
-          value="Dairy"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Eggs"
-          value="Eggs"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="No Beef"
-          value="No Beef"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="No Pork"
-          value="No Pork"
-          name="dietaryRestrictions"
-          onChange={handleChange}
-        />
+        {["Vegan", "Vegetarian", "Halal", "Nuts", "Fish", "Gluten", "Dairy", "Eggs", "No Beef", "No Pork"].map((restriction) => (
+          <FormControlLabel
+            key={restriction}
+            control={
+              <Checkbox
+                checked={formData.dietaryRestrictions.includes(restriction)}
+                value={restriction}
+                name="dietaryRestrictions"
+                onChange={handleChange}
+              />
+            }
+            label={restriction}
+          />
+        ))}
+
         <TextField
           label="Other Accommodations?"
           variant="outlined"
@@ -351,20 +393,40 @@ export default function Apply() {
       <FormGroup>
         <Typography variant="h6">Disclaimer</Typography>
         <FormControlLabel
-          control={<Checkbox />}
+          control={<Checkbox checked={formData.disclaimer} required />}
           label="I understand that this is an application and does not guarantee admission."
+          name="disclaimer"
           onChange={handleChange}
         />
         <Typography variant="h6">Code of Conduct</Typography>
         <FormControlLabel
-          control={<Checkbox />}
-          label="I have read and agree to the MLH Code of Conduct"
+          control={<Checkbox checked={formData.codeOfConduct} required />}
+          label={
+            <>
+              I have read and agree to the{' '}
+              <a href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>
+                MLH Code of Conduct
+              </a>
+            </>
+          }
+          name="codeOfConduct"
           onChange={handleChange}
         />
         <Typography variant="h6">Privacy Policy</Typography>
         <FormControlLabel
-          control={<Checkbox />}
-          label="I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and MLH administration in line with the MLH Privacy Policy. I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy."
+          control={<Checkbox checked={formData.privacyPolicy} required />}
+          label={
+            <>
+              I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and MLH administration in line with the MLH Privacy Policy. I further agree to the terms of both the{' '}
+              <a href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>
+                MLH Privacy Policy
+              </a> and the{' '}
+              <a href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>
+                MLH Contest Terms and Conditions.
+              </a>
+            </>
+          }
+          name="privacyPolicy"
           onChange={handleChange}
         />
       </FormGroup>
@@ -374,9 +436,12 @@ export default function Apply() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        mt: 2
+        mt: 2,
+        mb: 2
       }}>
         <Button
+          type="submit"
+          disabled={loading}
           sx={{
             width: 'max(200px, 20vw)',
             textTransform: 'none',
@@ -398,11 +463,31 @@ export default function Apply() {
               border: '3px solid black',
             },
           }}
-          onClick={handleSubmit} // Trigger routing on click
         >
           Apply/Save
         </Button>
       </Box>
+
+      {/* Temporary Popup Message */}
+      {showPopup && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: "40%",
+            left: {xs: "50%", lg: "58%"},
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "green",
+            color: "white",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            boxShadow: "2px 2px 10px rgba(0,0,0,0.3)",
+            zIndex: 1000,
+          }}
+        >
+          <Typography>Application submitted successfully!</Typography>
+        </Box>
+      )}
     </Box>
+    </form>
   );
 }

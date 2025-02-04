@@ -26,7 +26,7 @@ export default function Header() {
 			<div className={`${styles.navbar} ${menuOpen ? styles.open : ''}`}>
 				<ul>
 					<li><a href="#about" onClick={() => setMenuOpen(false)}>About</a></li>
-					<li><a href="#prizes" onClick={() => setMenuOpen(false)}>Prizes</a></li>
+					{/* <li><a href="#prizes" onClick={() => setMenuOpen(false)}>Prizes</a></li> */}
 					<li><a href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a></li>
 					<li><a href="#sponsors" onClick={() => setMenuOpen(false)}>Sponsors</a></li>
 				

@@ -29,6 +29,9 @@ export async function POST(req) {
         status: "pending",
         checkedIn: false,
         rsvp: false,
+        disclaimer: false,
+        codeOfConduct: false,
+        privacyPolicy: false
       })
     } else {
       console.log("User already exists")
