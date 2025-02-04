@@ -222,7 +222,8 @@ export default function Home() {
 					id="about"
 					sx={{
 						width: '100vw',
-						pt: '3rem',
+						pt: {xs: '10rem', sm: '8rem', md: '0rem', lg: '4rem'},
+						pb: {xs: '12rem', sm: '10rem', md: '0rem', lg: '4rem'},
 						height: '100vh',
 						display: 'flex',
 						justifyContent: 'center',
@@ -231,7 +232,7 @@ export default function Home() {
 							xs: '1rem',
 							lg: '4rem'
 						},
-						flexDirection: { xs: 'column', lg: 'row' },
+						flexDirection: { xs: 'column', md: 'row' },
 						backgroundImage: 'url("/scrap_bg.png")', // Corrected with `url()`
 						backgroundSize: '100% 95%', // Ensures full coverage
 						backgroundPosition: 'center', // Centers the image
@@ -254,13 +255,34 @@ export default function Home() {
 							},
 						}}
 					>
+						<Box mb={3}
+							sx={{
+								width: '100%',
+								height: 'auto', // Ensures the container's height adjusts with the image
+								display: 'flex',
+								justifyContent: 'center', // Center horizontally
+								alignItems: 'center', // Center vertically
+								position: 'relative', // Keeps the image positioned correctly
+							}}
+						>
+							<Image
+								src="/about.png"
+								alt="about"
+								width={480} // Adjusted image width for a smaller size
+								height={480} // Adjusted image height for the aspect ratio
+								layout="intrinsic" // Keeps the aspect ratio and scales the image
+								objectFit="contain" // Keeps the whole image visible within the container
+								quality={100}
+							/>
+						</Box>
+
 						<p>
 							The Google Developer Student Club at USF is hosting its first-ever{' '}
 							<b>24-hour Hackathon</b>, bringing students together to innovate,
 							build, and compete.
 						</p>
 					</Box>
-					<Box
+					<Box bgcolor="#f5f5f5"
 						sx={{
 							width: {
 								xs: '85%',
@@ -334,7 +356,15 @@ export default function Home() {
           <PrizeSection />
         </div> */}
 
-				<div id="faq" className={styles.faq}>
+				<Box id="faq" className={styles.faq} sx={{
+					padding: {xs: '2rem', sm: '3rem', md: '10rem', lg: '8rem'},
+					pt: {xs: '8rem', sm: '10rem', md: '10rem'},
+					pb: {xs: '16rem', sm: '16rem', md: '10rem'},
+					backgroundImage: 'url("/tornpaper2.png")', // Corrected with `url()`
+					backgroundSize: '100% 95%', // Ensures full coverage
+					backgroundPosition: 'center', // Centers the image
+					backgroundRepeat: 'no-repeat', // Prevents repeating
+				}}>
 					<Typography sx={{ fontSize: '4rem', fontWeight: 600 }}>
 						FAQ
 					</Typography>
@@ -344,15 +374,18 @@ export default function Home() {
 						<a href="mailto:gdscatusf@gmail.com">Contact Us!</a>
 					</Typography>
 					<FAQ />
-				</div>
+				</Box>
 
-				<div id="sponsors" className={styles.sponsors}>
+				<Box id="sponsors" className={styles.sponsors}>
 					<Sponsors />
-				</div>
+				</Box>
 
-				<div className={styles.footer}>
+				<Box className={styles.footer} sx={{
+					borderTop: '3px solid black',
+					pt: 1
+				}}>
 					<Footer />
-				</div>
+				</Box>
 			</div>
 		</div>
 	);
