@@ -80,12 +80,15 @@ export default function Home() {
 			<div className={styles.container}>
 				<Box className={styles.hero} sx={{
 					width: "100%",
-					pt: {xs: "0px", sm: "80px", md: "60px", lg: "0px"},
+					mt: {xs: "60px", sm: "140px", md: "0px", lg: "0px"},
+					"@media (min-width:450px) and (max-width:599px)": {
+						mt: "140px", // Custom size between xs and sm
+					},
 					display: 'flex',
-					flexDirection: {xs: "column", lg: "row"},
+					flexDirection: {xs: "column", md: "row"},
 					alignItems: 'center',
 					justifyContent: 'center',
-					gap: {lg: "8rem"},
+					gap: {md: '6rem', lg: "8rem"},
 					height: '100vh',
 					position: 'relative',
 				}}>
@@ -296,17 +299,20 @@ export default function Home() {
 								sm: '45%',
 								md: '45%',
 								lg: '60%',
+								xl: '60%'
 							},
 							fontSize: '1.4rem',
 							borderRadius: '20px',
 							border: '3px solid black',
 							boxShadow: '5px 5px 0px black',
 							padding: '1.8rem',
+							pt: '4rem',
+							pb: '4rem',
 							display: 'flex',
 							flexDirection: 'column',
 							justifyContent: 'center',
 							alignItems: 'center',
-							gap: {xs: '0.5rem', md: "0.8rem", lg: '1.5rem'}
+							gap: {xs: '0.5rem', md: "0.8rem", lg: '1.2rem'}
 						}}
 					>
 						<Typography variant="h3" fontWeight="bold" sx={{
@@ -337,14 +343,14 @@ export default function Home() {
 										fontWeight: '500',
 									}}
 								>
-									ENB - Engineering Building II on USF Campus
+									ENB - Engineering Building II
 								</Link>
 								<div>3820 USF Alumni Drive, Tampa, FL 33620</div>
 							</Box>
 						</div>
 						<iframe
 							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3520.8816865715253!2d-82.41811502452003!3d28.05863692598297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2c7b963af1e73%3A0x885216ce5072fc9b!2sENB%20-%20Engineering%20Building%20II!5e0!3m2!1sen!2sus!4v1738160243407!5m2!1sen!2sus"
-							style={{ border: 0, width: '85%', height: '70%' }}
+							style={{ border: 0, width: '80%', height: '60%' }}
 							allowFullScreen
 							loading="lazy"
 							referrerPolicy="no-referrer-when-downgrade"
