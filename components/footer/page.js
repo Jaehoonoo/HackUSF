@@ -12,7 +12,7 @@ export default function Footer() {
         <div className={styles.title}>
           <h1>HackUSF 2025</h1>
           <div className={styles.logos}>
-            <FaDiscord onClick={() => window.open("https://discord.com", "_blank", "noopener,noreferrer")} />
+            <FaDiscord onClick={() => window.open("https://discord.gg/Zdx4Hkt33W", "_blank", "noopener,noreferrer")} />
             <FaInstagram onClick={() => window.open("https://www.instagram.com/usfgdsc/", "_blank", "noopener,noreferrer")} />
             <FaLinkedinIn onClick={() => window.open("https://www.linkedin.com/company/usfgdsc/posts/?feedView=all", "_blank", "noopener,noreferrer")} />
           </div>
@@ -21,8 +21,7 @@ export default function Footer() {
         <div className={styles.resources}>
           <h3>Resources</h3>
           <p><a href="https://gdscusf.com" target="_blank">gdscusf.com</a></p>
-          <p><a href="https://notion.com" target="_blank">Hacker Guide</a></p>
-          <p><a href="https://sites.google.com/view/forms-workspace/" target="_blank">Misconduct Reporting</a></p>
+          <p><a href="https://mina-meowmeow.notion.site/USF-Hack-Hacker-Guide-18f761666cf580989f49dbeca7f606c3" target="_blank">Hacker Guide</a></p>
           <p><a href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" target="_blank">Code of Conduct</a></p>
         </div>
       </div>

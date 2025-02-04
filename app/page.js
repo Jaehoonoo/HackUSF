@@ -3,17 +3,38 @@ import Header from '@/components/header/page';
 import FAQ from '@/components/faq/page';
 import Sponsors from '@/components/sponsors/page';
 import Footer from '@/components/footer/page';
+import ApplyButton from '@/components/applyButton/page';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import Image from 'next/image';
+import Image from "next/image";
 
 import { Box, Button, Typography } from '@mui/material/';
 import PrizeSection from '@/components/prizes/PrizeSection';
 import Link from 'next/link';
-<div></div>;
+import { useAuth } from '@clerk/nextjs';
+
+const createProfile = async (userId) => {
+	try {
+		const response = await fetch('/api/createProfile', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({userId}),
+		})
+		const result = await response.json()
+		console.log(result)
+
+	} catch (error) {
+		console.error("Error with creating profile: ", error)
+	}
+}
+
 
 export default function Home() {
+	const { isSignedIn, userId } = useAuth();
+
 	useEffect(() => {
 		// Function to adjust scroll position with offset
 		const adjustScrollPosition = (event) => {
@@ -45,15 +66,39 @@ export default function Home() {
 		};
 	}, []);
 
+	/* Creates user profile */
+	useEffect(() => {
+		if (isSignedIn && userId) {
+			createProfile(userId)
+		}
+	}, [isSignedIn, userId]);
+
 	return (
 		<div>
 			<Header />
 
 			<div className={styles.container}>
-				<div className={styles.hero}>
+				<Box className={styles.hero} sx={{
+					width: "100%",
+					pt: {xs: "0px", sm: "80px", md: "60px", lg: "0px"},
+					display: 'flex',
+					flexDirection: {xs: "column", lg: "row"},
+					alignItems: 'center',
+					justifyContent: 'center',
+					gap: {lg: "8rem"},
+					height: '100vh',
+					position: 'relative',
+				}}>
 					<div className={styles.overlay}>
 						<div className={styles.title}>
-							<Typography>GDSC x Build with AI Proudly Presents</Typography>
+							<Typography sx={{
+								fontSize: {
+									xs: '1.2rem',
+									md: '1.3rem',
+									lg: '1.4rem',
+									xl: '1.5rem',
+								},
+							}}>GDSC x Build with AI Proudly Presents</Typography>
 							<Typography
 								variant="h1"
 								sx={{
@@ -62,6 +107,12 @@ export default function Home() {
 									textAlign: 'center',
 									color: 'black',
 									letterSpacing: '2px',
+									fontSize: {
+											xs: '3rem',
+											md: '3rem',
+											lg: '3.5rem',
+											xl: '4.5rem',
+										},
 								}}
 							>
 								HackUSF 2025
@@ -126,32 +177,7 @@ export default function Home() {
 							</Box>
 						</div>
 						<div className={styles.herolinks}>
-							<Button
-								sx={{
-									width: 'max(200px, 20vw)',
-									textTransform: 'none',
-									color: 'black',
-									fontWeight: 700,
-									fontSize: {
-										xs: '1.2rem',
-										sm: '1.4rem',
-									},
-									borderRadius: '18px',
-									boxShadow: '5px 5px 0px black',
-									border: '3px solid black',
-									backgroundColor: '#f8f8f8',
-									transition:
-										'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-
-									'&:hover': {
-										transform: 'translate(3px, 3px)', // Move button down & right
-										boxShadow: '0px 0px 0px black', // Shrink shadow slightly
-										border: '3px solid black',
-									},
-								}}
-							>
-								Apply Now
-							</Button>
+							<ApplyButton />
 
 							<p>
 								Join the{' '}
@@ -159,35 +185,65 @@ export default function Home() {
 									Devpost
 								</a>{' '}
 								and{' '}
-								<a href="https://discordapp.com/" target="_blank">
+								<a href="https://discord.gg/Zdx4Hkt33W" target="_blank">
 									Discord
 								</a>
 								!
 							</p>
 						</div>
 					</div>
-				</div>
+
+					<Box 
+						sx={{
+							width: '100%',
+							maxWidth: { xs: '90%', sm: '65%', md: '50%', lg: '40%' },
+							height: 'auto', // Ensures the container's height adjusts with the image
+							display: 'flex', 
+							justifyContent: 'center', // Center horizontally
+							alignItems: 'center', // Center vertically
+							position: 'relative', // Keeps the image positioned correctly
+						}}
+					>
+						<Image
+							src="/fox_collage.png"
+							alt="Fox Collage"
+							width={600} // Image width for aspect ratio
+							height={600} // Image height for aspect ratio
+							layout="responsive"
+							objectFit="contain"
+							quality={100}
+						/>
+					</Box>
+
+					
+				</Box>
 
 				<Box
 					id="about"
 					sx={{
-						width: '90%',
-						pt: '3rem',
+						width: '100vw',
+						pt: {xs: '10rem', sm: '8rem', md: '0rem', lg: '4rem'},
+						pb: {xs: '12rem', sm: '10rem', md: '0rem', lg: '4rem'},
 						height: '100vh',
 						display: 'flex',
 						justifyContent: 'center',
 						alignItems: 'center',
 						gap: {
-							xs: '2rem',
-							md: '4rem'
+							xs: '1rem',
+							lg: '4rem'
 						},
 						flexDirection: { xs: 'column', md: 'row' },
+						backgroundImage: 'url("/scrap_bg.png")', // Corrected with `url()`
+						backgroundSize: '100% 95%', // Ensures full coverage
+						backgroundPosition: 'center', // Centers the image
+						backgroundRepeat: 'no-repeat' // Prevents repeating
 					}}
 				>
+
 					<Box
 						sx={{
 							width: {
-								xs: '100%',
+								xs: '90%',
 								md: '40%',
 							},
 							textAlign: 'center',
@@ -199,19 +255,47 @@ export default function Home() {
 							},
 						}}
 					>
+						<Box mb={3}
+							sx={{
+								width: '100%',
+								height: 'auto', // Ensures the container's height adjusts with the image
+								display: 'flex',
+								justifyContent: 'center', // Center horizontally
+								alignItems: 'center', // Center vertically
+								position: 'relative', // Keeps the image positioned correctly
+							}}
+						>
+							<Image
+								src="/about.png"
+								alt="about"
+								width={480} // Adjusted image width for a smaller size
+								height={480} // Adjusted image height for the aspect ratio
+								layout="intrinsic" // Keeps the aspect ratio and scales the image
+								objectFit="contain" // Keeps the whole image visible within the container
+								quality={100}
+							/>
+						</Box>
+
 						<p>
 							The Google Developer Student Club at USF is hosting its first-ever{' '}
 							<b>24-hour Hackathon</b>, bringing students together to innovate,
 							build, and compete.
 						</p>
 					</Box>
-					<Box
-						className={styles.location}
+					<Box bgcolor="#f5f5f5"
 						sx={{
+							width: {
+								xs: '85%',
+								sm: '70%',
+								md: '50%',
+								lg: '30%',
+							},
 							textAlign: 'center',
 							height: {
-								xs: '50%',
-                md: '60%',
+								xs: '45%',
+								sm: '45%',
+								md: '45%',
+								lg: '60%',
 							},
 							fontSize: '1.4rem',
 							borderRadius: '20px',
@@ -220,9 +304,9 @@ export default function Home() {
 							padding: '1.8rem',
 							display: 'flex',
 							flexDirection: 'column',
-							justifyContent: 'space-around',
+							justifyContent: 'center',
 							alignItems: 'center',
-							gap: '1rem'
+							gap: {xs: '0.5rem', md: "0.8rem", lg: '1.5rem'}
 						}}
 					>
 						<Typography variant="h3" fontWeight="bold" sx={{
@@ -260,7 +344,7 @@ export default function Home() {
 						</div>
 						<iframe
 							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3520.8816865715253!2d-82.41811502452003!3d28.05863692598297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2c7b963af1e73%3A0x885216ce5072fc9b!2sENB%20-%20Engineering%20Building%20II!5e0!3m2!1sen!2sus!4v1738160243407!5m2!1sen!2sus"
-							style={{ border: 0, width: '90%', height: '70%' }}
+							style={{ border: 0, width: '85%', height: '70%' }}
 							allowFullScreen
 							loading="lazy"
 							referrerPolicy="no-referrer-when-downgrade"
@@ -268,11 +352,19 @@ export default function Home() {
 					</Box>
 				</Box>
 
-        <div id="prizes" className={styles.prizes}>
+        {/* <div id="prizes" className={styles.prizes}>
           <PrizeSection />
-        </div>
+        </div> */}
 
-				<div id="faq" className={styles.faq}>
+				<Box id="faq" className={styles.faq} sx={{
+					padding: {xs: '2rem', sm: '3rem', md: '10rem', lg: '8rem'},
+					pt: {xs: '8rem', sm: '10rem', md: '10rem'},
+					pb: {xs: '16rem', sm: '16rem', md: '10rem'},
+					backgroundImage: 'url("/tornpaper2.png")', // Corrected with `url()`
+					backgroundSize: '100% 95%', // Ensures full coverage
+					backgroundPosition: 'center', // Centers the image
+					backgroundRepeat: 'no-repeat', // Prevents repeating
+				}}>
 					<Typography sx={{ fontSize: '4rem', fontWeight: 600 }}>
 						FAQ
 					</Typography>
@@ -282,15 +374,18 @@ export default function Home() {
 						<a href="mailto:gdscatusf@gmail.com">Contact Us!</a>
 					</Typography>
 					<FAQ />
-				</div>
+				</Box>
 
-				<div id="sponsors" className={styles.sponsors}>
+				<Box id="sponsors" className={styles.sponsors}>
 					<Sponsors />
-				</div>
+				</Box>
 
-				<div className={styles.footer}>
+				<Box className={styles.footer} sx={{
+					borderTop: '3px solid black',
+					pt: 1
+				}}>
 					<Footer />
-				</div>
+				</Box>
 			</div>
 		</div>
 	);
