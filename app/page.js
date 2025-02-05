@@ -288,7 +288,7 @@ export default function Home() {
 					<Box bgcolor="#f5f5f5"
 						sx={{
 							width: {
-								xs: '85%',
+								xs: '80%',
 								sm: '70%',
 								md: '50%',
 								lg: '30%',
@@ -305,7 +305,7 @@ export default function Home() {
 							borderRadius: '20px',
 							border: '3px solid black',
 							boxShadow: '5px 5px 0px black',
-							padding: '1.8rem',
+							padding: {xs: '1rem', md: '1.8rem'},
 							pt: '4rem',
 							pb: '4rem',
 							display: 'flex',
@@ -328,7 +328,7 @@ export default function Home() {
 						<div>
 							<Box sx={{
 								fontSize: {
-									xs: '1.05rem',
+									xs: '1.15rem',
 									sm: '1.2rem',
 									md: '1rem',
 									lg: '1.4rem',
@@ -348,13 +348,17 @@ export default function Home() {
 								<div>3820 USF Alumni Drive, Tampa, FL 33620</div>
 							</Box>
 						</div>
-						<iframe
-							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3520.8816865715253!2d-82.41811502452003!3d28.05863692598297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2c7b963af1e73%3A0x885216ce5072fc9b!2sENB%20-%20Engineering%20Building%20II!5e0!3m2!1sen!2sus!4v1738160243407!5m2!1sen!2sus"
-							style={{ border: 0, width: '80%', height: '60%' }}
-							allowFullScreen
-							loading="lazy"
-							referrerPolicy="no-referrer-when-downgrade"
-						/>
+						<Box sx={{
+							display: {xs: 'none', md: 'block'}
+						}}>
+							<iframe
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3520.8816865715253!2d-82.41811502452003!3d28.05863692598297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2c7b963af1e73%3A0x885216ce5072fc9b!2sENB%20-%20Engineering%20Building%20II!5e0!3m2!1sen!2sus!4v1738160243407!5m2!1sen!2sus"
+								style={{ border: 0, width: '100%', height: '100%' }}
+								allowFullScreen
+								loading="lazy"
+								referrerPolicy="no-referrer-when-downgrade"
+							/>
+						</Box>
 					</Box>
 				</Box>
 
