@@ -403,10 +403,7 @@ export default function Home() {
 					<Sponsors />
 				</Box>
 
-				<Box className={styles.footer} sx={{
-					borderTop: '3px solid black',
-					pt: 1
-				}}>
+				<Box className={styles.footer}>
 					<Footer />
 				</Box>
 			</div>
