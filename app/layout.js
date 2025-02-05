@@ -17,7 +17,7 @@ const abhayaLibre = Abhaya_Libre({
 
 export const metadata = {
 	title: 'HackUSF 2025',
-	description: 'GDSC at USF Offical Hackathon Website',
+	description: 'Join the official GDSC at USF Hackathon in Tampa, FL! Get key details on the opening ceremony, sponsors, and more. Build with AI and innovate with us!',
 };
 
 export default function RootLayout({ children }) {
