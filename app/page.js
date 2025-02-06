@@ -209,7 +209,7 @@ export default function Home() {
 					>
 						<Image
 							src="/fox_collage.png"
-							alt="Fox Collage"
+							alt="Fox Collage - HackUSF"
 							width={600} // Image width for aspect ratio
 							height={600} // Image height for aspect ratio
 							layout="responsive"
@@ -270,7 +270,7 @@ export default function Home() {
 						>
 							<Image
 								src="/about.png"
-								alt="about"
+								alt="about - HackUSF"
 								width={480} // Adjusted image width for a smaller size
 								height={480} // Adjusted image height for the aspect ratio
 								layout="intrinsic" // Keeps the aspect ratio and scales the image
@@ -372,7 +372,7 @@ export default function Home() {
 						>
 							<Image
 								src="/faq.png"
-								alt="about"
+								alt="faq - HackUSF"
 								width={300} // Adjusted image width for a smaller size
 								height={300} // Adjusted image height for the aspect ratio
 								layout="intrinsic" // Keeps the aspect ratio and scales the image
