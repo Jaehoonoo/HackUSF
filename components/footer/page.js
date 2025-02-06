@@ -25,7 +25,7 @@ export default function Footer() {
           <p><a href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" target="_blank">Code of Conduct</a></p>
         </div>
       </div>
-      <p>Made with 🖤  By The GDSC Team</p>
+      <p style={{fontSize: '1.2rem'}}>Made with 🖤  By The GDSC Team</p>
     </footer>
   )
 }
