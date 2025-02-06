@@ -7,9 +7,9 @@ import { useState } from "react";
 import styles from "./page.module.css";
 
 const sponsors = [
-  { src: "/sponsor_logos/microsoft.png", alt: "Microsoft", link: "https://microsoft.com" },
-  { src: "/sponsor_logos/moffitt.png", alt: "Moffitt", link: "https://moffitt.org" },
-  { src: "/sponsor_logos/standoutstickers.png", alt: "Standout Stickers", link: "https://standoutstickers.com" }
+  { src: "/sponsor_logos/microsoft.png", alt: "Microsoft - HackUSF", link: "https://microsoft.com" },
+  { src: "/sponsor_logos/moffitt.png", alt: "Moffitt - HackUSF", link: "https://moffitt.org" },
+  { src: "/sponsor_logos/standoutstickers.png", alt: "Standout Stickers - HackUSF", link: "https://standoutstickers.com" }
 ];
 
 export default function Sponsors() {

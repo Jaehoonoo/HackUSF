@@ -19,7 +19,7 @@ export default function Header() {
 
 	return (
 		<header className={styles.header}>
-			<Image src="/gdsclogo.webp" alt="logo" width={40} height={40} />
+			<Image src="/gdsclogo.webp" alt="logo - HackUSF" width={40} height={40} />
 
 			<IoMenu className={styles.menuIcon} size={40} onClick={handleMenu} />
 
