@@ -24,7 +24,7 @@ export const metadata = {
   openGraph: {
     title: "HackUSF 2025 - Tampa\'s Hackathon at USF | Innovate & Compete",
     description: 'Join the USF GDSC Hackathon 2025! Code, innovate, and compete at the University of South Florida. Build projects, win prizes, and network. Register now!',
-    url: "https://hack-usf.vercel.app",
+    url: "https://hackusf.com",
     siteName: "HackUSF",
     images: [
       {
