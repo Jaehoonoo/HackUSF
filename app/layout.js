@@ -18,7 +18,7 @@ const abhayaLibre = Abhaya_Libre({
 export const metadata = {
 	title: 'HackUSF 2025 - Tampa\'s Hackathon at USF | Innovate & Compete',
 	description: 'Join the USF GDSC Hackathon 2025! Code, innovate, and compete at the University of South Florida. Build projects, win prizes, and network. Register now!',
-	keywords: ["hack", "hackathon", "usf", "university of south florida", "usf hackathon", "hackusf", "hack usf", "usf hack"],
+	keywords: ["hack", "hackathon", "usf", "university of south florida", "usf hackathon", "hackusf", "hack usf", "usf hack", "2025", "hackusf 2025"],
   authors: [{ name: "GDSC at USF", url: "https://hackusf.com" }],
   robots: "index, follow",
   openGraph: {
