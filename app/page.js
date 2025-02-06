@@ -5,11 +5,11 @@ import Sponsors from '@/components/sponsors/page';
 import Footer from '@/components/footer/page';
 import ApplyButton from '@/components/applyButton/page';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from './page.module.css';
 import Image from "next/image";
 
-import { Box, Button, Typography } from '@mui/material/';
+import { Box, Typography } from '@mui/material/';
 import PrizeSection from '@/components/prizes/PrizeSection';
 import Link from 'next/link';
 import { useAuth } from '@clerk/nextjs';

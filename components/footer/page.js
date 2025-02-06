@@ -2,6 +2,7 @@
 
 import styles from "./page.module.css"
 import { FaDiscord, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { Typography } from "@mui/material";
 
 
 export default function Footer() {
@@ -10,7 +11,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.links}>
         <div className={styles.title}>
-          <h1>HackUSF 2025</h1>
+          <Typography variant="h4" fontWeight="600">HackUSF 2025</Typography>
           <div className={styles.logos}>
             <FaDiscord onClick={() => window.open("https://discord.gg/Zdx4Hkt33W", "_blank", "noopener,noreferrer")} />
             <FaInstagram onClick={() => window.open("https://www.instagram.com/usfgdsc/", "_blank", "noopener,noreferrer")} />

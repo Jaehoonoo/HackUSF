@@ -51,7 +51,7 @@ const YapContent = () => {
 const PrizeSection = () => {
 	return (
 		<>
-			<Typography variant="h1" fontWeight={'bold'} marginBottom={'2rem'}>
+			<Typography variant="h2" fontWeight={'bold'} marginBottom={'2rem'}>
 				Prizes
 			</Typography>
 			<Grid container sx={{

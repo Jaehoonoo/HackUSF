@@ -2,7 +2,7 @@
 import styles from './page.module.css';
 import Image from "next/image";
 import { Button } from '@mui/material';
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { IoMenu } from "react-icons/io5";
 import { useState } from 'react';
