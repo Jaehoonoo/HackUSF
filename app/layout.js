@@ -16,8 +16,26 @@ const abhayaLibre = Abhaya_Libre({
 });
 
 export const metadata = {
-	title: 'HackUSF 2025 | Tampa\'s Hackathon at USF | Innovate & Compete',
-	description: 'Join the official GDSC at USF Hackathon in Tampa, FL! Get key details on the opening ceremony, sponsors, and more. Build with AI and innovate with us!',
+	title: 'HackUSF 2025 - Tampa\'s Hackathon at USF | Innovate & Compete',
+	description: 'Join the USF GDSC Hackathon 2025! Code, innovate, and compete at the University of South Florida. Build projects, win prizes, and network. Register now!',
+	keywords: ["hack", "hackathon", "usf", "university of south florida", "usf hackathon", "hackusf", "hack usf", "usf hack"],
+  authors: [{ name: "GDSC at USF", url: "https://hackusf.com" }],
+  robots: "index, follow",
+  openGraph: {
+    title: "HackUSF 2025 - Tampa\'s Hackathon at USF | Innovate & Compete",
+    description: 'Join the USF GDSC Hackathon 2025! Code, innovate, and compete at the University of South Florida. Build projects, win prizes, and network. Register now!',
+    url: "https://hack-usf.vercel.app",
+    siteName: "HackUSF",
+    images: [
+      {
+        url: "/fox_collage.png",
+        width: 912,
+        height: 710,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  }
 };
 
 export default function RootLayout({ children }) {
