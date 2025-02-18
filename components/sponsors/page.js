@@ -7,10 +7,16 @@ import { useState } from "react";
 import styles from "./page.module.css";
 
 const sponsors = [
-  { src: "/sponsor_logos/microsoft.png", alt: "Microsoft - HackUSF", link: "https://microsoft.com" },
-  { src: "/sponsor_logos/moffitt.png", alt: "Moffitt - HackUSF", link: "https://moffitt.org" },
-  { src: "/sponsor_logos/standoutstickers.png", alt: "Standout Stickers - HackUSF", link: "https://standoutstickers.com" }
+  // { src: "/sponsor_logos/microsoft.png", alt: "Microsoft - HackUSF", link: "https://microsoft.com" },
+  // { src: "/sponsor_logos/moffitt.png", alt: "Moffitt - HackUSF", link: "https://moffitt.org" },
+  // { src: "/sponsor_logos/standoutstickers.png", alt: "Standout Stickers - HackUSF", link: "https://standoutstickers.com" }
+  {src: "/tbd.png", alt: "To be Determined - HackUSF" }
 ];
+
+const partners = [
+  { src: "/sponsor_logos/microsoft.png", alt: "Microsoft - HackUSF", link: "https://microsoft.com" },
+  
+]
 
 export default function Sponsors() {
   return (
@@ -33,6 +39,24 @@ export default function Sponsors() {
       <Box className={styles.sponsorsList}>
         {sponsors.map((sponsor, index) => (
           <SponsorLogo key={index} {...sponsor} />
+        ))}
+      </Box>
+
+      <Typography
+        sx={{
+          fontSize: "4rem",
+          fontWeight: 600,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center"
+        }}
+      >
+        Partners
+      </Typography>
+      <Box className={styles.sponsorsList}>
+        {partners.map((partner, index) => (
+          <SponsorLogo key={index} {...partner} />
         ))}
       </Box>
     </Box>
