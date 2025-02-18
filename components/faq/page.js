@@ -49,6 +49,7 @@ export default function FAQ() {
           key={index}
           expanded={expanded === index}
           onChange={() => handleChange(index)}
+          disableGutters
           sx={{
             width: "100%",
             borderRadius: "8px",
