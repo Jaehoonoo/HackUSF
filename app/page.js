@@ -114,7 +114,7 @@ export default function Home() {
 											xs: '3rem',
 											md: '3rem',
 											lg: '3.5rem',
-											xl: '4.5rem',
+											xl: '4rem',
 										},
 								}}
 							>
@@ -124,7 +124,7 @@ export default function Home() {
 								variant="h3"
 								sx={{
 									fontWeight: 700,
-									pb: 2,
+									pb: 1.2,
 									textAlign: 'center',
 									color: 'black',
 									letterSpacing: '1px',
@@ -132,7 +132,6 @@ export default function Home() {
 											xs: '2rem',
 											md: '2rem',
 											lg: '2.5rem',
-											xl: '3.5rem',
 										},
 								}}
 							>
