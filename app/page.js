@@ -120,6 +120,23 @@ export default function Home() {
 							>
 								HackUSF 2025
 							</Typography>
+							<Typography
+								variant="h3"
+								sx={{
+									fontWeight: 700,
+									textAlign: 'center',
+									color: 'black',
+									letterSpacing: '1px',
+									fontSize: {
+											xs: '2rem',
+											md: '2rem',
+											lg: '2.5rem',
+											xl: '3.5rem',
+										},
+								}}
+							>
+								April 5-6
+							</Typography>
 							<Box
 								sx={{
 									display: 'flex',
@@ -129,7 +146,7 @@ export default function Home() {
 									alignItems: 'center',  // Center the boxes vertically
 								}}
 							>
-								<Box
+								{/* <Box
 									sx={{
 										fontSize: {
 											xs: '14px',
@@ -144,7 +161,7 @@ export default function Home() {
 									}}
 								>
 									April 5-6
-								</Box>
+								</Box> */}
 								<Box
 									sx={{
 										fontSize: {
@@ -184,7 +201,7 @@ export default function Home() {
 
 							<p>
 								Join the{' '}
-								<a href="https://devpost.com/" target="_blank">
+								<a href="https://hackusf.devpost.com/" target="_blank">
 									Devpost
 								</a>{' '}
 								and{' '}
