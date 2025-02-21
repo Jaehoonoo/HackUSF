@@ -52,7 +52,7 @@ export default function Header() {
 									boxShadow: '0px 0x 0px black', // Shrink shadow slightly
 									border: '3px solid black',
 								},
-								backgroundColor: '#88AAEE'
+								backgroundColor: '#FF6B6B'
 							}}
 						>
 							Login
