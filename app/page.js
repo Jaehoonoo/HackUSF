@@ -124,6 +124,7 @@ export default function Home() {
 								variant="h3"
 								sx={{
 									fontWeight: 700,
+									pb: 2,
 									textAlign: 'center',
 									color: 'black',
 									letterSpacing: '1px',
