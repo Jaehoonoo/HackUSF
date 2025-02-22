@@ -198,7 +198,6 @@ export default function Home() {
 						</div>
 						<div className={styles.herolinks}>
 							<ApplyButton />
-
 							<p>
 								Join the{' '}
 								<a href="https://hackusf.devpost.com/" target="_blank">
