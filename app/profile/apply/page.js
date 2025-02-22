@@ -94,7 +94,7 @@ export default function Apply() {
           return prevFormData;
         });
         hasSetEmail.current = true;
-      }, 500);
+      }, 700);
   
       // Cleanup function to clear the timeout when dependencies change or component unmounts
       return () => clearTimeout(timeoutId);
