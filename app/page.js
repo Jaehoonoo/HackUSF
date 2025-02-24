@@ -297,7 +297,7 @@ export default function Home() {
 
 						<p>
 							The Google Developer Student Club at USF is hosting its first-ever{' '}
-							<b>24-hour Hackathon</b>, bringing students together to innovate,
+							<b>24-hour Hackathon</b>, bringing students from all universities together to innovate,
 							build, and compete.
 						</p>
 					</Box>
