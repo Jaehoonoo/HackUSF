@@ -16,6 +16,7 @@ export async function POST(req) {
       gender: data.gender,
       ethnicity: data.ethnicity,
       school: data.school,
+      otherSchool: data.otherSchool,
       major: data.major,
       levelOfStudy: data.levelOfStudy,
       firstHackathon: data.firstHackathon,
