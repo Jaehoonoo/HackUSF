@@ -18,6 +18,7 @@ export async function POST(req) {
         ethnicity: "",
 
         school: "",
+        otherSchool: "",
         major: "",
         levelOfStudy: "",
 

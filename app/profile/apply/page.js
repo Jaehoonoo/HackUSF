@@ -53,7 +53,6 @@ export default function Apply() {
   const { userId } = useAuth()
   const [showPopup, setShowPopup] = useState(false)
   const [loading, setLoading] = useState(false);
-
   
 
   const [formData, setFormData] = useState({
@@ -67,6 +66,7 @@ export default function Apply() {
     ethnicity: "",
 
     school: "",
+    otherSchool: "",
     major: "",
     levelOfStudy: "",
 
@@ -167,18 +167,6 @@ export default function Apply() {
     }, 3000);
 
   };
-
-  // useEffect(() => {
-  //   if(userId) {
-  //     const fetchApplication = async () => {
-  //       const result = await getApplication(userId)
-  //       if (result && result.success) {
-  //         setFormData(result.data)
-  //       }
-  //     }
-  //     fetchApplication()
-  //   }
-  // }, [userId])
 
   return (
     <form onSubmit={handleSubmit}>
@@ -313,6 +301,18 @@ export default function Apply() {
         name="school"
         sx={{ width: "100%", margin: "normal" }}
       />
+      {/* Conditionally Render Other School Name Field */}
+      {formData.school === "Other" && (
+        <TextField
+          label="Other University"
+          variant="outlined"
+          name="otherSchool"
+          value={formData.otherSchool}
+          onChange={handleChange}
+          sx={{ width: "100%", margin: "normal" }}
+          required
+        />
+      )}
       <Autocomplete
         disablePortal
         options={majorsList}
