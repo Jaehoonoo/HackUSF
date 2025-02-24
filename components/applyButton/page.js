@@ -1,3 +1,4 @@
+"use client"
 import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 import { Button } from '@mui/material';

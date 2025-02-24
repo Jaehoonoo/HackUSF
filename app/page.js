@@ -1,11 +1,10 @@
-'use client';
 import Header from '@/components/header/page';
 import FAQ from '@/components/faq/page';
 import Sponsors from '@/components/sponsors/page';
 import Footer from '@/components/footer/page';
 import ApplyButton from '@/components/applyButton/page';
+import AuthClient from '@/components/authClient/page';
 
-import { useEffect } from 'react';
 import styles from './page.module.css';
 import Image from "next/image";
 
@@ -14,68 +13,45 @@ import PrizeSection from '@/components/prizes/PrizeSection';
 import Link from 'next/link';
 import { useAuth } from '@clerk/nextjs';
 
-const createProfile = async (userId) => {
-	try {
-		const response = await fetch('/api/createProfile', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({userId}),
-		})
-		const result = await response.json()
-		console.log(result)
-
-	} catch (error) {
-		console.error("Error with creating profile: ", error)
-	}
-}
-
 
 export default function Home() {
-	const { isSignedIn, userId } = useAuth();
+	// const { isSignedIn, userId } = useAuth();
 
-	useEffect(() => {
-		// Function to adjust scroll position with offset
-		const adjustScrollPosition = (event) => {
-			// Only handle click events for anchor links
-			const targetId = event.target.getAttribute('href');
-			if (targetId && targetId.startsWith('#') && !targetId.endsWith('about')) {
-				event.preventDefault(); // Prevent default anchor link behavior
-				const targetElement = document.querySelector(targetId);
-				if (targetElement) {
-					window.scrollTo({
-						top: targetElement.offsetTop - 80, // Adjust this value to match your header height
-						behavior: 'smooth',
-					});
-				}
-			}
-		};
+	// useEffect(() => {
+	// 	// Function to adjust scroll position with offset
+	// 	const adjustScrollPosition = (event) => {
+	// 		// Only handle click events for anchor links
+	// 		const targetId = event.target.getAttribute('href');
+	// 		if (targetId && targetId.startsWith('#') && !targetId.endsWith('about')) {
+	// 			event.preventDefault(); // Prevent default anchor link behavior
+	// 			const targetElement = document.querySelector(targetId);
+	// 			if (targetElement) {
+	// 				window.scrollTo({
+	// 					top: targetElement.offsetTop - 80, // Adjust this value to match your header height
+	// 					behavior: 'smooth',
+	// 				});
+	// 			}
+	// 		}
+	// 	};
 
-		// Add event listener for anchor links
-		const links = document.querySelectorAll('a[href^="#"]');
-		links.forEach((link) => {
-			link.addEventListener('click', adjustScrollPosition);
-		});
+	// 	// Add event listener for anchor links
+	// 	const links = document.querySelectorAll('a[href^="#"]');
+	// 	links.forEach((link) => {
+	// 		link.addEventListener('click', adjustScrollPosition);
+	// 	});
 
-		// Cleanup the event listeners when component unmounts
-		return () => {
-			links.forEach((link) => {
-				link.removeEventListener('click', adjustScrollPosition);
-			});
-		};
-	}, []);
-
-	/* Creates user profile */
-	useEffect(() => {
-		if (isSignedIn && userId) {
-			createProfile(userId)
-		}
-	}, [isSignedIn, userId]);
+	// 	// Cleanup the event listeners when component unmounts
+	// 	return () => {
+	// 		links.forEach((link) => {
+	// 			link.removeEventListener('click', adjustScrollPosition);
+	// 		});
+	// 	};
+	// }, []);
 
 	return (
 		<div>
 			<Header />
+			<AuthClient />
 
 			<div className={styles.container}>
 				<Box className={styles.hero} sx={{
