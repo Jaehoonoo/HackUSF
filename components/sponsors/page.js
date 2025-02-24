@@ -20,7 +20,7 @@ const partners = [
 
 export default function Sponsors() {
   return (
-    <Box className={styles.container} sx={{pt: 3}}>
+    <Box className={styles.container} sx={{pt: 12}}>
       <Typography
         sx={{
           fontSize: "4rem",
