@@ -25,3 +25,7 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
+.sponsor { 
+  padding: 1rem;
+}
