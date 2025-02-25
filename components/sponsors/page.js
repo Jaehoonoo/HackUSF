@@ -12,6 +12,7 @@ const platinumSponsors = [
 
 const goldSponsors = [
   { src: "/sponsor_logos/moffitt.png", alt: "Moffitt - HackUSF", link: "https://moffitt.org" },
+  { src: "/sponsor_logos/google.png", alt: "Google - HackUSF", link: "https://about.google/" },
 ];
 
 const silverSponsors = [
