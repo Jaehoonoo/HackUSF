@@ -16,7 +16,7 @@ const faqData = [
   { question: "What kind of activities will there be?", answer: "We will post the schedule closer to the event. There will be workshops and activities to take a break and meet other hackers and our wonderful sponsors." },
   { question: "What is HackUSF?", answer: "HackUSF is an event where students 'hack' together and create an app, website, game, etc. in 24 hours. There will be no malicious 'hacking'." },
   { question: "Will hardware be available?", answer: "We do not have hardware available, but you are welcome to bring your own. Due to building fire codes, please do not bring soldering kits." },
-  { question: "Is there a deadline to apply?", answer: "We will send out acceptances about 30 days before the event. There will be no deadline to apply as we will also accept walk-ins." }
+  { question: "Is there a deadline to apply?", answer: "We will send out acceptances about 2 weeks before the event. There will be no deadline to apply as we will also accept walk-ins." }
 ];
 
 export default function FAQ() {
