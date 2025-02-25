@@ -6,54 +6,40 @@ import { useState } from "react";
 
 import styles from "./page.module.css";
 
-const sponsors = [
-  // { src: "/sponsor_logos/microsoft.png", alt: "Microsoft - HackUSF", link: "https://microsoft.com" },
-  // { src: "/sponsor_logos/moffitt.png", alt: "Moffitt - HackUSF", link: "https://moffitt.org" },
-  // { src: "/sponsor_logos/standoutstickers.png", alt: "Standout Stickers - HackUSF", link: "https://standoutstickers.com" }
-  {src: "/tbd.png", alt: "To be Determined - HackUSF" }
+const platinumSponsors = [
+
+];
+
+const goldSponsors = [
+  { src: "/sponsor_logos/moffitt.png", alt: "Moffitt - HackUSF", link: "https://moffitt.org" },
+];
+
+const silverSponsors = [
+
+];
+
+const bronzeSponsors = [
+
 ];
 
 const partners = [
   { src: "/sponsor_logos/microsoft.png", alt: "Microsoft - HackUSF", link: "https://microsoft.com" },
-  
-]
+];
 
 export default function Sponsors() {
   return (
-    <Box className={styles.container} sx={{pt: 12}}>
-      <Typography
-        sx={{
-          fontSize: "4rem",
-          fontWeight: 600,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center"
-        }}
-      >
-        Sponsors
-      </Typography>
+    <Box className={styles.container} sx={{ pt: 12 }}>
+      <Typography sx={{ fontSize: "4rem", fontWeight: 600, textAlign: "center" }}>Sponsors</Typography>
       <Typography fontSize="1.1rem">
         Interested in sponsoring HackUSF 2025? Email us at <a href="mailto:gdscatusf@gmail.com">gdscatusf@gmail.com</a>
       </Typography>
-      <Box className={styles.sponsorsList}>
-        {sponsors.map((sponsor, index) => (
-          <SponsorLogo key={index} {...sponsor} />
-        ))}
-      </Box>
+      
+      <SponsorSection sponsors={platinumSponsors} />
+      <SponsorSection sponsors={goldSponsors} />
+      <SponsorSection sponsors={silverSponsors} />
+      <SponsorSection sponsors={bronzeSponsors} />
 
-      <Typography
-        sx={{
-          fontSize: "4rem",
-          fontWeight: 600,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center"
-        }}
-      >
-        Partners
-      </Typography>
+      <Typography sx={{ fontSize: "4rem", fontWeight: 600, textAlign: "center", mt: 6 }}>Partners</Typography>
       <Box className={styles.sponsorsList}>
         {partners.map((partner, index) => (
           <SponsorLogo key={index} {...partner} />
@@ -63,10 +49,22 @@ export default function Sponsors() {
   );
 }
 
-// ✅ Updated SponsorLogo component using `onLoad`
-function SponsorLogo({ src, alt, link }) {
-  const [dimensions, setDimensions] = useState({ width: 200, height: 200 }); // Default size
+function SponsorSection({ title, sponsors }) {
+  if (sponsors.length === 0) return null;
+  return (
+    <>
+      <Typography sx={{ fontSize: "2.5rem", fontWeight: 500, textAlign: "center" }}>{title}</Typography>
+      <Box className={styles.sponsorsList}>
+        {sponsors.map((sponsor, index) => (
+          <SponsorLogo key={index} {...sponsor} />
+        ))}
+      </Box>
+    </>
+  );
+}
 
+function SponsorLogo({ src, alt, link }) {
+  const [dimensions, setDimensions] = useState({ width: 200, height: 200 });
   return (
     <Box className={styles.sponsor}>
       <a href={link} target="_blank" rel="noopener noreferrer">
