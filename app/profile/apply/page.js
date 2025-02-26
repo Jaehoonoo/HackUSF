@@ -77,7 +77,8 @@ export default function Apply() {
 
     disclaimer: false,
     codeOfConduct: false,
-    privacyPolicy: false
+    privacyPolicy: false,
+    notifications: false
   });
 
   const { user, isLoaded } = useUser();
@@ -427,6 +428,17 @@ export default function Apply() {
             </>
           }
           name="privacyPolicy"
+          onChange={handleChange}
+        />
+        <Typography variant="h6">Notifications (Optional)</Typography>
+        <FormControlLabel
+          control={<Checkbox checked={formData.notifications}/>}
+          label={
+            <>
+              I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements.
+            </>
+          }
+          name="notifications"
           onChange={handleChange}
         />
       </FormGroup>

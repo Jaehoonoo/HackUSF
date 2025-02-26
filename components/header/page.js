@@ -1,7 +1,7 @@
 'use client';
 import styles from './page.module.css';
 import Image from "next/image";
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { IoMenu } from "react-icons/io5";
@@ -18,7 +18,9 @@ export default function Header() {
 	};
 
 	return (
-		<header className={styles.header}>
+		<Box className={styles.header} sx={{
+			paddingRight: {xs: "2.2rem", sm: "7.5rem", md: "9.2rem", lg: "9rem"},
+		}}>
 			<Image src="/gdsclogo.webp" alt="logo - HackUSF" width={40} height={40} />
 
 			<IoMenu className={styles.menuIcon} size={40} onClick={handleMenu} />
@@ -91,6 +93,6 @@ export default function Header() {
 				</ul>
 				
 			</div>
-		</header>
+		</Box>
 	);
 }

@@ -50,6 +50,36 @@ export default function Home() {
 
 	return (
 		<div>
+				<Box
+					sx={{
+						display: "block",
+						position: "fixed",
+						top: "0px",
+						right: { xs: "auto", sm: "20px", md: "20px", lg: "20px" }, // Adjust right position per screen size
+						left: {xs: "110px", sm: "auto"},
+						maxWidth: "100px",
+						minWidth: "60px",
+						width: "10%",
+						zIndex: 10000,
+					}}
+				>
+					<a
+						id="mlh-trust-badge"
+						href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2025-season&utm_content=white"
+						target="_blank"
+					>
+						<Image
+							src="https://s3.amazonaws.com/logged-assets/trust-badge/2025/mlh-trust-badge-2025-black.svg"
+							alt="Major League Hacking 2025 Hackathon Season"
+							width={180}
+							height={180}
+							layout="responsive"
+							objectFit="contain"
+						/>
+					</a>
+				</Box>
+
+
 			<Header />
 			<AuthClient />
 

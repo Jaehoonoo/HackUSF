@@ -32,7 +32,8 @@ export async function POST(req) {
         rsvp: false,
         disclaimer: false,
         codeOfConduct: false,
-        privacyPolicy: false
+        privacyPolicy: false,
+        notifications: false,
       })
     } else {
       console.log("User already exists")
