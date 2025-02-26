@@ -124,7 +124,7 @@ export default function Home() {
 										},
 								}}
 							>
-								HackUSF 2025
+								HackUSF
 							</Typography>
 							<Typography
 								variant="h3"
@@ -141,7 +141,7 @@ export default function Home() {
 										},
 								}}
 							>
-								April 5-6
+								April 5-6, 2025
 							</Typography>
 							<Box
 								sx={{
