@@ -100,7 +100,7 @@ export default function Home() {
 				}}>
 					<div className={styles.overlay}>
 						<div className={styles.title}>
-							<Typography sx={{
+							<Typography variant="h1" sx={{
 								fontSize: {
 									xs: '1.2rem',
 									md: '1.3rem',
@@ -109,7 +109,7 @@ export default function Home() {
 								},
 							}}>GDSC x Build with AI Proudly Presents</Typography>
 							<Typography
-								variant="h1"
+								variant="h2"
 								sx={{
 									fontWeight: 700,
 									textTransform: 'uppercase',
