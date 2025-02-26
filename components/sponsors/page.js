@@ -26,7 +26,7 @@ const bronzeSponsors = [
 const partners = [
   { src: "/sponsor_logos/microsoft.png", alt: "Microsoft - HackUSF", link: "https://microsoft.com" },
   { src: "/sponsor_logos/coe.png", alt: "College of Engineering USF - HackUSF", link: "https://www.usf.edu/engineering/"  },
-  { src: "/sponsor_logos/cob.png", alt: "Muma College of Business USF - HackUSF", link: "https://usf.edu/business" }
+  // { src: "/sponsor_logos/cob.png", alt: "Muma College of Business USF - HackUSF", link: "https://usf.edu/business" }
 ];
 
 export default function Sponsors() {
