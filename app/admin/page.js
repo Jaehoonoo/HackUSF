@@ -4,13 +4,10 @@ import React, { useState } from 'react';
 import { 
   Box, 
   Container, 
-  Grid, 
   Paper, 
   Typography, 
   Card, 
   CardContent, 
-  CardHeader,
-  Divider,
   IconButton,
   Table,
   TableBody,
@@ -54,7 +51,7 @@ const initialData = {
 // Create a component for stat cards
 const StatCard = ({ title, value, icon, color }) => {
   return (
-    <Card sx={{ height: '100%' }}>
+    <Card sx={{ height: '100%', width: '100%' }}>
       <CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
           <Typography variant="h6" color="text.secondary">
@@ -121,57 +118,98 @@ const UserDashboard = () => {
         </IconButton>
       </Box>
 
-      {/* Main Stats */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} sm={6} md={4}>
+      {/* Main Stats with Flexbox layout instead of Grid */}
+      <Box sx={{ 
+        display: 'flex', 
+        flexWrap: 'wrap', 
+        gap: 3,
+        mb: 4 
+      }}>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',  // Full width on extra small screens
+            sm: '1 1 calc(50% - 12px)',  // Two per row on small screens (with gap considered)
+            md: '1 1 calc(33.333% - 16px)'  // Three per row on medium screens and up
+          }
+        }}>
           <StatCard 
             title="Pending Users" 
             value={data.pendingUsers} 
             icon={<PendingIcon sx={{ color: 'warning.main' }} />} 
             color="warning"
           />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
           <StatCard 
             title="Accepted Users" 
             value={data.acceptedUsers} 
             icon={<CheckCircleIcon sx={{ color: 'success.main' }} />} 
             color="success"
           />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
           <StatCard 
             title="Rejected Users" 
             value={data.rejectedUsers} 
             icon={<CancelIcon sx={{ color: 'error.main' }} />} 
             color="error"
           />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
           <StatCard 
             title="Checked In Users" 
             value={data.checkedInUsers} 
             icon={<CheckedInIcon sx={{ color: 'info.main' }} />} 
             color="info"
           />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
           <StatCard 
             title="Total Users" 
             value={totalUsers} 
             icon={<PeopleIcon sx={{ color: 'primary.main' }} />} 
             color="primary"
           />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
           <StatCard 
             title="Total Checked In" 
             value={totalCheckedInUsers} 
             icon={<CheckedInIcon sx={{ color: 'secondary.main' }} />} 
             color="secondary"
           />
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
 
       {/* Recent Users Table */}
       <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
