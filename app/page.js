@@ -75,6 +75,7 @@ export default function Home() {
 							height={180}
 							layout="responsive"
 							objectFit="contain"
+							loading="lazy"
 						/>
 					</a>
 				</Box>
@@ -237,6 +238,7 @@ export default function Home() {
 							layout="responsive"
 							objectFit="contain"
 							quality={100}
+							loading="lazy"
 						/>
 					</Box>
 
@@ -298,6 +300,7 @@ export default function Home() {
 								layout="intrinsic" // Keeps the aspect ratio and scales the image
 								objectFit="contain" // Keeps the whole image visible within the container
 								quality={100}
+								loading="lazy"
 							/>
 						</Box>
 
@@ -400,6 +403,7 @@ export default function Home() {
 								layout="intrinsic" // Keeps the aspect ratio and scales the image
 								objectFit="contain" // Keeps the whole image visible within the container
 								quality={100}
+								loading="lazy"
 							/>
 						</Box>
 					<Typography sx={{ fontSize: {xs: '1.1rem', sm: '1.2rem', md: '1.4rem'}, mb: 3 }}>
