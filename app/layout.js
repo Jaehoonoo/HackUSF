@@ -26,8 +26,8 @@ export const metadata = {
   authors: [{ name: "GDSC at USF", url: "https://hackusf.com" }],
   robots: "index, follow",
   openGraph: {
-    title: "HackUSF 2025 - Tampa\'s Hackathon at USF | Innovate & Compete",
-    description: 'Join the USF GDSC Hackathon 2025! Code, innovate, and compete at the University of South Florida. Build projects, win prizes, and network. Register now!',
+    title: "HackUSF 2025 - Tampa\'s Hackathon at USF",
+    description: 'Join USF GDSC Hackathon 2025! Innovate and compete in HackUSF at the University of South Florida. Build projects, win prizes, and network. Register now!',
     url: "https://hackusf.com",
     siteName: "HackUSF",
     images: [
