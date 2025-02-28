@@ -273,6 +273,9 @@ export default function Apply() {
           "Native Hawaiian or Other Pacific Islander",
           "White",
           "Not Hispanic or Latino",
+          "Prefer not to say",
+          "Two or more",
+          "Other"
         ]}
         renderInput={(params) => <TextField {...params} label="Ethnicity" required />}
         value={formData.ethnicity}
