@@ -54,6 +54,12 @@ export default function Apply() {
   const [showPopup, setShowPopup] = useState(false)
   const [loading, setLoading] = useState(false);
   
+  // store user resume
+  const [file, setFile] = useState(null)
+
+  const handleFileChange = async (e) => {
+    setFile(e.target.files[0]);
+  }
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -148,12 +154,33 @@ export default function Apply() {
   };
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (loading) return; // Prevent multiple submissions
 
     setLoading(true); // Disable button
+
+    if (file) {
+      const resumeData = new FormData()
+      resumeData.append('userId', userId)
+      resumeData.append('resume', file)
+
+      try {
+        const response = await fetch('/api/uploadResume', {
+          method: 'POST',
+          body: resumeData,
+        });
+    
+        if (response.ok) {
+          console.log('File uploaded successfully!');
+        } else {
+          console.error('File upload failed');
+        }
+      } catch (error) {
+        console.error('Error uploading resume:', error);
+      }
+    }
 
     // Make API call to submit the form data
     saveApplication(userId, formData);
@@ -391,6 +418,37 @@ export default function Apply() {
           margin="normal"
           sx={{ width: "100%" }}
         />
+      </FormGroup>
+
+      {/* Resume */}
+      <FormGroup>
+        <Typography variant="h6">Resume (Optional)</Typography>
+        <Button component="label"
+          sx={{
+            padding: "8px",
+            textTransform: 'none',
+            color: 'black',
+            fontWeight: 700,
+            fontSize: "1rem",
+            borderRadius: '18px',
+            boxShadow: '5px 5px 0px black',
+            border: '3px solid black',
+            backgroundColor: '#f8f8f8',
+            transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+
+            '&:hover': {
+              transform: 'translate(3px, 3px)',
+              boxShadow: '0px 0px 0px black',
+              border: '3px solid black',
+            },
+          }}
+        >
+          Upload File
+          <input type="file" hidden onChange={handleFileChange} accept=".pdf, .docx" />
+        </Button>
+        <Box mt={1}>
+          {file && <Typography variant="body1">{file.name}</Typography>}
+        </Box>
       </FormGroup>
 
       {/* Disclaimer/COC/Privacy Section */}
