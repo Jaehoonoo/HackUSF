@@ -14,7 +14,7 @@ const auth = new google.auth.GoogleAuth({
 
 const drive = google.drive({ version: "v3", auth });
 
-const FOLDER_ID = "1u9aXG38prb3RRW-c2IQuTi5u_IxS3xs0";
+const FOLDER_ID = process.env.NEXT_PUBLIC_FOLDER_ID
 
 export async function POST(request) {
   try {
