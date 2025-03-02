@@ -48,6 +48,16 @@ export default function RootLayout({ children }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": "https://hackusf.com",
+            "name": "HackUSF",
+            "alternateName": "HackUSF 2025"
+          })}
+        </script>
       </Head>
 			<body className={`${poppins.className}`}>
 				<AppRouterCacheProvider>
