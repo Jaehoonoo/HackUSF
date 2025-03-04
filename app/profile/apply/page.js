@@ -17,14 +17,14 @@ import countriesList from "./countriesList";
 import universitiesList from "./universitiesList";
 import majorsList from "./majorsList";
 
-const saveApplication = async (userId, formData) => {
+const saveApplication = async (userId, formData, fileName) => {
   try {
     const response = await fetch('/api/saveApplication', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({userId, ...formData}),
+      body: JSON.stringify({userId, ...formData, fileName}),
     })
   } catch (error) {
     console.error('Error saving application', error)
@@ -54,11 +54,12 @@ export default function Apply() {
   const [showPopup, setShowPopup] = useState(false)
   const [loading, setLoading] = useState(false);
   
-  // store user resume
   const [file, setFile] = useState(null)
+  const [fileName, setFileName] = useState("")
 
   const handleFileChange = async (e) => {
     setFile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
   }
 
   const [formData, setFormData] = useState({
@@ -114,6 +115,7 @@ export default function Apply() {
       const fetchApplication = async () => {
         const result = await getApplication(userId);
         if (result && result.success) {
+          setFileName(result.data.fileName)
           setFormData((prevFormData) => {
             // Only update if there's a change in data
             if (prevFormData !== result.data) {
@@ -183,7 +185,7 @@ export default function Apply() {
     }
 
     // Make API call to submit the form data
-    saveApplication(userId, formData);
+    saveApplication(userId, formData, fileName);
 
     // Show popup message
     setShowPopup(true);
@@ -425,6 +427,7 @@ export default function Apply() {
         <Typography variant="h6">Resume (Optional)</Typography>
         <Button component="label"
           sx={{
+            width: "150px",
             padding: "8px",
             textTransform: 'none',
             color: 'black',
@@ -447,7 +450,7 @@ export default function Apply() {
           <input type="file" hidden onChange={handleFileChange} accept=".pdf, .docx" />
         </Button>
         <Box mt={1}>
-          {file && <Typography variant="body1">{file.name}</Typography>}
+          {fileName && <Typography variant="body1">{fileName}</Typography>}
         </Box>
       </FormGroup>
 

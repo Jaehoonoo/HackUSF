@@ -23,6 +23,7 @@ export async function POST(req) {
       shirtSize: data.shirtSize,
       dietaryRestrictions: data.dietaryRestrictions,
       otherAccommodations: data.otherAccommodations,
+      fileName: data.fileName,
       disclaimer: data.disclaimer,
       codeOfConduct: data.codeOfConduct,
       privacyPolicy: data.privacyPolicy,
