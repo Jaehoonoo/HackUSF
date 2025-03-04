@@ -9,6 +9,7 @@ import {
   FormControlLabel,
   Typography,
   Autocomplete,
+  CircularProgress
 } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 import { useAuth, useUser } from "@clerk/nextjs";
@@ -519,6 +520,7 @@ export default function Apply() {
           type="submit"
           disabled={loading}
           sx={{
+            height: '56px',
             width: 'max(200px, 20vw)',
             textTransform: 'none',
             color: 'black',
@@ -540,7 +542,7 @@ export default function Apply() {
             },
           }}
         >
-          Apply/Save
+          {loading ? <CircularProgress size={32} color="inherit" /> : 'Apply/Save'}
         </Button>
       </Box>
 
