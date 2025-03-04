@@ -36,6 +36,9 @@ yarn-error.log*
 # google service account
 google-service-account*
 
+# uploads
+uploads/
+
 # vercel
 .vercel
 

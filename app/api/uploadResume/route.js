@@ -2,7 +2,7 @@ import { db } from "@/firebase"; // Firestore database instance
 import { doc, updateDoc } from "firebase/firestore";
 
 import { google } from "googleapis";
-import { writeFile, mkdir } from "fs/promises";
+import { writeFile, mkdir, unlink } from "fs/promises";
 import { createReadStream, existsSync } from "fs";
 import path from "path";
 
@@ -76,6 +76,9 @@ export async function POST(request) {
     // Update Firestore User Profile with Resume URL
     const userRef = doc(db, "users", userId);
     await updateDoc(userRef, { resumeURL: fileUrl });
+
+    // Delete the file from the uploads folder after successful upload
+    await unlink(filePath);
 
     return new Response(
       JSON.stringify({ 
