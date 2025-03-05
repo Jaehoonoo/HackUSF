@@ -100,7 +100,7 @@ const UserDashboard = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
-
+  // TODO: figure out how to populate data and organize users by status
   const [userData, setUserData] = useState({
     firstName: '',
     lastName: '',
