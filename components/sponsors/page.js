@@ -26,7 +26,8 @@ const bronzeSponsors = [
 const partners = [
   { src: "/sponsor_logos/microsoft.png", alt: "Microsoft - HackUSF", link: "https://microsoft.com" },
   { src: "/sponsor_logos/coe.png", alt: "College of Engineering USF - HackUSF", link: "https://www.usf.edu/engineering/"  },
-  // { src: "/sponsor_logos/cob.png", alt: "Muma College of Business USF - HackUSF", link: "https://usf.edu/business" }
+  // { src: "/sponsor_logos/cob.png", alt: "Muma College of Business USF - HackUSF", link: "https://usf.edu/business" },
+  { src: "/sponsor_logos/sase.png", alt: "SASE USF - HackUSF", link: "https://www.instagram.com/usfsase/?hl=en" },
 ];
 
 export default function Sponsors() {
@@ -69,17 +70,27 @@ function SponsorSection({ title, sponsors }) {
 function SponsorLogo({ src, alt, link }) {
   const [dimensions, setDimensions] = useState({ width: 200, height: 200 });
   return (
-    <Box className={styles.sponsor}>
+    <Box sx={{ 
+      p: 2,
+      maxWidth: 200,
+      maxHeight: 200,
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      '&:hover': {
+        transform: 'scale(1.1)',
+        transition: 'transform 0.2s ease-in-out'
+      }
+    }}>
       <a href={link} target="_blank" rel="noopener noreferrer">
         <Image
           src={src}
           alt={alt}
-          width={dimensions.width}
-          height={dimensions.height}
-          onLoad={(event) => {
-            const img = event.target;
-            setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
-          }}
+          width={200}
+          height={200}
+          layout="intrinsic"
         />
       </a>
     </Box>

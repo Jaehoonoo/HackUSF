@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Container, 
@@ -29,9 +29,9 @@ import {
 } from '@mui/icons-material';
 
 // Fetch all users
-const fetchUsers = async (userId) => {
+const getAllUsers = async (userId) => {
   try {
-    const response = await fetch(`/api/getUsers?userId=${encodeURIComponent(userId)}`, {
+    const response = await fetch(`/api/getAllUsers`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const fetchUsers = async (userId) => {
       return result
     }
   } catch (error) {
-    console.error('Error getting user status', error)
+    console.error('Error getting all users', error)
     return null
   }
 }
@@ -100,6 +100,41 @@ const UserDashboard = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  const [userData, setUserData] = useState({
+    firstName: '',
+    lastName: '',
+    age: '',
+    country: '',
+    gender: '',
+    ethnicity: '',
+
+    email: '',
+    phoneNumber: '',
+
+    school: '',
+    otherSchool: '',
+    major: '',
+    levelOfStudy: '',
+
+    firstHackathon: false,
+    shirtSize: '',
+    dietaryRestrictions: [],
+    otherAccommodations: '',
+    resumeURL: '',
+    fileName: '',
+
+    notifications: false
+  })
+
+  // fetch all users on render
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      const users = await getAllUsers();
+      console.log(users)
+    }
+    fetchAllUsers()
+  }, [])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

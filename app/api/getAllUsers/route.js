@@ -4,11 +4,14 @@ import { db } from "@/firebase";
 export async function GET(req) {
   try {
     const usersCollection = collection(db, "users")
-    const querySnap = await getDocs(usersCollection)
+    const querySnapshot = await getDocs(usersCollection)
 
-    const users = {};
-    querySnap.forEach((doc) => {
-      users[doc.id] = doc.data(); // Store data with doc ID as key
+    const users = { pending: [], accepted: [], rejected: [] };
+    querySnapshot.forEach((doc) => {
+      const userData = { id: doc.id, ...doc.data() };
+      if (userData.status === "pending") users.pending.push(userData);
+      else if (userData.status === "accepted") users.accepted.push(userData);
+      else if (userData.status === "rejected") users.rejected.push(userData);
     });
 
     return new Response(JSON.stringify({ success: true, data: users }), { status: 200 })
