@@ -28,6 +28,25 @@ import {
   Refresh as RefreshIcon
 } from '@mui/icons-material';
 
+// Fetch all users
+const fetchUsers = async (userId) => {
+  try {
+    const response = await fetch(`/api/getUsers?userId=${encodeURIComponent(userId)}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.ok) {
+      const result = await response.json()
+      return result
+    }
+  } catch (error) {
+    console.error('Error getting user status', error)
+    return null
+  }
+}
+
 // Sample data
 const initialData = {
   pendingUsers: 45,
