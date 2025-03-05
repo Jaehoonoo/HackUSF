@@ -50,7 +50,7 @@ export default function Home() {
 
 	return (
 		<div>
-				<Box
+				{/* <Box
 					sx={{
 						display: "block",
 						position: "fixed",
@@ -78,7 +78,7 @@ export default function Home() {
 							loading="lazy"
 						/>
 					</a>
-				</Box>
+				</Box> */}
 
 
 			<Header />
