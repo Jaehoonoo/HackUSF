@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Container, 
@@ -27,6 +27,25 @@ import {
   EventAvailable as CheckedInIcon,
   Refresh as RefreshIcon
 } from '@mui/icons-material';
+
+// Fetch all users
+const getAllUsers = async (userId) => {
+  try {
+    const response = await fetch(`/api/getAllUsers`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.ok) {
+      const result = await response.json()
+      return result
+    }
+  } catch (error) {
+    console.error('Error getting all users', error)
+    return null
+  }
+}
 
 // Sample data
 const initialData = {
@@ -81,6 +100,41 @@ const UserDashboard = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
+  // TODO: figure out how to populate data and organize users by status
+  const [userData, setUserData] = useState({
+    firstName: '',
+    lastName: '',
+    age: '',
+    country: '',
+    gender: '',
+    ethnicity: '',
+
+    email: '',
+    phoneNumber: '',
+
+    school: '',
+    otherSchool: '',
+    major: '',
+    levelOfStudy: '',
+
+    firstHackathon: false,
+    shirtSize: '',
+    dietaryRestrictions: [],
+    otherAccommodations: '',
+    resumeURL: '',
+    fileName: '',
+
+    notifications: false
+  })
+
+  // fetch all users on render
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      const users = await getAllUsers();
+      console.log(users)
+    }
+    fetchAllUsers()
+  }, [])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

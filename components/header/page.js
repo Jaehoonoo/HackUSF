@@ -17,10 +17,12 @@ export default function Header() {
 		setMenuOpen((prev) => !prev);
 	};
 
+	// sx={{
+	// 	paddingRight: {xs: "2.2rem", sm: "7.5rem", md: "9.2rem", lg: "9rem"},
+	// }}
+
 	return (
-		<Box className={styles.header} sx={{
-			paddingRight: {xs: "2.2rem", sm: "7.5rem", md: "9.2rem", lg: "9rem"},
-		}}>
+		<Box className={styles.header} >
 			<Image src="/gdsclogo.webp" alt="logo - HackUSF" width={40} height={40} />
 
 			<IoMenu className={styles.menuIcon} size={40} onClick={handleMenu} />
