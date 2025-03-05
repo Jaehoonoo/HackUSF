@@ -28,6 +28,7 @@ const partners = [
   { src: "/sponsor_logos/coe.png", alt: "College of Engineering USF - HackUSF", link: "https://www.usf.edu/engineering/"  },
   // { src: "/sponsor_logos/cob.png", alt: "Muma College of Business USF - HackUSF", link: "https://usf.edu/business" },
   { src: "/sponsor_logos/sase.png", alt: "SASE USF - HackUSF", link: "https://www.instagram.com/usfsase/?hl=en" },
+  { src: "/sponsor_logos/ieeecs.png", alt: "IEEE CS USF - HackUSF", link: "https://bullsconnect.usf.edu/ieeecs/home/" },
 ];
 
 export default function Sponsors() {
