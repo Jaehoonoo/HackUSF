@@ -7,8 +7,9 @@ import { createReadStream, existsSync } from "fs";
 import path from "path";
 
 // Load service account credentials
+const credentials = JSON.parse(process.env.NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT);
 const auth = new google.auth.GoogleAuth({
-  keyFile: path.join(process.cwd(), "google-service-account.json"),
+  credentials,
   scopes: ["https://www.googleapis.com/auth/drive.file"],
 });
 
