@@ -14,13 +14,12 @@ const FOLDER_ID = process.env.NEXT_PUBLIC_FOLDER_ID
 
 export async function POST(request) {
   try {
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = path.join(process.cwd(), "uploads");
+    // Use /tmp directory which is writable in Vercel
+    const uploadsDir = path.join("/tmp", "uploads");
     if (!existsSync(uploadsDir)) {
       await mkdir(uploadsDir, { recursive: true });
     }
 
-    // Parse the FormData directly from the request
     const formData = await request.formData();
     const userId = formData.get("userId");
     const file = formData.get("resume");
@@ -32,7 +31,6 @@ export async function POST(request) {
       );
     }
 
-    // Check file size (500KB limit)
     if (file.size > 500 * 1024) {
       return new Response(
         JSON.stringify({ error: "File size exceeds 500KB limit" }),
@@ -46,14 +44,20 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     
-    // Save file to temporary location
+    // Save to /tmp directory
     const filePath = path.join(uploadsDir, fileName);
     await writeFile(filePath, buffer);
     
-    // Upload to Google Drive
+    // Log for debugging
+    console.log(`File saved to ${filePath}, size: ${buffer.length} bytes`);
+    
+    // Initialize Drive just before using it (to catch auth errors)
+    const drive = initializeGoogleServiceAccount();
+    console.log("Google Drive client initialized successfully");
+    
     const fileMetadata = {
       name: fileName,
-      parents: [FOLDER_ID],
+      parents: [process.env.NEXT_PUBLIC_FOLDER_ID],
     };
 
     const media = {
@@ -61,19 +65,22 @@ export async function POST(request) {
       body: createReadStream(filePath),
     };
 
+    console.log("Attempting to upload to Google Drive...");
     const uploadResponse = await drive.files.create({
       requestBody: fileMetadata,
       media: media,
       fields: "id, webViewLink",
     });
 
+    console.log("File uploaded to Google Drive successfully");
     const fileUrl = uploadResponse.data.webViewLink;
 
-    // Update Firestore User Profile with Resume URL
+    // Update Firestore
     const userRef = doc(db, "users", userId);
     await updateDoc(userRef, { resumeURL: fileUrl });
+    console.log("Firestore updated successfully");
 
-    // Delete the file from the uploads folder after successful upload
+    // Delete temp file
     await unlink(filePath);
 
     return new Response(
@@ -84,10 +91,16 @@ export async function POST(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error during file upload:", error);
+    console.error("Error during file upload:", error.message);
+    console.error("Stack trace:", error.stack);
     
+    // More detailed error response
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: error.message,
+        stack: error.stack,
+        location: "File upload API route"
+      }),
       { status: 500 }
     );
   }
