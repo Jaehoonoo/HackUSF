@@ -124,7 +124,7 @@ const UserDashboard = () => {
     resumeURL: '',
     fileName: '',
 
-    notifications: false
+    notifications: false,
   })
 
   // fetch all users on render
