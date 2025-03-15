@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 export async function POST(req) {
     try {
         const body = await req.json();
-        const { recipientEmail, qrCode } = body;
+        const { recipientEmail, qrCode, userName } = body;
 
         ///TODO: make GDSC mail account, add its details into the environment variables
         const transporter = nodemailer.createTransport({
