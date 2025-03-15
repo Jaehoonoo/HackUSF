@@ -3,7 +3,7 @@ import {adminDb} from "@/firebaseadmin";
 //Changed logic: this will be faster as users are separated in the query and requests are done in parallel
 export async function GET() {
   try{
-    const usersRef = adminDb.collection("testUsers");
+    const usersRef = adminDb.collection("users");
     const [acceptedSnapshot, rejectedSnapshot, pendingSnapshot] = await Promise.all([
       usersRef.where("status", "==", "accepted").get(),
       usersRef.where("email", "==", "rejected").get(),

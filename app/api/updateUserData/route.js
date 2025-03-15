@@ -5,7 +5,7 @@ export async function POST(req) {
         const body = await req.json()
         const { userId, newStatus } = body;
 
-        const docRef = adminDb.collection("testUsers").doc(userId);
+        const docRef = adminDb.collection("users").doc(userId);
 
         let data = {};
 
