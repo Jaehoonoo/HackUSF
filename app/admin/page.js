@@ -73,14 +73,14 @@ const separateUsersByStatus = (users) => {
   return { 'accepted_users': accepted_users , 'pending_users': pending_users , 'rejected_users': rejected_users };
 }
 
-const sendAcceptanceEmail = async (recipientEmail, qrCode) => {
+const sendAcceptanceEmail = async (recipientEmail, userId) => {
   try {
     const response = await fetch(`/api/sendAcceptanceEmail`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ recipientEmail, qrCode }),
+      body: JSON.stringify({ recipientEmail, userId }),
     });
     if (response.ok) {
       return await response.json();
