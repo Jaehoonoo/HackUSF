@@ -1,0 +1,501 @@
+"use client"
+
+import React, { useState, useEffect } from 'react';
+import { 
+  Box, 
+  Container, 
+  Paper, 
+  Typography, 
+  Card, 
+  CardContent, 
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TablePagination,
+  useTheme,
+  useMediaQuery
+} from '@mui/material';
+import {
+  People as PeopleIcon,
+  CheckCircle as CheckCircleIcon,
+  Cancel as CancelIcon,
+  HourglassEmpty as PendingIcon,
+  EventAvailable as CheckedInIcon,
+  Refresh as RefreshIcon
+} from '@mui/icons-material';
+
+import QRCode from 'qrcode';
+
+// Fetch all users
+const getAllUsers = async () => {
+  try {
+    const response = await fetch(`/api/getAllUsers`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+  } catch (error) {
+    console.error('Error getting all users: ', error);
+    return null;
+  }
+}
+
+async function generateQrCode(userId) {
+  try {
+    const qrCode = await QRCode.toDataURL(userId, {
+      errorCorrectionLevel: 'H',
+      width: 400,
+      height: 400,
+      margin: 1
+    });
+
+    return qrCode;
+  } catch (error) {
+    console.error(error);
+
+    throw error;
+  }
+}
+
+async function acceptUser(user){
+  try {
+    const userId = user.id;
+    const userEmail = user.email;
+    const userFirstName = user.firstName;
+    const status = "accepted";
+    const qrCode = generateQrCode(userId);
+
+    const sendEmailResponse = await fetch("api/sendAcceptanceEmail", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userName: userFirstName,
+            userEmail: userEmail,
+            qrCode: qrCode,
+          })
+        }
+    );
+
+    if (!sendEmailResponse.ok) {
+      throw new Error(`Failed to send email: ${sendEmailResponse.status}`);
+    }
+
+    const updateDataResponse = await fetch("api/updateUserData", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: userId,
+            newStatus: status
+          })
+        }
+    );
+
+    if (!updateDataResponse.ok) {
+      throw new Error(`Failed to update user status: ${updateResponse.status}`);
+    }
+
+    return { success: true, message: `Successfully updated user (${userId}) status to accepted and sent email` };
+  } catch (error) {
+    console.error("Error when operating user acceptance: ", error);
+    return null;
+  }
+}
+
+async function rejectUser(user){
+  try {
+    const userEmail = user.email;
+    const userFirstName = user.firstName;
+    const status = "rejected";
+
+    const sendEmailResponse = await fetch("api/sendRejectEmail", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userName: userFirstName,
+            userEmail: userEmail,
+          })
+        }
+    );
+
+    if (!sendEmailResponse.ok) {
+      throw new Error(`Failed to send email: ${sendEmailResponse.status}`);
+    }
+
+    const updateDataResponse = await fetch("api/updateUserData", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: userId,
+            newStatus: status
+          })
+        }
+    );
+
+    if (!updateDataResponse.ok) {
+      throw new Error(`Failed to update user status: ${updateResponse.status}`);
+    }
+
+    return { success: true, message: `Successfully updated user (${userId}) status to accepted and sent email` };
+  } catch (error) {
+    console.error("Error when operating user rejection: ", error);
+    return null;
+  }
+}
+
+async function checkInUser(userId) {
+  try {
+    const response = await fetch("api/checkUserIn", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: userId
+      }),
+    });
+
+    if (response.ok) {
+      return await response.json();
+    }
+  } catch (error) {
+    console.error(`Error when checking in user ${userId}: ${error}`);
+    return null;
+  }
+}
+
+//Needs list of accepted users, works best when a large portion of users are already accepted
+async function setLunchGroup(users) {
+  try {
+    const response = await fetch("api/setLunchGroup", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ users: users }),
+    });
+
+    if (response.ok) {
+      return await response.json();
+    }
+  } catch (error) {
+    console.error("Error when setting lunch groups: ", error);
+    return null;
+  }
+}
+
+async function lunchCheckIn(userId, currentLunchGroup, currentMeal) {
+  try {
+    const response = await fetch("api/lunchCheckIn", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: userId,
+        currentLunchGroup: currentLunchGroup,
+        currentMeal: currentMeal,
+      })
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+  } catch (error) {
+    console.error(`Error when checking in user ${userId} for meal ${currentMeal} and group ${currentLunchGroup}: `, error);
+    return null;
+  }
+}
+
+// Sample data
+const initialData = {
+  pendingUsers: 45,
+  acceptedUsers: 182,
+  rejectedUsers: 23,
+  checkedInUsers: 125,
+  totalUsers: 250,
+  totalCheckedInUsers: 125,
+  recentUsers: [
+    { id: 1, name: 'John Doe', status: 'Checked In', email: 'john@example.com', timestamp: '2025-02-26 09:23' },
+    { id: 2, name: 'Jane Smith', status: 'Pending', email: 'jane@example.com', timestamp: '2025-02-26 08:45' },
+    { id: 3, name: 'Alex Johnson', status: 'Accepted', email: 'alex@example.com', timestamp: '2025-02-25 17:12' },
+    { id: 4, name: 'Sarah Williams', status: 'Rejected', email: 'sarah@example.com', timestamp: '2025-02-25 16:08' },
+    { id: 5, name: 'Michael Brown', status: 'Checked In', email: 'michael@example.com', timestamp: '2025-02-25 14:33' },
+    { id: 6, name: 'Emily Davis', status: 'Pending', email: 'emily@example.com', timestamp: '2025-02-25 13:47' },
+    { id: 7, name: 'Robert Wilson', status: 'Accepted', email: 'robert@example.com', timestamp: '2025-02-25 11:20' },
+    { id: 8, name: 'Lisa Martinez', status: 'Checked In', email: 'lisa@example.com', timestamp: '2025-02-25 10:15' },
+  ]
+};
+
+// Create a component for stat cards
+const StatCard = ({ title, value, icon, color }) => {
+  return (
+    <Card sx={{ height: '100%', width: '100%' }}>
+      <CardContent>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+          <Typography variant="h6" color="text.secondary">
+            {title}
+          </Typography>
+          <Box sx={{ 
+            backgroundColor: `${color}.light`, 
+            borderRadius: '50%', 
+            p: 1, 
+            display: 'flex' 
+          }}>
+            {icon}
+          </Box>
+        </Box>
+        <Typography variant="h4">
+          {value}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
+
+const UserDashboard = () => {
+  const [data, setData] = useState(initialData);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
+  // TODO: figure out how to populate data and organize users by status
+  const [userData, setUserData] = useState({
+    firstName: '',
+    lastName: '',
+    age: '',
+    country: '',
+    gender: '',
+    ethnicity: '',
+
+    email: '',
+    phoneNumber: '',
+
+    school: '',
+    otherSchool: '',
+    major: '',
+    levelOfStudy: '',
+
+    firstHackathon: false,
+    shirtSize: '',
+    dietaryRestrictions: [],
+    otherAccommodations: '',
+    resumeURL: '',
+    fileName: '',
+
+    notifications: false,
+  })
+
+  // fetch all users on render
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      const users = await getAllUsers();
+      console.log(users)
+    }
+    fetchAllUsers()
+  }, [])
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const refreshData = () => {
+    // In a real app, this would fetch fresh data from an API
+    // For this demo, we'll just simulate a refresh with slightly different numbers
+    setData({
+      ...data,
+      pendingUsers: data.pendingUsers + Math.floor(Math.random() * 5) - 2,
+      acceptedUsers: data.acceptedUsers + Math.floor(Math.random() * 5) - 2,
+      rejectedUsers: data.rejectedUsers + Math.floor(Math.random() * 3) - 1,
+      checkedInUsers: data.checkedInUsers + Math.floor(Math.random() * 5) - 2,
+    });
+  };
+
+  // Update derived values
+  const totalUsers = data.pendingUsers + data.acceptedUsers + data.rejectedUsers;
+  const totalCheckedInUsers = data.checkedInUsers;
+
+  return (
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          User Dashboard
+        </Typography>
+        <IconButton onClick={refreshData} title="Refresh data">
+          <RefreshIcon />
+        </IconButton>
+      </Box>
+
+      {/* Main Stats with Flexbox layout instead of Grid */}
+      <Box sx={{ 
+        display: 'flex', 
+        flexWrap: 'wrap', 
+        gap: 3,
+        mb: 4 
+      }}>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',  // Full width on extra small screens
+            sm: '1 1 calc(50% - 12px)',  // Two per row on small screens (with gap considered)
+            md: '1 1 calc(33.333% - 16px)'  // Three per row on medium screens and up
+          }
+        }}>
+          <StatCard 
+            title="Pending Users" 
+            value={data.pendingUsers} 
+            icon={<PendingIcon sx={{ color: 'warning.main' }} />} 
+            color="warning"
+          />
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
+          <StatCard 
+            title="Accepted Users" 
+            value={data.acceptedUsers} 
+            icon={<CheckCircleIcon sx={{ color: 'success.main' }} />} 
+            color="success"
+          />
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
+          <StatCard 
+            title="Rejected Users" 
+            value={data.rejectedUsers} 
+            icon={<CancelIcon sx={{ color: 'error.main' }} />} 
+            color="error"
+          />
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
+          <StatCard 
+            title="Checked In Users" 
+            value={data.checkedInUsers} 
+            icon={<CheckedInIcon sx={{ color: 'info.main' }} />} 
+            color="info"
+          />
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
+          <StatCard 
+            title="Total Users" 
+            value={totalUsers} 
+            icon={<PeopleIcon sx={{ color: 'primary.main' }} />} 
+            color="primary"
+          />
+        </Box>
+        <Box sx={{ 
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(33.333% - 16px)'
+          }
+        }}>
+          <StatCard 
+            title="Total Checked In" 
+            value={totalCheckedInUsers} 
+            icon={<CheckedInIcon sx={{ color: 'secondary.main' }} />} 
+            color="secondary"
+          />
+        </Box>
+      </Box>
+
+      {/* Recent Users Table */}
+      <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Typography component="h2" variant="h6" color="primary" gutterBottom>
+            Recent Users
+          </Typography>
+        </Box>
+        <TableContainer>
+          <Table size={isSmallScreen ? "small" : "medium"}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                {!isSmallScreen && <TableCell>Email</TableCell>}
+                <TableCell>Status</TableCell>
+                {!isMediumScreen && <TableCell>Timestamp</TableCell>}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.recentUsers
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.name}</TableCell>
+                    {!isSmallScreen && <TableCell>{user.email}</TableCell>}
+                    <TableCell>
+                      <Box sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center',
+                        color: user.status === 'Accepted' ? 'success.main' : 
+                               user.status === 'Rejected' ? 'error.main' : 
+                               user.status === 'Pending' ? 'warning.main' : 'info.main'
+                      }}>
+                        {user.status === 'Accepted' && <CheckCircleIcon fontSize="small" sx={{ mr: 1 }} />}
+                        {user.status === 'Rejected' && <CancelIcon fontSize="small" sx={{ mr: 1 }} />}
+                        {user.status === 'Pending' && <PendingIcon fontSize="small" sx={{ mr: 1 }} />}
+                        {user.status === 'Checked In' && <CheckedInIcon fontSize="small" sx={{ mr: 1 }} />}
+                        {user.status}
+                      </Box>
+                    </TableCell>
+                    {!isMediumScreen && <TableCell>{user.timestamp}</TableCell>}
+                  </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={data.recentUsers.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </Container>
+  );
+};
+
+export default UserDashboard;
