@@ -4,7 +4,10 @@ import { NextResponse } from "next/server";
 const isProtectedRoute = createRouteMatcher(['/admin(.*)'])
 
 export default clerkMiddleware(async (auth, req) => {
-  console.log("Skipping authentication for debugging...");
+  if (isProtectedRoute(req) && (await auth()).sessionClaims?.metadata?.role !== 'admin') {
+    const url = new URL('/', req.url)
+    return NextResponse.redirect(url)
+  }
 });
 
 export const config = {
