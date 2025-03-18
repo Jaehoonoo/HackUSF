@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import AdminNavbar from '@/components/adminNavbar/adminNavbar';
 import { 
   Box, 
   Container, 
@@ -49,23 +50,32 @@ const getAllUsers = async (userId) => {
 
 // Sample data
 const initialData = {
-  pendingUsers: 45,
-  acceptedUsers: 182,
-  rejectedUsers: 23,
-  checkedInUsers: 125,
-  totalUsers: 250,
-  totalCheckedInUsers: 125,
+  acceptedUsers: 0, // Start with 0
+  rejectedUsers: 0, // Start with 0
+  pendingUsers: 0,
   recentUsers: [
-    { id: 1, name: 'John Doe', status: 'Checked In', email: 'john@example.com', timestamp: '2025-02-26 09:23' },
-    { id: 2, name: 'Jane Smith', status: 'Pending', email: 'jane@example.com', timestamp: '2025-02-26 08:45' },
-    { id: 3, name: 'Alex Johnson', status: 'Accepted', email: 'alex@example.com', timestamp: '2025-02-25 17:12' },
-    { id: 4, name: 'Sarah Williams', status: 'Rejected', email: 'sarah@example.com', timestamp: '2025-02-25 16:08' },
-    { id: 5, name: 'Michael Brown', status: 'Checked In', email: 'michael@example.com', timestamp: '2025-02-25 14:33' },
-    { id: 6, name: 'Emily Davis', status: 'Pending', email: 'emily@example.com', timestamp: '2025-02-25 13:47' },
-    { id: 7, name: 'Robert Wilson', status: 'Accepted', email: 'robert@example.com', timestamp: '2025-02-25 11:20' },
-    { id: 8, name: 'Lisa Martinez', status: 'Checked In', email: 'lisa@example.com', timestamp: '2025-02-25 10:15' },
+    { id: 1, name: 'John Doe', status: 'Pending', email: 'john@example.com'},
+    { id: 2, name: 'Jane Smith', status: 'Pending', email: 'jane@example.com'},
+    { id: 3, name: 'Alex Johnson', status: 'Accepted', email: 'alex@example.com'},
+    { id: 4, name: 'Alex Samira', status: 'Rejected', email: 'alex@example.com'},
+    { id: 5, name: 'John Doe', status: 'Pending', email: 'john@example.com'},
+    { id: 6, name: 'Jane Smith', status: 'Pending', email: 'jane@example.com'},
+    { id: 7, name: 'Alex Johnson', status: 'Accepted', email: 'alex@example.com'},
+    { id: 8, name: 'Alex Samira', status: 'Rejected', email: 'alex@example.com'},
+    { id: 9, name: 'John Doe', status: 'Pending', email: 'john@example.com'},
+    { id: 10, name: 'Jane Smith', status: 'Pending', email: 'jane@example.com'},
+    { id: 11, name: 'Alex Johnson', status: 'Accepted', email: 'alex@example.com'},
+    { id: 12, name: 'Alex Samira', status: 'Rejected', email: 'alex@example.com'},
+    { id: 13, name: 'John Doe', status: 'Pending', email: 'john@example.com'},
+    { id: 14, name: 'Jane Smith', status: 'Pending', email: 'jane@example.com'},
+    { id: 15, name: 'Alex Johnson', status: 'Accepted', email: 'alex@example.com'},
+    { id: 16, name: 'Alex Samira', status: 'Rejected', email: 'alex@example.com'},
   ]
 };
+
+initialData.pendingUsers = initialData.recentUsers.filter(user => user.status === 'Pending').length;
+initialData.acceptedUsers = initialData.recentUsers.filter(user => user.status === 'Accepted').length;
+initialData.rejectedUsers = initialData.recentUsers.filter(user => user.status === 'Rejected').length;
 
 // Create a component for stat cards
 const StatCard = ({ title, value, icon, color }) => {
@@ -104,28 +114,31 @@ const UserDashboard = () => {
   const [userData, setUserData] = useState({
     firstName: '',
     lastName: '',
-    age: '',
-    country: '',
-    gender: '',
-    ethnicity: '',
-
     email: '',
     phoneNumber: '',
-
     school: '',
-    otherSchool: '',
-    major: '',
-    levelOfStudy: '',
-
-    firstHackathon: false,
-    shirtSize: '',
-    dietaryRestrictions: [],
-    otherAccommodations: '',
-    resumeURL: '',
-    fileName: '',
-
     notifications: false,
   })
+
+  const handleStatusChange = (userId, newStatus) => {
+    setData(prevData => {
+      const updatedUsers = prevData.recentUsers.map(user =>
+        user.id === userId ? { ...user, status: newStatus } : user
+      );
+  
+      const acceptedUsers = updatedUsers.filter(user => user.status === "Accepted").length;
+      const rejectedUsers = updatedUsers.filter(user => user.status === "Rejected").length;
+      const pendingUsers = updatedUsers.filter(user => user.status === "Pending").length; // ✅ Now tracks remaining pending users
+  
+      return { 
+        ...prevData, 
+        recentUsers: updatedUsers, 
+        acceptedUsers, 
+        rejectedUsers,
+        pendingUsers // ✅ Update pending users count dynamically
+      };
+    });
+  };  
 
   // fetch all users on render
   useEffect(() => {
@@ -157,15 +170,14 @@ const UserDashboard = () => {
     });
   };
 
-  // Update derived values
-  const totalUsers = data.pendingUsers + data.acceptedUsers + data.rejectedUsers;
-  const totalCheckedInUsers = data.checkedInUsers;
-
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+      <Box sx={{ mb: 3 }}>
+        <AdminNavbar />
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          User Dashboard
+          Admission Dashboard
         </Typography>
         <IconButton onClick={refreshData} title="Refresh data">
           <RefreshIcon />
@@ -188,7 +200,7 @@ const UserDashboard = () => {
         }}>
           <StatCard 
             title="Pending Users" 
-            value={data.pendingUsers} 
+            value={data.pendingUsers}  // ✅ Use updated pending count
             icon={<PendingIcon sx={{ color: 'warning.main' }} />} 
             color="warning"
           />
@@ -221,48 +233,6 @@ const UserDashboard = () => {
             color="error"
           />
         </Box>
-        <Box sx={{ 
-          flex: {
-            xs: '1 1 100%',
-            sm: '1 1 calc(50% - 12px)',
-            md: '1 1 calc(33.333% - 16px)'
-          }
-        }}>
-          <StatCard 
-            title="Checked In Users" 
-            value={data.checkedInUsers} 
-            icon={<CheckedInIcon sx={{ color: 'info.main' }} />} 
-            color="info"
-          />
-        </Box>
-        <Box sx={{ 
-          flex: {
-            xs: '1 1 100%',
-            sm: '1 1 calc(50% - 12px)',
-            md: '1 1 calc(33.333% - 16px)'
-          }
-        }}>
-          <StatCard 
-            title="Total Users" 
-            value={totalUsers} 
-            icon={<PeopleIcon sx={{ color: 'primary.main' }} />} 
-            color="primary"
-          />
-        </Box>
-        <Box sx={{ 
-          flex: {
-            xs: '1 1 100%',
-            sm: '1 1 calc(50% - 12px)',
-            md: '1 1 calc(33.333% - 16px)'
-          }
-        }}>
-          <StatCard 
-            title="Total Checked In" 
-            value={totalCheckedInUsers} 
-            icon={<CheckedInIcon sx={{ color: 'secondary.main' }} />} 
-            color="secondary"
-          />
-        </Box>
       </Box>
 
       {/* Recent Users Table */}
@@ -282,7 +252,7 @@ const UserDashboard = () => {
                 {!isMediumScreen && <TableCell>Timestamp</TableCell>}
               </TableRow>
             </TableHead>
-            <TableBody>
+              <TableBody>
               {data.recentUsers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((user) => (
@@ -290,19 +260,41 @@ const UserDashboard = () => {
                     <TableCell>{user.name}</TableCell>
                     {!isSmallScreen && <TableCell>{user.email}</TableCell>}
                     <TableCell>
-                      <Box sx={{ 
-                        display: 'flex', 
-                        alignItems: 'center',
-                        color: user.status === 'Accepted' ? 'success.main' : 
-                               user.status === 'Rejected' ? 'error.main' : 
-                               user.status === 'Pending' ? 'warning.main' : 'info.main'
-                      }}>
-                        {user.status === 'Accepted' && <CheckCircleIcon fontSize="small" sx={{ mr: 1 }} />}
-                        {user.status === 'Rejected' && <CancelIcon fontSize="small" sx={{ mr: 1 }} />}
-                        {user.status === 'Pending' && <PendingIcon fontSize="small" sx={{ mr: 1 }} />}
-                        {user.status === 'Checked In' && <CheckedInIcon fontSize="small" sx={{ mr: 1 }} />}
-                        {user.status}
-                      </Box>
+                      {user.status === "Pending" ? (
+                        <Box sx={{ display: "flex", gap: 1 }}>
+                          <IconButton 
+                            onClick={() => handleStatusChange(user.id, "Accepted")}
+                            sx={{ 
+                              backgroundColor: "success.main", 
+                              color: "#fff",
+                              "&:hover": { backgroundColor: "success.dark" },
+                              borderRadius: "8px",
+                              padding: "3px 6px"
+                            }}
+                          >
+                            <CheckCircleIcon />
+                            <Typography sx={{ ml: 1, fontWeight: "lightbold" }}>Accept</Typography>
+                          </IconButton>
+
+                          <IconButton 
+                            onClick={() => handleStatusChange(user.id, "Rejected")}
+                            sx={{ 
+                              backgroundColor: "error.main", 
+                              color: "#fff",
+                              "&:hover": { backgroundColor: "error.dark" },
+                              borderRadius: "8px",
+                              padding: "3px 6px"
+                            }}
+                          >
+                            <CancelIcon />
+                            <Typography sx={{ ml: 1, fontWeight: "lightbold" }}>Reject</Typography>
+                          </IconButton>
+                        </Box>
+                      ) : (
+                        <Typography color={user.status === "Accepted" ? "success.main" : "error.main"} sx={{ fontWeight: "bold" }}>
+                          {user.status}
+                        </Typography>
+                      )}
                     </TableCell>
                     {!isMediumScreen && <TableCell>{user.timestamp}</TableCell>}
                   </TableRow>
