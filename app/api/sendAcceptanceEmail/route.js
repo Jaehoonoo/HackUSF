@@ -152,7 +152,23 @@ export async function POST(req) {
                         <td style="padding:18px 0px 18px 0px; line-height:30px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 18px">We're thrilled to welcome you to our first-ever Hackathon this coming April 5th &amp; 6th. Get ready for an exciting couple of days filled with creativity, technology, and fun!</span></div><div></div></div></td>
                     </tr>
                     </tbody>
-                </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="16615481-57ce-452b-a29c-f454d016b9d9" data-mc-module-version="2019-10-22">
+                </table>
+                <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="important-id-section" data-mc-module-version="2019-10-22">
+                    <tbody>
+                    <tr>
+                        <td style="padding:18px 0px 18px 0px; line-height:30px; text-align:center;" height="100%" valign="top" bgcolor="" role="module-content">
+                            <div>
+                                <div style="font-family: inherit; text-align: center">
+                                    <span style="font-size: 18px"><strong>IMPORTANT!</strong></span><br>
+                                    <span style="font-size: 18px">Your Hacker ID is located in your profile and will be used for Check-In and to get food.</span>
+                                </div>
+                                <div></div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="16615481-57ce-452b-a29c-f454d016b9d9" data-mc-module-version="2019-10-22">
                     <tbody>
                     <tr>
                         <td style="padding:16px 0px 16px 0px; line-height:23px; text-align:center;" height="100%" valign="top" bgcolor="" role="module-content"><div><h3 style="text-align: inherit">Next Steps:</h3><div></div></div></td>
