@@ -41,7 +41,7 @@ const confirmRSVP = async (userId, rsvp) => {
 export default function Profile() {
   const router = useRouter();
   const { userId, isLoaded } = useAuth()
-  const [lunchGroup, setLunchGroup] = useState("")
+  const [lunchGroup, setLunchGroup] = useState("To be assigned...")
   const [rsvp, setRsvp] = useState(false)
 
   const [status, setStatus] = useState(null);
