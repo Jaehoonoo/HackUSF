@@ -1,6 +1,5 @@
 "use client";
 
-import AdminNavbar from "@/components/adminNavbar/adminNavbar";
 import { useState, useEffect } from "react";
 import { Box, Typography, Paper, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, IconButton } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -61,29 +60,19 @@ export default function CheckInPage() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
-      {/* Admin Navbar */}
-      <Box sx={{ mb: 3 }}>
-        <AdminNavbar />
-      </Box>
+    <Box height="100%" sx={{ 
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      }}>
       {/* Header with Refresh Button */}
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center"}}>
         <Typography variant="h4">Check-In Page</Typography>
-        <IconButton onClick={refreshData} title="Refresh Data">
-          <RefreshIcon />
-        </IconButton>
       </Box>
       {/* Main Container - Centered QR Code Platform */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "50vh",
-        }}
-      >
-        <Typography variant="body1" sx={{ mb: 3 }}>
+      <Box>
+        <Typography variant="body1" textAlign="center" sx={{ pb: 3 }}>
           Scan the QR code below to check in.
         </Typography>
 
@@ -149,6 +138,6 @@ export default function CheckInPage() {
           onRowsPerPageChange={(event) => setRowsPerPage(parseInt(event.target.value, 10))}
         />
       </Paper>
-    </Container>
+    </Box>
   );
 }
