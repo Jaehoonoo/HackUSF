@@ -1,9 +1,17 @@
 import sgMail from '@sendgrid/mail';
+import { db } from '@/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 
 export async function POST(req) {
     try {
         const body = await req.json();
-        const { recipientEmail, firstName } = body;
+        const { recipientEmail, firstName, userId } = body;
+
+        // Update user status in Firebase using v9 syntax
+        const userRef = doc(db, 'users', userId);
+        await updateDoc(userRef, {
+            status: 'accepted'
+        });
 
         // using Twilio SendGrid's v3 Node.js Library
         // https://github.com/sendgrid/sendgrid-nodejs
@@ -143,7 +151,7 @@ export async function POST(req) {
                 </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="0b3735ae-3904-4739-9556-63a29d081ca1" data-mc-module-version="2019-10-22">
                     <tbody>
                     <tr>
-                        <td style="padding:18px 0px 18px 0px; line-height:30px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><h2 style="text-align: center">Congratulations, ${firstName}! You've been accepted to HackUSF 2025!&nbsp;</h2><div></div></div></td>
+                        <td style="padding:18px 0px 18px 0px; line-height:30px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><h2 style="text-align: center">Congratulations, ${firstName || 'Hacker'}! You've been accepted to HackUSF 2025!&nbsp;</h2><div></div></div></td>
                     </tr>
                     </tbody>
                 </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="f621c098-26d2-4e3d-b510-21e455f97994" data-mc-module-version="2019-10-22">
@@ -272,7 +280,7 @@ export async function POST(req) {
                 console.error(error)
             })
 
-        return new Response(JSON.stringify({ success: true, message: "Acceptance email sent successfully" }), { status: 200 })
+        return new Response(JSON.stringify({ success: true, message: "Acceptance email sent and status changed successfully" }), { status: 200 })
 
     } catch (error) {
         console.error(error)
