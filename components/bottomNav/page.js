@@ -49,7 +49,7 @@ export default function BottomNav() {
           width: '100%',
           position: 'absolute',
           bottom: 0,
-          boxShadow: '0px -2px 10px rgba(0, 0, 0, 0.1)', // Soft shadow
+          boxShadow: '0px -2px 10px rgba(0, 0, 0, 0.1)',
           height: '5rem',
           pb: '1rem'
         }}
