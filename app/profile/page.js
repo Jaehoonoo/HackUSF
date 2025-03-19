@@ -37,7 +37,10 @@ export default function Profile() {
           const result = await fetch(`/api/getStatus?userId=${encodeURIComponent(userId)}`)
             .then(res => res.ok ? res.json() : null)
             .catch(error => console.error('Error getting user status', error));
-          if (result?.data?.status) setStatus(result.data.status);
+          if (result?.data?.status) {
+            setStatus(result.data.status);
+            setRsvp(result.data.rsvp)
+          }
         })();
       }
     }
