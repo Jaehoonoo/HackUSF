@@ -29,22 +29,98 @@ import {
   Refresh as RefreshIcon
 } from '@mui/icons-material';
 
+import QRCode from 'qrcode';
+
 // Fetch all users
-const getAllUsers = async (userId) => {
+const getAllUsers = async () => {
   try {
     const response = await fetch(`/api/getAllUsers`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-    })
+    });
     if (response.ok) {
-      const result = await response.json()
-      return result
+      return await response.json();
     }
   } catch (error) {
-    console.error('Error getting all users', error)
+    console.error('Error getting all users: ', error);
+    return null;
+  }
+}
+
+//Might change to do three queries instead of getting all of them
+const separateUsersByStatus = (users) => {
+  const accepted_users = [];
+  const pending_users = [];
+  const rejected_users = [];
+
+  for (const user of users) {
+    switch (user.status) {
+      case 'pending':
+        pending_users.push(user);
+        break;
+
+      case 'accepted':
+        accepted_users.push(user);
+        break;
+
+      case 'rejected':
+        rejected_users.push(user);
+        break;
+    }
+  }
+
+  return { 'accepted_users': accepted_users , 'pending_users': pending_users , 'rejected_users': rejected_users };
+}
+
+const sendAcceptanceEmail = async (recipientEmail, userId) => {
+  try {
+    const response = await fetch(`/api/sendAcceptanceEmail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ recipientEmail, userId }),
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+  } catch (error) {
+    console.error('Error sending acceptance email: ', error)
     return null
+  }
+}
+
+const sendRejectionEmail = async (recipientEmail) => {
+  try {
+    const response = await fetch(`/api/sendRejectionEmail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ recipientEmail }),
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+  } catch (error) {
+    console.error('Error sending rejection email: ', error)
+    return null
+  }
+}
+
+const generateQrCode = (userId) => {
+  try {
+    const qrCode = QRCode.toDataURL(userId, {
+      errorCorrectionLevel: 'H',
+      width: 200,
+      height: 200,
+      margin: 1
+    });
+    return qrCode;
+  } catch (error) {
+    console.error(error);
   }
 }
 

@@ -4,6 +4,8 @@ import { Box, Typography, Button, CircularProgress, FormControl, InputLabel, Sel
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
+import QRCode from 'qrcode';
+import Image from 'next/image';
 
 
 const fetchStatus = async (userId) => {
@@ -41,10 +43,27 @@ const confirmRSVP = async (userId, rsvp) => {
 export default function Profile() {
   const router = useRouter();
   const { userId, isLoaded } = useAuth()
-  const [lunchGroup, setLunchGroup] = useState("")
+  const [lunchGroup, setLunchGroup] = useState("TBA")
   const [rsvp, setRsvp] = useState(false)
 
   const [status, setStatus] = useState(null);
+
+  // Create QR Code
+  const [qrCode, setQrCode] = useState("");
+
+  useEffect(() => {
+    if (userId && isLoaded) { //  Only generate QR code if userId exists
+      QRCode.toDataURL(userId, {
+        errorCorrectionLevel: "H",
+        width: 200,
+        margin: 1,
+      })
+        .then(setQrCode)
+        .catch(error => console.error("QR Code Generation Error:", error));
+    }
+  }, [userId, isLoaded]); // ✅ Runs when userId changes
+  
+  
 
   useEffect(() => {
     if (isLoaded) {
@@ -100,7 +119,7 @@ export default function Profile() {
             gap: '0.4rem',
           }}>
             <Typography variant="h4">Hacker ID:</Typography>
-            <Typography variant="h4">(QR CODE)</Typography>
+            {qrCode && <Image src={qrCode} alt="QR Code" width={200} height={200} />}
           </Box>
 
           <Typography variant="h4" mb={2}>Lunch Group: {lunchGroup}</Typography>
