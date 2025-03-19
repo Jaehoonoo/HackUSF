@@ -236,6 +236,46 @@ export async function POST(req) {
                         </tr>
                     </tbody>
                     </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="285089ea-1d0c-43b2-a8a2-bf7210ad3406">
+                    <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="share-excitement-text" data-mc-module-version="2019-10-22">
+                    <tbody>
+                    <tr>
+                        <td style="padding:18px 0px 18px 0px; line-height:30px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 18px">3.⁠ ⁠</span><span style="font-size: 18px; color: #5262bc">Share Your Excitement</span><span style="font-size: 18px"><br>
+                        Let the world know you're heading to HackUSF 2025! Share your acceptance on your favorite social media platforms using the design made just for you - our talented hackers. It's a fantastic way to connect with other participants and even catch the attention of future employers.</span></div><div></div></div></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="module" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="acceptance-graphic-button">
+                <tbody>
+                <tr>
+                    <td style="font-size:6px; line-height:10px; padding:10px 0px 10px 0px;" valign="top" align="center">
+                        <a href="https://drive.google.com/file/d/1dfDJEOsO3ApbYZKy624DHbq4aizgqimM/view?usp=drive_link" target="_blank">
+                            <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:80% !important; width:80%; height:auto !important; border:3px solid #000000; border-radius:12px;" width="480" alt="HackUSF Acceptance Graphic" data-proportionally-constrained="true" data-responsive="true" src="http://cdn.mcauto-images-production.sendgrid.net/89ff31a5b6764e83/f9089594-cf64-4d51-a367-e1c21012d312/1080x1080.jpg">
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="graphic-caption" data-mc-module-version="2019-10-22">
+                <tbody>
+                <tr>
+                    <td style="padding:10px 0px 10px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content">
+                        <div>
+                            <div style="font-family: inherit; text-align: center">
+                                <span style="font-size: 14px; color: #5c5c5c"><em>Click the image to download your acceptance graphic</em></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+                <table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="share-excitement-spacer">
+                    <tbody>
+                    <tr>
+                        <td style="padding:0px 0px 30px 0px;" role="module-content" bgcolor="">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
                     <tbody>
                     <tr>
                         <td style="padding:0px 0px 30px 0px;" role="module-content" bgcolor="">
