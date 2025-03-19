@@ -186,7 +186,7 @@ export async function POST(req) {
                     <tbody>
                     <tr>
                         <td style="padding:18px 0px 18px 0px; line-height:30px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 18px">1.⁠</span><span style="font-size: 18px; color: #c3352b"> ⁠Secure Your Spot </span><span style="font-size: 18px">- (Don't Forget to RSVP - </span><span style="font-size: 18px; color: #c3352b">Required by March 30th</span><span style="font-size: 18px">)<br>
-                Great news—you made it! Now, let's make it official. Simply click the link below, log into your HackUSF account, and confirm your spot. We're counting on your unique talents to make this event a success!</span></div><div></div></div></td>
+                Great news—you made it! Now, let's make it official. Simply click the button below, log into your HackUSF account, and confirm your spot. If you do not reserve your spot, it may be given to another hacker, so make sure you confirm!</span></div><div></div></div></td>
                     </tr>
                     </tbody>
                 </table><table border="0" cellpadding="0" cellspacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed;" width="100%" data-muid="b819baff-f0c8-499c-8107-a72d2652cacc">
