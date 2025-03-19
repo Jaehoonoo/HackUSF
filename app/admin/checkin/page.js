@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Box, Typography, Paper, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, IconButton } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
 
 // Mock API function to fetch "Accepted" users
 const fetchAcceptedUsers = async () => {
