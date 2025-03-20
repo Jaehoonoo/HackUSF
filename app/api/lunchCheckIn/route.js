@@ -4,11 +4,18 @@ export async function POST(req) {
     try {
         const body = await req.json();
         const { userId, currentLunchGroup, currentMeal } = body;
+
+        if (!userId || typeof userId !== "string" ||
+            !currentLunchGroup || typeof currentMeal !== "string"||
+            !currentMeal || typeof currentLunchGroup !== "string") {
+            return new Response(JSON.stringify({ success: false, error: "Invalid or missing fields" }), { status: 400 });
+        }
+
         const docRef = adminDb.collection('users').doc(userId);
         const docSnapshot = await docRef.get();
 
         if (!docSnapshot.exists) {
-            console.log("User does not exist");
+            console.error("User does not exist");
             return new Response(JSON.stringify({ success: false, error: "User does not exist"}), { status: 404 });
         }
 
@@ -16,14 +23,14 @@ export async function POST(req) {
         const userLunchGroup = userData.lunchGroup;
 
         if (userLunchGroup !== currentLunchGroup) {
-            console.log("Not current user's lunch group");
+            console.error("Not current user's lunch group");
             return new Response(JSON.stringify({ success: false, error: "Not current user's lunch group" }), { status: 403 });
         }
 
         const userScannedMeals = userData.scannedMeals || {};
 
-        if (userScannedMeals[currentMeal] === true) {
-            console.log("User already scanned this meal");
+        if (userScannedMeals[currentMeal]) {
+            console.error("User already scanned this meal");
             return new Response(JSON.stringify({ success: false, error: "User already scanned this meal" }), { status: 409 });
         }
 
