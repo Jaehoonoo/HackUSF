@@ -13,7 +13,7 @@ export default function Footer() {
         <div className={styles.title}>
           <Typography variant="h4" fontWeight="600">HackUSF 2025</Typography>
           <div className={styles.logos}>
-            <FaDiscord onClick={() => window.open("https://discord.gg/Zdx4Hkt33W", "_blank", "noopener,noreferrer")} />
+            <FaDiscord onClick={() => window.open("https://discord.gg/HfUZZpEJHE", "_blank", "noopener,noreferrer")} />
             <FaInstagram onClick={() => window.open("https://www.instagram.com/usfgdsc/", "_blank", "noopener,noreferrer")} />
             <FaLinkedinIn onClick={() => window.open("https://www.linkedin.com/company/usfgdsc/posts/?feedView=all", "_blank", "noopener,noreferrer")} />
           </div>
