@@ -211,7 +211,7 @@ export default function Home() {
 									Devpost
 								</a>{' '}
 								and{' '}
-								<a href="https://discord.gg/Zdx4Hkt33W" target="_blank">
+								<a href="https://discord.gg/HfUZZpEJHE" target="_blank">
 									Discord
 								</a>
 								!
