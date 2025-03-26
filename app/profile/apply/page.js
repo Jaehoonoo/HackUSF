@@ -26,9 +26,18 @@ const saveApplication = async (userId, formData, fileName) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({userId, ...formData, fileName}),
-    })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to save application');
+    }
+
+    return await response.json(); // If you want to return the success message
   } catch (error) {
-    console.error('Error saving application', error)
+    console.error('Error saving application', error);
+    // Optionally, you could set an error state or show a toast/snackbar
+    throw error; // Re-throw to allow caller to handle
   }
 }
 
@@ -57,6 +66,9 @@ export default function Apply() {
   
   const [file, setFile] = useState(null)
   const [fileName, setFileName] = useState("")
+
+  // State for error message
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleFileChange = async (e) => {
     setFile(e.target.files[0]);
@@ -159,44 +171,57 @@ export default function Apply() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (loading) return; // Prevent multiple submissions
-
-    setLoading(true); // Disable button
-
-    if (file) {
-      const resumeData = new FormData()
-      resumeData.append('userId', userId)
-      resumeData.append('resume', file)
-
-      try {
-        const response = await fetch('/api/uploadResume', {
+  
+    if (loading) return;
+    setLoading(true);
+  
+    try {
+      // Resume upload
+      if (file) {
+        const resumeData = new FormData()
+        resumeData.append('userId', userId)
+        resumeData.append('resume', file)
+  
+        const uploadResponse = await fetch('/api/uploadResume', {
           method: 'POST',
           body: resumeData,
         });
     
-        if (response.ok) {
-          console.log('File uploaded successfully!');
-        } else {
-          console.error('File upload failed');
+        if (!uploadResponse.ok) {
+          throw new Error('File upload failed');
         }
-      } catch (error) {
-        console.error('Error uploading resume:', error);
       }
+  
+      // Save application
+      await saveApplication(userId, formData, fileName);
+  
+      // Show popup message
+      setShowPopup(true);
+  
+      // Hide popup after 3 seconds
+      setTimeout(() => {
+        setShowPopup(false);
+        setLoading(false);
+      }, 3000);
+  
+    } catch (error) {
+      console.error('Submission error:', error);
+      
+      // Set error message
+      setErrorMessage(error.message || 'An unexpected error occurred');
+      
+      // Show error popup
+      setShowPopup(true);
+      
+      // Reset loading state
+      setLoading(false);
+
+      // Hide error popup after 3 seconds
+      setTimeout(() => {
+        setShowPopup(false);
+        setErrorMessage('');
+      }, 3000);
     }
-
-    // Make API call to submit the form data
-    saveApplication(userId, formData, fileName);
-
-    // Show popup message
-    setShowPopup(true);
-
-    // Hide popup after 3 seconds
-    setTimeout(() => {
-      setShowPopup(false);
-      setLoading(false); // Enable button again
-    }, 3000);
-
   };
 
   return (
@@ -554,7 +579,7 @@ export default function Apply() {
             top: "40%",
             left: {xs: "50%", lg: "58%"},
             transform: "translate(-50%, -50%)",
-            backgroundColor: "green",
+            backgroundColor: errorMessage ? "red" : "green",
             color: "white",
             padding: "10px 20px",
             borderRadius: "8px",
@@ -562,7 +587,9 @@ export default function Apply() {
             zIndex: 1000,
           }}
         >
-          <Typography>Application submitted successfully!</Typography>
+          <Typography>
+            {errorMessage ? `Error: ${errorMessage}` : 'Application submitted successfully!'}
+          </Typography>
         </Box>
       )}
     </Box>
