@@ -58,7 +58,6 @@ const majorsList = [
   "Religious Studies",
   "Social Work",
   "Sociology",
-  "Software Engineering",
   "Spanish",
   "Sports Management",
   "Software Engineering",
