@@ -21,6 +21,7 @@ export const metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+  manifest: '/manifest.json',
 	description: 'Join USF GDSC Hackathon 2025! Innovate and compete in HackUSF at the University of South Florida. Build projects, win prizes, and network. Register now!',
 	keywords: ["hack", "hackathon", "usf", "university of south florida", "usf hackathon", "hackusf", "hack usf", "usf hack", "2025", "hackusf 2025", "hackathon at usf", "hackathon usf"],
   authors: [{ name: "GDSC at USF", url: "https://hackusf.com" }],
@@ -49,16 +50,6 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
-
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "url": "https://hackusf.com",
-            "name": "HackUSF",
-            "alternateName": "HackUSF 2025"
-          })}
-        </script>
       </Head>
 			<body className={`${poppins.className}`}>
 				<AppRouterCacheProvider>
