@@ -1,8 +1,8 @@
 {
   "name": "HackUSF",
   "short_name": "HackUSF",
-  "theme_color": "#EFF3FA",
-  "background_color": "#EFF3FA",
+  "theme_color": "#f5f5f5",
+  "background_color": "#f5f5f5",
   "start_url": "/admin/admission",
   "display": "standalone",
   "orientation": "portrait",
