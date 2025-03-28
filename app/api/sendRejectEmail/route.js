@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import sgMail from '@sendgrid/mail';
-import { db } from '@/firebase';
+import { db } from '@/HackUSF/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 
 export async function POST(req) {

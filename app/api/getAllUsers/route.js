@@ -1,4 +1,4 @@
-import {adminDb} from "@/firebaseadmin";
+import {adminDb} from "@/HackUSF/firebaseadmin";
 
 //Changed logic: this will be faster as users are separated in the query and requests are done in parallel
 export async function GET() {

@@ -1,10 +1,12 @@
-import {adminDb} from "@/firebaseadmin";
+import { adminDb } from "@/firebaseadmin";
 
 export async function GET() { // add more stats here...
   try{
     const usersRef = adminDb.collection("users");
     const [emptySnap, pendingSnap, acceptedSnap, rejectedSnap, rsvpSnap, checkedInSnap, firstHackersSnap,
-      freshmanSnap, sophomoreSnap, juniorSnap, seniorSnap, graduateSnap
+      freshmanSnap, sophomoreSnap, juniorSnap, seniorSnap, graduateSnap,
+      breakfastFalseSnap, lunch1FalseSnap, dinnerFalseSnap, lunch2FalseSnap,
+      breakfastTrueSnap, lunch1TrueSnap, dinnerTrueSnap,lunch2TrueSnap
     ] = await Promise.all([
       usersRef.where("age", "==", "").get(),
       usersRef.where("status", "==", "pending").get(),
@@ -18,7 +20,14 @@ export async function GET() { // add more stats here...
       usersRef.where("levelOfStudy", "==", "Junior").get(),
       usersRef.where("levelOfStudy", "==", "Senior").get(),
       usersRef.where("levelOfStudy", "==", "Graduate Student").get(),
-      // add meals
+      usersRef.where("scannedMeals.breakfast", "==",false).get(),
+      usersRef.where("scannedMeals.lunch1", "==",false).get(),
+      usersRef.where("scannedMeals.dinner", "==",false).get(),
+      usersRef.where("scannedMeals.lunch2", "==",false).get(),
+      usersRef.where("scannedMeals.breakfast", "==",true).get(),
+      usersRef.where("scannedMeals.lunch1", "==",true).get(),
+      usersRef.where("scannedMeals.dinner", "==",true).get(),
+      usersRef.where("scannedMeals.lunch2", "==",true).get(),
     ]);
 
     const emptyUsers = emptySnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -35,7 +44,14 @@ export async function GET() { // add more stats here...
     const seniorUsers = seniorSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     const graduateUsers = graduateSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-    // add meals stats here...
+    const notScannedBreakfast = breakfastFalseSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const notScannedLunch1 = lunch1FalseSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const notScannedDinner = dinnerFalseSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const notScannedLunch2 = lunch2FalseSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const scannedBreakfast = breakfastTrueSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const scannedLunch1 = lunch1TrueSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const scannedDinner = dinnerTrueSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const scannedLunch2 = lunch2TrueSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
     const data = {
       totalRsvp: rsvpUsers.length,
@@ -52,7 +68,14 @@ export async function GET() { // add more stats here...
       totalSenior: seniorUsers.length,
       totalGrad: graduateUsers.length,
 
-      // add meals stats here...
+      totalNotScannedBreakfast: notScannedBreakfast.length,
+      totalNotScannedLunch1: notScannedLunch1.length,
+      totalNotScannedDinner: notScannedDinner.length,
+      totalNotScannedLunch2: notScannedLunch2.length,
+      totalScannedBreakfast: scannedBreakfast.length,
+      totalScannedLunch1: scannedLunch1.length,
+      totalScannedDinner: scannedDinner.length,
+      totalScannedLunch2: scannedLunch2.length,
     }
 
     return new Response(JSON.stringify({ success: true, data }), { status: 200 });
