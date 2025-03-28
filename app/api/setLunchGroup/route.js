@@ -1,4 +1,4 @@
-import { adminDb } from "@/firebaseadmin";
+import { adminDb } from "@/HackUSF/firebaseadmin";
 
 export async function POST(req) {
     try {
