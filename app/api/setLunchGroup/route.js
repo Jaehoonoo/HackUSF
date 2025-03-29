@@ -5,6 +5,7 @@ export async function POST(req) {
         const body = await req.json()
         const { users } = body;
         let currGroupCounter = 0;
+        const numberOfLunchGroups = 3;
 
         for (const user of users) {
             if (user.status !== "accepted") continue; //Only process accepted users
@@ -17,7 +18,7 @@ export async function POST(req) {
                 });
             } else {
                 await docRef.update({
-                    "lunchGroup": `${(currGroupCounter % 3) + 1}`, //Might need to modify depending on how many people we can serve
+                    "lunchGroup": `${(currGroupCounter % numberOfLunchGroups) + 1}`, //Might need to modify depending on how many people we can serve
                 });
                 currGroupCounter++;
             }
