@@ -5,7 +5,7 @@ import { writeFile, mkdir, unlink } from "fs/promises";
 import { createReadStream, existsSync } from "fs";
 import path from "path";
 
-import initializeGoogleServiceAccount from "@/HackUSF/googleserviceaccount";
+import initializeGoogleServiceAccount from "@/googleserviceaccount";
 
 // Initialize Google Drive client
 const drive = initializeGoogleServiceAccount();

@@ -11,7 +11,7 @@ export async function POST(req) {
             return new Response(JSON.stringify({ success: false, error: "Invalid or missing fields" }), { status: 400 });
         }
 
-        const docRef = adminDb.collection('testUsers').doc(userId);
+        const docRef = adminDb.collection('users').doc(userId);
         const docSnapshot = await docRef.get();
 
         if (!docSnapshot.exists) {
