@@ -1,11 +1,11 @@
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { db } from "@/HackUSF/firebase";
+import { db } from "@/firebase";
 
 export async function POST(req) {
   try {
-    const data = await req.json()
-    const userRef = doc(db, "users", data.userId)
-    const docSnap = await getDoc(userRef)
+    const data = await req.json();
+    const userRef = doc(db, "users", data.userId);
+    const docSnap = await getDoc(userRef);
     if (!docSnap.exists()) {
       await setDoc(userRef, {
         firstName: "",

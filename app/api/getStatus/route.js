@@ -1,5 +1,5 @@
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/HackUSF/firebase";
+import { db } from "@/firebase";
 
 export async function GET(req) {
   try {

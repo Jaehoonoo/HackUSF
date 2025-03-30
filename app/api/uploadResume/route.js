@@ -1,11 +1,11 @@
-import { db } from "@/HackUSF/firebase"; // Firestore database instance
+import { db } from "@/firebase"; // Firestore database instance
 import { doc, updateDoc } from "firebase/firestore";
 
 import { writeFile, mkdir, unlink } from "fs/promises";
 import { createReadStream, existsSync } from "fs";
 import path from "path";
 
-import initializeGoogleServiceAccount from "@/HackUSF/googleserviceaccount";
+import initializeGoogleServiceAccount from "@/googleserviceaccount";
 
 // Initialize Google Drive client
 const drive = initializeGoogleServiceAccount();

@@ -1,22 +1,29 @@
-import {adminDb} from "@/HackUSF/firebaseadmin";
+import { adminDb } from "@/firebaseadmin";
 
 export async function POST(req) {
     try {
         const body = await req.json();
         const { userId, currentLunchGroup, currentMeal } = body;
+        const validMeals = ["breakfast", "lunch1", "lunch2", "dinner"];
 
         if (!userId || typeof userId !== "string" ||
-            !currentLunchGroup || typeof currentMeal !== "string"||
-            !currentMeal || typeof currentLunchGroup !== "string") {
-            return new Response(JSON.stringify({ success: false, error: "Invalid or missing fields" }), { status: 400 });
+            !currentLunchGroup || typeof currentLunchGroup !== "string" ||
+            !currentMeal || typeof currentMeal !== "string") {
+            console.error("Invalid request body type or length");
+            return new Response(JSON.stringify({ success: false, error: "Bad request: Invalid or missing fields" }), { status: 400 });
         }
 
-        const docRef = adminDb.collection('users').doc(userId);
+        if (!validMeals.includes(currentMeal)) {
+            console.error("Invalid meal type");
+            return new Response(JSON.stringify({ success: false, error: "Bad request: Invalid or missing fields" }), { status: 400 });
+        }
+
+        const docRef = adminDb.collection("users").doc(userId);
         const docSnapshot = await docRef.get();
 
         if (!docSnapshot.exists) {
             console.error("User does not exist");
-            return new Response(JSON.stringify({ success: false, error: "User does not exist"}), { status: 404 });
+            return new Response(JSON.stringify({ success: false, error: "Not found: Resource or page not found"}), { status: 404 });
         }
 
         const userData = docSnapshot.data();
@@ -24,14 +31,14 @@ export async function POST(req) {
 
         if (userLunchGroup !== currentLunchGroup) {
             console.error("Not current user's lunch group");
-            return new Response(JSON.stringify({ success: false, error: "Not current user's lunch group" }), { status: 403 });
+            return new Response(JSON.stringify({ success: false, error: "Invalid permission: Request needs different permission status" }), { status: 403 });
         }
 
         const userScannedMeals = userData.scannedMeals || {};
 
         if (userScannedMeals[currentMeal]) {
             console.error("User already scanned this meal");
-            return new Response(JSON.stringify({ success: false, error: "User already scanned this meal" }), { status: 409 });
+            return new Response(JSON.stringify({ success: false, error: "State conflict: Request state incompatible with resource state" }), { status: 409 });
         }
 
         // Update just the specific meal

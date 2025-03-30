@@ -1,5 +1,5 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "@/HackUSF/firebase";
+import { db } from "@/firebase";
 
 export async function POST(req) {
   try {
