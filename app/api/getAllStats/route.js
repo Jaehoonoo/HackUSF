@@ -8,7 +8,7 @@ export async function GET() { // add more stats here...
       breakfastFalseSnap, lunch1FalseSnap, dinnerFalseSnap, lunch2FalseSnap,
       breakfastTrueSnap, lunch1TrueSnap, dinnerTrueSnap,lunch2TrueSnap
     ] = await Promise.all([
-      usersRef.where("age", "==", "").get(),
+      usersRef.where("email", "==", "").get(),
       usersRef.where("status", "==", "pending").get(),
       usersRef.where("status", "==", "accepted").get(),
       usersRef.where("status", "==", "rejected").get(),
