@@ -3,12 +3,13 @@ import { adminDb } from "@/firebaseadmin";
 export async function GET() { // add more stats here...
   try{
     const usersRef = adminDb.collection("users");
+
     const [totalApplicationCount, pendingCount, acceptedCount, rejectedCount,
         rsvpCount, checkedInCount, firstHackersCount,
         freshmanCount, sophomoreCount, juniorCount, seniorCount, graduateCount,
         scannedBreakfastCount, scannedLunch1Count, scannedDinnerCount, scannedLunch2Count,
     ] = await Promise.all([
-      usersRef.where("age", "!=", "").count().get(),
+      usersRef.where("email", "!=", "").count().get(),
       usersRef.where("status", "==", "pending").count().get(),
       usersRef.where("status", "==", "accepted").count().get(),
       usersRef.where("status", "==", "rejected").count().get(),

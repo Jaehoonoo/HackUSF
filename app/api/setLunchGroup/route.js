@@ -4,6 +4,7 @@ import { FieldValue } from "firebase-admin/firestore";
 export async function POST(req) {
     try {
         const body = await req.json()
+
         const { userId } = body;
         const userRef = adminDb.collection("users").doc(userId);
         const userSnap = await userRef.get();
@@ -45,6 +46,7 @@ export async function POST(req) {
                 // Update the count for the assigned group
                 transaction.update(lunchGroupSizesRef, {
                     [`${smallestGroup}`]: FieldValue.increment(1)
+
                 });
             }
         });
