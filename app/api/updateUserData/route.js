@@ -7,23 +7,14 @@ export async function POST(req) {
 
         const docRef = adminDb.collection("users").doc(userId);
 
-        let data = {};
-
-        if (newStatus === "accepted") {
-            data = {
-                status: newStatus,
-                scannedMeals: {
-                    breakfast: false,
-                    lunch1: false,
-                    dinner: false,
-                    lunch2: false,
-                }
-            }
-        } else if (newStatus === "rejected") {
-            data = {
-                status: newStatus,
-            }
+        if (!(newStatus === "accepted" || newStatus === "rejected")) {
+            console.error("Status not accepted or rejected");
+            return new Response(JSON.stringify({ success: false, error: "Invalid status" }), { status: 400 });
         }
+
+        const data = {
+            status: newStatus,
+        };
 
         await docRef.update(data);
 
