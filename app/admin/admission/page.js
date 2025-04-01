@@ -50,7 +50,7 @@ const PendingUserApproval = () => {
       
       if (result.success) {
         // Filter out any pending users with empty firstName, lastName, or email
-        const filteredPendingUsers = result.data.filter(user => 
+        const filteredPendingUsers = result.data.pendingUsers.filter(user => 
           user.firstName && user.lastName && user.email
         );
         
