@@ -10,7 +10,7 @@ export async function GET() { // add more stats here...
         scannedBreakfastCount, scannedLunch1Count, scannedDinnerCount, scannedLunch2Count,
     ] = await Promise.all([
       usersRef.where("email", "!=", "").count().get(),
-      usersRef.where("status", "==", "pending").where("age", "!=", "").count().get(),
+      usersRef.where("status", "==", "pending").count().get(),
       usersRef.where("status", "==", "accepted").count().get(),
       usersRef.where("status", "==", "rejected").count().get(),
       usersRef.where("rsvp", "==", true).count().get(),
