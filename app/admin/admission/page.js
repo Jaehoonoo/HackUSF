@@ -40,7 +40,7 @@ const PendingUserApproval = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/getAllUsers');
+      const response = await fetch('/api/getPendingUsers');
       
       if (!response.ok) {
         throw new Error('Failed to fetch users');
@@ -50,7 +50,7 @@ const PendingUserApproval = () => {
       
       if (result.success) {
         // Filter out any pending users with empty firstName, lastName, or email
-        const filteredPendingUsers = result.data.pendingUsers.filter(user => 
+        const filteredPendingUsers = result.data.filter(user => 
           user.firstName && user.lastName && user.email
         );
         
