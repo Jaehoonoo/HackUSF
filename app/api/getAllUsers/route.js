@@ -6,7 +6,7 @@ export async function GET() {
     const usersRef = adminDb.collection("users");
     const [acceptedSnapshot, rejectedSnapshot, pendingSnapshot] = await Promise.all([
       usersRef.where("status", "==", "accepted").get(),
-      usersRef.where("email", "==", "rejected").get(),
+      usersRef.where("status", "==", "rejected").get(),
       usersRef.where("status", "==", "pending").get()
     ]);
 
