@@ -51,12 +51,12 @@ export default function CheckInPage() {
         setCheckInResult(null);
 
         console.log(`Processing check-in for user: ${userId}`);
-        console.log(`Meal: ${currentMeal}, Group: ${currentLunchGroup}`);
+        // console.log(`Meal: ${currentMeal}, Group: ${currentLunchGroup}`);
 
         const checkInResult = await checkInUser(userId);
         const setUserMealGroupResult = await setUserMealGroup(userId);
 
-        if (checkInResult && setUserMealGroupResult) {
+        if (checkInResult.success && setUserMealGroupResult.success) {
             setCheckInResult({
                 success: true,
                 message: `User successfully checked in`
@@ -71,13 +71,13 @@ export default function CheckInPage() {
         setIsProcessing(false);
     };
 
-    const handleScanError = (error) => {
-        console.error("Scanning error:", error);
-        setCheckInResult({
-            success: false,
-            message: `Scanning error: ${error}`
-        });
-    };
+    // const handleScanError = (error) => {
+    //     console.error("Scanning error:", error);
+    //     setCheckInResult({
+    //         success: false,
+    //         message: `Scanning error: ${error}`
+    //     });
+    // };
 
     return (
         <Box height="100%" sx={{
@@ -120,7 +120,7 @@ export default function CheckInPage() {
                 <Box sx={{ width: "100%", marginTop: 2 }}>
                     <QRScannerComponent
                         onScanSuccess={handleScanSuccess}
-                        onScanError={handleScanError}
+                        // onScanError={handleScanError}
                     />
                 </Box>
             </Box>

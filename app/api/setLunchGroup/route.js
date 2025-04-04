@@ -5,7 +5,7 @@ export async function POST(req) {
     try {
         const body = await req.json()
         const {userId} = body;
-        const userRef = adminDb.collection("testUsers").doc(userId);
+        const userRef = adminDb.collection("users").doc(userId);
         const userSnap = await userRef.get();
 
         if (!userSnap.exists) {

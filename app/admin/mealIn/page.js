@@ -73,13 +73,13 @@ export default function MealPage() {
         setIsProcessing(false);
     };
 
-    const handleScanError = (error) => {
-        console.error("Scanning error:", error);
-        setCheckInResult({
-            success: false,
-            message: `Scanning error: ${error}`
-        });
-    };
+    // const handleScanError = (error) => {
+    //     // console.error("Scanning error:", error);
+    //     setCheckInResult({
+    //         success: false,
+    //         message: `Scanning error: ${error}`
+    //     });
+    // };
 
     // Handle dropdown changes
     const handleMealChange = (event) => {
@@ -131,7 +131,7 @@ export default function MealPage() {
                     </FormControl>
 
                     <FormControl fullWidth>
-                        <InputLabel id="meal-group-label">Location</InputLabel>
+                        <InputLabel id="meal-group-label">Lunch Group</InputLabel>
                         <Select
                             labelId="meal-group-label"
                             id="group"
@@ -173,7 +173,7 @@ export default function MealPage() {
                 <Box sx={{ width: "100%", marginTop: 2 }}>
                     <QRScannerComponent
                         onScanSuccess={handleScanSuccess}
-                        onScanError={handleScanError}
+                        // onScanError={handleScanError}
                     />
                 </Box>
             </Box>

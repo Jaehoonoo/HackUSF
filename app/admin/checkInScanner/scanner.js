@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
+import { Box, Button } from '@mui/material';
 
 const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
     const [isScanning, setIsScanning] = useState(false);
     const [scanResult, setScanResult] = useState(null);
     const [error, setError] = useState(null);
+    const [isPaused, setIsPaused] = useState(false);
     const scannerRef = useRef(null);
     const scannerDivRef = useRef(null);
     const ignoreScanRef = useRef(false);
@@ -23,7 +25,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
                 });
             }
         };
-    }, []);
+    }, [isScanning]);
 
     const isValidScan = (data) => {
         if (data === null || typeof data !== 'string') {
@@ -43,6 +45,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
         setError(null);
         setScanResult(null);
         ignoreScanRef.current = false;
+        setIsPaused(false);
 
         const config = {
             fps: 10,
@@ -51,31 +54,44 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
         };
 
         const handleSuccess = (decodedText, decodedResult) => {
-            if (ignoreScanRef.current) {
+            if (ignoreScanRef.current || isPaused) {
                 return;
             }
+
+            console.log("Scan detected:", decodedText);
+            
+            // For any scan, we pause for a couple seconds
+            setIsPaused(true);
+            ignoreScanRef.current = true;
 
             if (isValidScan(decodedText)) {
                 setScanResult(decodedText);
-                stopScanner();
-
+                
                 if (onScanSuccess) {
                     onScanSuccess(decodedText);
                 }
+                
+                // For valid scans, we could stop completely
+                // Or just pause and continue after timeout
+                setTimeout(() => {
+                    setIsPaused(false);
+                    ignoreScanRef.current = false;
+                    console.log("Resuming scan after successful read");
+                }, 2000); // 2 second pause
+                
                 return;
             }
 
-            console.log("Invalid Scan:", decodedText);
-            ignoreScanRef.current = true;
-
+            // For invalid scans, we pause briefly then resume
             setTimeout(() => {
+                setIsPaused(false);
                 ignoreScanRef.current = false;
-                console.log("Resuming scan");
-            }, 1000);
+                console.log("Resuming scan after invalid read");
+            }, 2000); // 2 second pause
         };
 
         const handleError = (error) => {
-            console.warn(`QR code scanning failed: ${error}`);
+            // console.warn(`QR code scanning failed: ${error}`);
             if (onScanError) {
                 onScanError(error);
             }
@@ -106,27 +122,39 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
     };
 
     return (
-        <div className="qr-scanner-container">
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+        }}>
             <div id="qr-reader" ref={scannerDivRef} style={{ width: '300px' }}></div>
 
-            <div className="scanner-controls mt-4">
+            <Box>
                 {!isScanning ? (
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    <Button
+                        variant="contained"
                         onClick={startScanner}
                     >
                         Start Scanner
-                    </button>
+                    </Button>
                 ) : (
-                    <button
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    <Button
+                        variant="contained"
                         onClick={stopScanner}
                     >
                         Stop Scanner
-                    </button>
+                    </Button>
                 )}
-            </div>
-        </div>
+            </Box>
+            
+            {isPaused && (
+                <div className="mt-2 p-2 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded">
+                    Paused... processing scan
+                </div>
+            )}
+        </Box>
     );
 };
 
