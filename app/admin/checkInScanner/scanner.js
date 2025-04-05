@@ -120,7 +120,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
 
         const config = {
             fps: 10,
-            qrbox: { width: 200, height: 200 },
+            qrbox: { width: 250, height: 250 },
             formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
         };
 
@@ -201,7 +201,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
             height: '100%',
             position: 'relative',
         }}>
-            <div id="qr-reader" ref={scannerDivRef} style={{ width: '200px', maxHeight: '250px', position: 'relative' }}>
+            <div id="qr-reader" ref={scannerDivRef} style={{ width: '250px', position: 'relative' }}>
                 {isPaused && lastFrameUrl && (
                     <div style={{
                         position: 'absolute',
