@@ -264,7 +264,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
             
             {isPaused && (
                 <div style={{
-                    marginTop: '8px',
+                    marginTop: '6px',
                     padding: '8px',
                     backgroundColor: '#FEF9C3',
                     border: '1px solid #F59E0B',
