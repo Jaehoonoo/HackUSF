@@ -5,7 +5,7 @@ export async function POST(req) {
     try {
         const body = await req.json()
         const {userId} = body;
-        const userRef = adminDb.collection("users").doc(userId);
+        const userRef = adminDb.collection("testUsers").doc(userId);
         const userSnap = await userRef.get();
 
         if (!userSnap.exists) {
@@ -36,7 +36,7 @@ export async function POST(req) {
 
             // Check for dietary restrictions and assign to priority group if needed
             if (userData.dietaryRestrictions && userData.dietaryRestrictions.length) {
-                transaction.update(userRef, {lunchGroup: "priority"});
+                transaction.update(userRef, {lunchGroup: "Priority"});
                 transaction.update(lunchGroupSizesRef, {
                     priority: FieldValue.increment(1)
                 });
@@ -48,7 +48,7 @@ export async function POST(req) {
                 const smallestGroup = [group1Size, group2Size, group3Size].indexOf(Math.min(group1Size, group2Size, group3Size)) + 1;
 
                 // Update the user's lunch group
-                transaction.update(userRef, {lunchGroup: smallestGroup.toString()});
+                transaction.update(userRef, {lunchGroup: `Group ${smallestGroup.toString()}`});
 
                 // Update the count for the assigned group
                 transaction.update(lunchGroupSizesRef, {
