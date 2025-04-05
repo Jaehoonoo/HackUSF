@@ -120,7 +120,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
 
         const config = {
             fps: 10,
-            qrbox: { width: 250, height: 250 },
+            qrbox: { width: 200, height: 200 },
             formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
         };
 

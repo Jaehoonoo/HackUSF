@@ -85,9 +85,10 @@ export default function MealPage() {
             justifyContent: "center",
             alignItems: "center",
             padding: 2,
+            pb: 8
         }}>
             {/* Header */}
-            <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4}}>
+            <Box mb={2} sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <Typography variant="h4">Meal Check In Page</Typography>
             </Box>
 
@@ -98,7 +99,7 @@ export default function MealPage() {
                 alignItems: "center",
                 width: "100%",
                 maxWidth: "500px",
-                gap: 3
+                gap: 1.2
             }}>
                 {/* Dropdown Menus */}
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2, width: "100%" }}>
