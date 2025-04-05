@@ -12,6 +12,7 @@ export default function CheckInPage() {
     // State for processing and results
     const [isProcessing, setIsProcessing] = useState(false);
     const [checkInResult, setCheckInResult] = useState(null);
+    const [mealGroupResult, setMealGroupResult] = useState(null);
 
     const checkInUser = async (userId) => {
         try {
@@ -21,7 +22,6 @@ export default function CheckInPage() {
                     userId: userId,
                 })
             });
-            if (!response.ok) throw new Error("Failed to check in user");
             return await response.json();
         } catch (error) {
             console.error("Error checking in user:", error);
@@ -37,7 +37,6 @@ export default function CheckInPage() {
                     userId: userId,
                 })
             });
-            if (!response.ok) throw new Error("Failed to check in user");
             return await response.json();
         } catch (error) {
             console.error("Error setting meal group:", error);
@@ -53,23 +52,27 @@ export default function CheckInPage() {
         console.log(`Processing check-in for user: ${userId}`);
         // console.log(`Meal: ${currentMeal}, Group: ${currentLunchGroup}`);
 
-        const checkInResult = await checkInUser(userId);
-        const setUserMealGroupResult = await setUserMealGroup(userId);
+        const checkInResultRes = await checkInUser(userId);
+        const UserMealGroupResultRes = await setUserMealGroup(userId);
 
-        if (checkInResult.success && setUserMealGroupResult.success) {
-            setCheckInResult({
-                success: true,
-                message: `User successfully checked in`
-            });
-        } else {
-            setCheckInResult({
-                success: false,
-                message: "Check-in failed. Please try again."
-            });
-        }
+        setCheckInResult(checkInResultRes);
+        setMealGroupResult(UserMealGroupResultRes)
+
+        // if (checkInResult.success && setUserMealGroupResult.success) {
+        //     setCheckInResult({
+        //         success: true,
+        //         message: `User successfully checked in`
+        //     });
+        // } else {
+        //     setCheckInResult({
+        //         success: false,
+        //         message: "Check-in failed. Please try again."
+        //     });
+        // }
 
         setIsProcessing(false);
     };
+    console.log()
 
     // const handleScanError = (error) => {
     //     console.error("Scanning error:", error);
@@ -101,6 +104,8 @@ export default function CheckInPage() {
                 maxWidth: "500px",
                 gap: 3
             }}>
+
+
                 {isProcessing && (
                     <Alert severity="info" sx={{ width: "100%" }}>
                         Processing check-in...

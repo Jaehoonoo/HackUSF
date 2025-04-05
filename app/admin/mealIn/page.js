@@ -119,7 +119,7 @@ export default function MealPage() {
                         <Select
                             labelId="meal-type-label"
                             id="meal-type"
-                            label="Meal Type"
+                            label="Meal"
                             value={currentMeal}
                             onChange={handleMealChange}
                             variant="outlined">
@@ -135,7 +135,7 @@ export default function MealPage() {
                         <Select
                             labelId="meal-group-label"
                             id="group"
-                            label="Group"
+                            label="Lunch Group"
                             value={currentLunchGroup}
                             onChange={handleGroupChange}
                             variant="outlined">

@@ -9,18 +9,16 @@ export async function POST(req) {
         const userSnap = await userRef.get();
 
         if (!userSnap.exists) {
-            console.error("User does not exist");
-            return new Response(JSON.stringify({success: false, error: "User does not exist"}), {status: 404});
+            return new Response(JSON.stringify({success: false, message: "User does not exist"}), {status: 200});
         }
 
         const userData = userSnap.data();
         //If user already has a lunch group, they will be skipped
         if (userData.lunchGroup) {
-            console.error(`User already assigned to lunch group ${userData.lunchGroup}`);
             return new Response(JSON.stringify({
                 success: false,
-                error: "User already assigned lunch group"
-            }), {status: 409});
+                message: "User already assigned lunch group"
+            }), {status: 200});
         }
 
         const lunchGroupSizesRef = adminDb.collection("userCounts").doc("mealGroupCounts");
