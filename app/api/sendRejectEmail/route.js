@@ -1,12 +1,11 @@
-import nodemailer from "nodemailer";
 import sgMail from '@sendgrid/mail';
-import { db } from '@/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import {db} from '@/firebase';
+import {doc, updateDoc} from 'firebase/firestore';
 
 export async function POST(req) {
     try {
         const body = await req.json();
-        const { recipientEmail, firstName, userId } = body;
+        const {recipientEmail, firstName, userId} = body;
 
         // Update user status in Firebase using v9 syntax
         const userRef = doc(db, 'users', userId);
@@ -194,10 +193,13 @@ export async function POST(req) {
                 console.error(error)
             })
 
-        return new Response(JSON.stringify({ success: true, message: "Reject email sent and status changed successfully" }), { status: 200 });
+        return new Response(JSON.stringify({
+            success: true,
+            message: "Reject email sent and status changed successfully"
+        }), {status: 200});
 
     } catch (error) {
         console.error(error);
-        return new Response(JSON.stringify({ success: false, error: error.message }), { status: 500 });
+        return new Response(JSON.stringify({success: false, error: error.message}), {status: 500});
     }
 }

@@ -1,9 +1,9 @@
-import { adminDb } from "@/firebaseadmin";
+import {adminDb} from "@/firebaseadmin";
 
 export async function POST(req) {
     try {
         const body = await req.json()
-        const { users } = body;
+        const {users} = body;
         let currGroupCounter = 0;
         const numberOfLunchGroups = 3;
 
@@ -24,10 +24,13 @@ export async function POST(req) {
             }
         }
 
-        return new Response(JSON.stringify({ success: true, message: "Successfully updated lunch groups" }), { status: 200 });
+        return new Response(JSON.stringify({
+            success: true,
+            message: "Successfully updated lunch groups"
+        }), {status: 200});
 
     } catch (error) {
         console.error(error);
-        return new Response(JSON.stringify({ success: false, error: error.message }), { status: 500 });
+        return new Response(JSON.stringify({success: false, error: error.message}), {status: 500});
     }
 }
