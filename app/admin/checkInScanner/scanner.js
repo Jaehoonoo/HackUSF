@@ -9,7 +9,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
     const [error, setError] = useState(null);
     const [isPaused, setIsPaused] = useState(false);
     const [lastFrameUrl, setLastFrameUrl] = useState('');
-    const [frameDimensions, setFrameDimensions] = useState({ width: 300, height: 300 });
+    const [frameDimensions, setFrameDimensions] = useState({ width: 200, height: 200 });
     const scannerRef = useRef(null);
     const scannerDivRef = useRef(null);
     const videoRef = useRef(null);
