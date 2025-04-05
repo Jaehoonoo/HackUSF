@@ -128,9 +128,9 @@ export default function MealPage() {
                             value={currentLunchGroup}
                             onChange={handleGroupChange}
                             variant="outlined">
-                            <MenuItem value="priority">Priority</MenuItem>
-                            <MenuItem value="1">Group 1</MenuItem>
-                            <MenuItem value="2">Group 2</MenuItem>
+                            <MenuItem value="Priority">Priority</MenuItem>
+                            <MenuItem value="Group 1">Group 1</MenuItem>
+                            <MenuItem value="Group 2">Group 2</MenuItem>
                             <MenuItem value="Group 3">Group 3</MenuItem>
                         </Select>
                     </FormControl>
