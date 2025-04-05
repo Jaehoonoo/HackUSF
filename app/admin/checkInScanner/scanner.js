@@ -9,7 +9,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
     const [error, setError] = useState(null);
     const [isPaused, setIsPaused] = useState(false);
     const [lastFrameUrl, setLastFrameUrl] = useState('');
-    const [frameDimensions, setFrameDimensions] = useState({ width: 300, height: 300 });
+    const [frameDimensions, setFrameDimensions] = useState({ width: 250, height: 250 });
     const scannerRef = useRef(null);
     const scannerDivRef = useRef(null);
     const videoRef = useRef(null);
@@ -120,7 +120,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
 
         const config = {
             fps: 10,
-            qrbox: { width: 250, height: 250 },
+            qrbox: { width: 200, height: 200, borderRadius: 5 },
             formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
         };
 
@@ -201,7 +201,7 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
             height: '100%',
             position: 'relative',
         }}>
-            <div id="qr-reader" ref={scannerDivRef} style={{ width: '300px', position: 'relative' }}>
+            <div id="qr-reader" ref={scannerDivRef} style={{ width: '250px', position: 'relative' }}>
                 {isPaused && lastFrameUrl && (
                     <div style={{
                         position: 'absolute',
