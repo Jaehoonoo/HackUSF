@@ -16,6 +16,8 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
     const canvasRef = useRef(null);
     const ignoreScanRef = useRef(false);
     const lastScannedRef = useRef(null);
+    const scanningInProgressRef = useRef(false);
+
 
 
     // Initialize scanner when component mounts
@@ -123,7 +125,10 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
         };
 
         const handleSuccess = (decodedText, decodedResult) => {
-            if (ignoreScanRef.current || isPaused) return;
+            if (ignoreScanRef.current || isPaused || scanningInProgressRef.current) return;
+
+            // Prevent re-processing
+            scanningInProgressRef.current = true;
         
             // Prevent repeated calls with the same scanned value
             if (lastScannedRef.current === decodedText) {
@@ -146,8 +151,9 @@ const QRScannerComponent = ({ onScanSuccess, onScanError }) => {
             setTimeout(() => {
                 lastScannedRef.current = null; // Allow new scans
                 resumeScanning();
+                scanningInProgressRef.current = false;
                 console.log("Resuming scan after processing");
-            }, 3000); // 2 second pause
+            }, 2000); // 2 second pause
         };
         
 
