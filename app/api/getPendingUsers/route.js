@@ -4,11 +4,14 @@ import {adminDb} from "@/firebaseadmin";
 export async function GET() {
     try {
         const usersRef = adminDb.collection("users");
-        const [pendingSnapshot] = await Promise.all([
-            usersRef.where("status", "==", "pending").where("age", "!=", "").get()
-        ]);
 
-        const pendingUsers = pendingSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        const pendingSnapshot = await usersRef
+            .where("status", "==", "pending")
+            .get();
+
+        const pendingUsers = pendingSnapshot.docs
+            .filter(doc => doc.data().email !== "")
+            .map(doc => ({id: doc.id, ...doc.data()}));
 
         const data = {
             pendingUsers: pendingUsers,
