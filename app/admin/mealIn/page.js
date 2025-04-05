@@ -19,7 +19,7 @@ export default function MealPage() {
 
     // State for processing and results
     const [isProcessing, setIsProcessing] = useState(false);
-    const [checkInResult, setCheckInResult] = useState(null);
+    const [mealInResult, setMealInResult] = useState(null);
 
     const markAsMealed = async (userId, currentMeal, currentLunchGroup) => {
         try {
@@ -31,7 +31,6 @@ export default function MealPage() {
                     currentLunchGroup: currentLunchGroup
                 })
             });
-            if (!response.ok) throw new Error("Failed to mark user as Mealed");
             return await response.json();
         } catch (error) {
             console.error("Error marking user as Mealed:", error);
@@ -43,7 +42,7 @@ export default function MealPage() {
     const handleScanSuccess = async (userId) => {
         // Validate that meal and group are selected
         if (!currentMeal || !currentLunchGroup) {
-            setCheckInResult({
+            setMealInResult({
                 success: false,
                 message: "Please select both meal type and location group before scanning"
             });
@@ -51,24 +50,13 @@ export default function MealPage() {
         }
 
         setIsProcessing(true);
-        setCheckInResult(null);
+        setMealInResult(null);
 
         console.log(`Processing check-in for user: ${userId}`);
         console.log(`Meal: ${currentMeal}, Group: ${currentLunchGroup}`);
 
         const result = await markAsMealed(userId, currentMeal, currentLunchGroup);
-
-        if (result) {
-            setCheckInResult({
-                success: true,
-                message: `User successfully checked in for ${currentMeal} in group ${currentLunchGroup}`
-            });
-        } else {
-            setCheckInResult({
-                success: false,
-                message: "Check-in failed. Please try again."
-            });
-        }
+        setMealInResult(result);
 
         setIsProcessing(false);
     };
@@ -160,12 +148,12 @@ export default function MealPage() {
                     </Alert>
                 )}
 
-                {checkInResult && (
+                {mealInResult && (
                     <Alert
-                        severity={checkInResult.success ? "success" : "error"}
+                        severity={mealInResult.success ? "success" : "error"}
                         sx={{ width: "100%" }}
                     >
-                        {checkInResult.message}
+                        {mealInResult.message}
                     </Alert>
                 )}
 

@@ -28,32 +28,29 @@ export async function POST(req) {
         const docSnapshot = await docRef.get();
 
         if (!docSnapshot.exists) {
-            console.error("User does not exist");
             return new Response(JSON.stringify({
                 success: false,
-                error: "Not found: Resource or page not found"
-            }), {status: 404});
+                message: "User not found"
+            }), {status: 200});
         }
 
         const userData = docSnapshot.data();
         const userLunchGroup = userData.lunchGroup;
 
         if (userLunchGroup !== currentLunchGroup) {
-            console.error("Not current user's lunch group");
             return new Response(JSON.stringify({
                 success: false,
-                error: "Invalid permission: Request needs different permission status"
-            }), {status: 403});
+                message: `Not ${userData.firstName} ${userData.lastName}'s lunch group`
+            }), {status: 200});
         }
 
         const userScannedMeals = userData.scannedMeals || {};
 
         if (userScannedMeals[currentMeal]) {
-            console.error("User already scanned this meal");
             return new Response(JSON.stringify({
                 success: false,
-                error: "State conflict: Request state incompatible with resource state"
-            }), {status: 409});
+                message: `${userData.firstName} ${userData.lastName} already scanned this meal`
+            }), {status: 200});
         }
 
         // Update just the specific meal
@@ -63,7 +60,7 @@ export async function POST(req) {
 
         return new Response(JSON.stringify({
             success: true,
-            message: `Successfully checked in user (${userId}) for lunch ${currentLunchGroup}`
+            message: `Successfully checked in ${userData.firstName} ${userData.lastName} for ${currentMeal}`
         }), {status: 200});
     } catch (error) {
         console.error(error);
