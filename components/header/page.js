@@ -40,6 +40,7 @@ export default function Header() {
 								router.push('/sign-in');
 								setMenuOpen(false);
 							}}
+							disabled
 							variant="contained"
 							sx={{
 								borderRadius: '18px',
@@ -68,6 +69,7 @@ export default function Header() {
 							router.push('/profile');
 							setMenuOpen(false);
 						}}
+						disabled
 						sx={{
 							paddingLeft: '2rem',
 							paddingRight: '2rem',

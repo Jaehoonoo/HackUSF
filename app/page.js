@@ -221,7 +221,7 @@ export default function Home() {
 							<p>
 								All the information here:{' '}
 								<a href="https://mina-meowmeow.notion.site/USF-Hack-Hacker-Guide-18f761666cf580989f49dbeca7f606c3" target="_blank">
-									Hacker's Guide
+									Hacker&apos;s Guide
 								</a>
 							</p>
 						</div>

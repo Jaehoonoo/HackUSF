@@ -27,6 +27,7 @@ export default function ApplyButton() {
 
   return (
     <Button
+      disabled
       sx={{
         width: 'max(200px, 20vw)',
         textTransform: 'none',
